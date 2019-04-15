@@ -1,0 +1,289 @@
+:root {
+  --color-primary: rgb(178, 50, 66);
+  --color-primary-light: rgb(255, 97, 117);
+  /* --color-primary-secondary: rgb(74, 140, 122); */
+  --color-grey-dark: #777;
+}
+
+/* base styling */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  /* 1rem = 10px; 10px/16px = 62.5% */
+  font-size: 62.5%;
+}
+
+body {
+  padding: 3rem;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 1.6rem; */
+  color: var(--color-grey-dark);
+  line-height: 1.7;
+}
+
+/* typography */
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 6rem;
+}
+.heading-primary--main {
+  display: block;
+  font-size: 6rem;
+  font-weight: 400;
+  letter-spacing: 3rem;
+  animation: moveInLeft 2s ease-out;
+}
+
+.heading-primary--sub {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1.5rem;
+  animation: moveInRight 2s ease-out;
+}
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-primary);
+  background-image: linear-gradient(
+    to right,
+    rgb(255, 97, 117),
+    rgb(178, 50, 66)
+  );
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -o-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+}
+
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 10rem;
+  transition: all 0.2s;
+  position: relative;
+  font-size: 1.6rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 1rem 2rem rgba(#222, 0.2);
+}
+
+.btn:focus,
+.btn:active {
+  outline: none;
+  transform: translateY(-1rem);
+  box-shadow: 0 0.5rem 1rem rgba(#222, 0.2);
+}
+
+.btn--white {
+  background-color: #fff;
+  color: var(--color-primary);
+}
+.btn--white::after {
+  background-color: #fff;
+}
+
+.btn--white:hover::after {
+  transform: scaleX(1.2) scaleY(1.5);
+  opacity: 0;
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.btn--primary::after {
+  background-color: #fff;
+}
+
+.btn--primary:hover::after {
+  transform: scaleX(1.2) scaleY(1.5);
+  opacity: 0;
+}
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.btn--animated {
+  animation: moveInBottomUp 0.5s ease-out 0.75s;
+  animation-fill-mode: backwards;
+}
+
+/* +++++++++++ header styling +++++++++++++++ */
+.header {
+  height: 95vh;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),
+    url(../img/home-bgd.jpg) no-repeat right top;
+  background-size: cover;
+  position: relative;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+.header .nav-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem;
+}
+.header .nav-bar .nav-items {
+  display: flex;
+}
+.header .nav-bar .nav-items .nav-link {
+  text-decoration: none;
+  margin-left: 5rem;
+  font-size: 1.5rem;
+  color: #fff;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+}
+
+.header .nav-bar .nav-items .nav-link__register {
+  border: 1px solid var(--color-primary);
+  padding: 1rem 1.6rem;
+  border-radius: 3px;
+}
+
+.header .nav-bar .nav-items .nav-link__login:hover {
+  color: var(--color-primary);
+}
+.header .nav-bar .nav-items .nav-link__register:hover {
+  background-color: var(--color-primary);
+}
+
+.header__logo {
+  height: 3.5rem;
+}
+
+.header__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* +++++++ section loan calculator */
+.slide-container {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 30%;
+  height: 2.5rem;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+/* +++++++++++ section features +++++++++++++++ */
+.section-features {
+  background-color: #f7f7f7;
+  padding: 25rem 0 15rem 0;
+  margin-top: -20rem;
+}
+.section-features .row {
+  display: flex;
+  padding: 5rem;
+}
+
+.section-features .row .feature-box {
+  color: #fff;
+  background-color: var(--color-primary);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgb(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+
+.section-features .row .feature-box:nth-child(2n + 1) {
+  margin-right: 5rem;
+}
+
+.section-features .row .feature-box__icon {
+  font-size: 6rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  background-image: linear-gradient(to right, rgb(194, 186, 186), #fff);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -o-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-features .row .feature-box:hover {
+  transform: translateY(-1px) scale(1.03);
+}
