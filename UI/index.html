@@ -44,39 +44,50 @@
     </header>
     <main>
       <section class="section-loan-calculator">
-        <div class="slide-container">
-          <input
-            type="range"
-            min="1000"
-            max="100000"
-            value="1000"
-            step="500"
-            class="slider"
-            id="amount-range"
-          />
-          <input
-            type="range"
-            min="1"
-            max="7"
-            value="1"
-            class="slider"
-            id="days-range"
-          />
-        </div>
-        <div id="demo"></div>
-        <div class="loan-calculator__result">
-          <p class="loan-amount">
-            Loan Amount <span class="loan-amount__value"></span>
-          </p>
-          <p class="loan-duration">
-            Loan Duration <span class="loan-duration__value"></span>
-          </p>
-          <p class="loan-interest">
-            Loan Interest <span class="loan-interest__value"></span>
-          </p>
-          <p class="total-repayment">
-            Total Repayment <span class="total-repayment__value"></span>
-          </p>
+        <h2 class="heading-secondary">
+          Loan Calculator
+        </h2>
+        <div class="loan-calculator">
+          <div class="slide-container">
+            <label for="amount-range"
+              >Loan Amount
+              <span id="demo" class="pull-right"></span>
+            </label>
+            <input
+              type="range"
+              min="1000"
+              max="100000"
+              value="1000"
+              step="1000"
+              class="slider"
+              id="amount-range"
+            />
+            <label for="days-range">Number of Days </label>
+            <input
+              type="range"
+              min="1"
+              max="30"
+              value="1"
+              class="slider"
+              id="days-range"
+            />
+          </div>
+
+          <div class="loan-calculator__result">
+            <p class="loan-amount">
+              Loan Amount <span class="loan-amount__value"></span>
+            </p>
+
+            <p class="loan-duration">
+              Loan Duration (days) <span class="loan-duration__value">looo</span>
+            </p>
+            <p class="loan-interest">
+              Loan Interest <span class="loan-interest__value">50</span>
+            </p>
+            <p class="total-repayment">
+              Total Repayment <span class="total-repayment__value"></span>
+            </p>
+          </div>
         </div>
       </section>
       <section class="section-features">
