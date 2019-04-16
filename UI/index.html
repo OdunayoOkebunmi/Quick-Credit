@@ -16,9 +16,17 @@
   <body>
     <header class="header">
       <nav class="nav-bar">
-        <div class="header__logo-box">
-          <img src="img/logo-white.png" alt="Logo" class="header__logo" />
-        </div>
+        <picture>
+          <source
+            media="(max-width:600px)"
+            srcset="img/logo@0,25x.png 1x, img/logo@0,5x.png 2x"
+          />
+          <img
+            srcset="img/logo@0,25x.png 1x, img/logo@0,5x.png 2x"
+            alt="Full logo"
+            src="img/logo@0,5x.png"
+          />
+        </picture>
         <ul class="nav-items">
           <li>
             <a href="#" class=" nav-link nav-link__login">
@@ -39,7 +47,7 @@
             >Getting instant loan is as easy as pie</span
           >
         </h1>
-        <a href="#" class="btn btn--white btn--animated">Discover more</a>
+        <a href="#" class="btn btn--white btn--animated">Apply here</a>
       </div>
     </header>
     <main>
@@ -132,41 +140,37 @@
           Why Choose Us?
         </h2>
         <div class="row">
-          <div class="col-1-of-3">
-            <div class="feature-box">
-              <i class="feature-box__icon fas fa-running"></i>
-              <h3 class="heading-tertiary u-margin-bottom-small">
-                Get it fast
-              </h3>
-              <p class="feature-box__text">
-                Our process to complete the loan is done as quickly as possible.
-                Application can be done in hours
-              </p>
-            </div>
+          <div class="feature-box">
+            <i class="feature-box__icon fas fa-running"></i>
+            <h3 class="heading-tertiary u-margin-bottom-small">
+              Get it fast
+            </h3>
+            <p class="feature-box__text">
+              Our process to complete the loan is done as quickly as possible.
+              Application can be done in hours
+            </p>
           </div>
-          <div class="col-1-of-3">
-            <div class="feature-box">
-              <i class="feature-box__icon fas fa-user-shield"></i>
-              <h3 class="heading-tertiary u-margin-bottom-small">
-                Safe and Secure
-              </h3>
-              <p class="feature-box__text">
-                We ensure our user data is well protected using industry
-                standard encryption
-              </p>
-            </div>
+
+          <div class="feature-box">
+            <i class="feature-box__icon fas fa-user-shield"></i>
+            <h3 class="heading-tertiary u-margin-bottom-small">
+              Safe and Secure
+            </h3>
+            <p class="feature-box__text">
+              We ensure our user data is well protected using industry standard
+              encryption
+            </p>
           </div>
-          <div class="col-1-of-3">
-            <div class="feature-box">
-              <i class="feature-box__icon far fa-eye-slash"></i>
-              <h3 class="heading-tertiary u-margin-bottom-small">
-                No hidden charges
-              </h3>
-              <p class="feature-box__text">
-                No Loan Application Fees, No Admin Fees and Collateral not
-                required for our Quick Loan.
-              </p>
-            </div>
+
+          <div class="feature-box">
+            <i class="feature-box__icon far fa-eye-slash"></i>
+            <h3 class="heading-tertiary u-margin-bottom-small">
+              No hidden charges
+            </h3>
+            <p class="feature-box__text">
+              No Loan Application Fees, No Admin Fees and Collateral not
+              required for our Quick Loan.
+            </p>
           </div>
         </div>
       </section>
@@ -191,13 +195,11 @@
             </figure>
             <div class="story__text">
               <h3 class="heading-tertiary u-margin-bottom-small">
-                I had the best week with my family
+                Application is so easy
               </h3>
               <p>
-                This place is a fun place to have fun with your family spouse or
-                friends especially if you are a tourist. Outdoor games swimming
-                pool and a nice restaurant. Great art and nativity in display at
-                all corners for great view.
+                I love this application. It is so easy to register and it helps
+                out when I am in dire need of finances
               </p>
             </div>
           </div>
@@ -210,12 +212,11 @@
             </figure>
             <div class="story__text">
               <h3 class="heading-tertiary u-margin-bottom-small">
-                WOW! My life is completely different
+                Great Team!
               </h3>
               <p>
-                This is a perfect romantic and family getaway location! I love
-                the rooms, food, scenery and ambiance as well as the facilities
-                on site. Will definitely visit again,
+                They deliver what is promised with no hidden charges. Their
+                process is transparent
               </p>
             </div>
           </div>
@@ -225,7 +226,26 @@
         </div>
       </section>
     </main>
-
+    <footer class="footer">
+      <ul class="nav">
+        <li class="nav__item">
+          <a href="#" class="nav__link">Blog</a>
+        </li>
+        <li class="nav__item">
+          <a href="#" class="nav__link">Privacy and Security</a>
+        </li>
+        <li class="nav__item">
+          <a href="#" class="nav__link">Terms and Conditions</a>
+        </li>
+        <li class="nav__item">
+          <a href="#" class="nav__link">Contact us </a>
+        </li>
+      </ul>
+      <p class="copyright">
+        &copy; Copyright 2019. All rights reserved. <br />
+        Odunayo Okebunmi
+      </p>
+    </footer>
     <script src="js/script.js"></script>
   </body>
 </html>
