@@ -44,44 +44,92 @@
     </header>
     <main>
       <section class="section-loan-calculator">
-        <div class="slide-container">
-          <input
-            type="range"
-            min="1000"
-            max="100000"
-            value="1000"
-            step="500"
-            class="slider"
-            id="amount-range"
-          />
-          <input
-            type="range"
-            min="1"
-            max="7"
-            value="1"
-            class="slider"
-            id="days-range"
-          />
-        </div>
-        <div id="demo"></div>
-        <div class="loan-calculator__result">
-          <p class="loan-amount">
-            Loan Amount <span class="loan-amount__value"></span>
-          </p>
-          <p class="loan-duration">
-            Loan Duration <span class="loan-duration__value"></span>
-          </p>
-          <p class="loan-interest">
-            Loan Interest <span class="loan-interest__value"></span>
-          </p>
-          <p class="total-repayment">
-            Total Repayment <span class="total-repayment__value"></span>
-          </p>
+        <div class="loan-calculator-container">
+          <div class="card">
+            <h2 class="heading-secondary loan-calc-heading">
+              Loan Calculator
+            </h2>
+            <form id="loan-form">
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="amount"
+                    placeholder="Loan Amount in Naira"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="interest"
+                    placeholder="Interest (5%)"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="years"
+                  placeholder="Years To Repay"
+                />
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Calculate" class="btn btn--block" />
+              </div>
+            </form>
+            <div id="loading">
+              <img src="img/loading.gif" alt="" />
+            </div>
+            <div id="results">
+              <h5 class="heading-tertiary">Results</h5>
+              <div class="form-group">
+                <div class="input-group">
+                  <label for="monthly-payment">Monthly Payment</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="monthly-payment"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <label for="total-interest">Total Interest</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="total-interest"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <label for="total-payment">Total Payment</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="total-payment"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section class="section-features">
         <h2 class="heading-secondary">
-          Our services
+          Why Choose Us?
         </h2>
         <div class="row">
           <div class="col-1-of-3">
@@ -120,6 +168,60 @@
               </p>
             </div>
           </div>
+        </div>
+      </section>
+      <section class="section-stories">
+        <div class="bg-video">
+          <video class="bg-video__content" autoplay muted loop>
+            <source src="img/video.mp4" type="video/mp4" />
+            <source src="img/video.webm" type="video/webm" />
+            Your browser is not supported
+          </video>
+        </div>
+        <div class="u-center-text u-margin-bottom-big">
+          <h2 class="heading-secondary">
+            we make people genuinely happy
+          </h2>
+        </div>
+        <div class="row">
+          <div class="story">
+            <figure class="story__shape">
+              <img class="story__img" src="img/nat-8.jpg" alt="person review" />
+              <figcaption class="story__caption">Adeola Sarafina</figcaption>
+            </figure>
+            <div class="story__text">
+              <h3 class="heading-tertiary u-margin-bottom-small">
+                I had the best week with my family
+              </h3>
+              <p>
+                This place is a fun place to have fun with your family spouse or
+                friends especially if you are a tourist. Outdoor games swimming
+                pool and a nice restaurant. Great art and nativity in display at
+                all corners for great view.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="story">
+            <figure class="story__shape">
+              <img class="story__img" src="img/nat-9.jpg" alt="person review" />
+              <figcaption class="story__caption">Ciroma Ahmed</figcaption>
+            </figure>
+            <div class="story__text">
+              <h3 class="heading-tertiary u-margin-bottom-small">
+                WOW! My life is completely different
+              </h3>
+              <p>
+                This is a perfect romantic and family getaway location! I love
+                the rooms, food, scenery and ambiance as well as the facilities
+                on site. Will definitely visit again,
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="u-center-text u-margin-top-huge">
+          <a href="#" class="btn-text">Read all stories &rarr;</a>
         </div>
       </section>
     </main>
