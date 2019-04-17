@@ -25,6 +25,16 @@ html {
   /* background-repeat: no-repeat; */
   background-size: cover;
 }
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 50%;
+  }
+}
 @media only screen and (max-width: 650px) {
   html {
     background: #fff;
@@ -99,7 +109,9 @@ body {
   transition: all 0.2s;
   font-size: 1.5rem;
 }
-
+.section-sign-up .form-container .form-group .input-group .form-control-select {
+  color: var(--color-grey-dark);
+}
 .btn,
 .btn:link,
 .btn:visited {
