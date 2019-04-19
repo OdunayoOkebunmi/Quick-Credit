@@ -1,0 +1,160 @@
+:root {
+  --color-primary: #b23242;
+  --color-primary-light: #ff6175;
+  --color-grey-light-1: #faf9f9;
+  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-3: #f0eeee;
+  --color-grey-light-4: #ccc;
+
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
+}
+
+/* THIS STYLING ON THIS PAGE IS SPECIFIC TO THE LOAN REPAYMENT PAGE */
+
+/* ++++ STYLING FOR LOAN REPAYMENT HISTORY SECTION */
+.loan-repayment__history--details {
+  display: flex;
+  align-content: space-between;
+  justify-content: space-around;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+@media only screen and (max-width: 600px) {
+  .loan-repayment__history--details {
+    justify-content: flex-start;
+    padding: 2rem;
+  }
+  .loan-repayment__history--details > * {
+    margin-bottom: 2rem;
+  }
+}
+.loan-repayment__history--details > * > span {
+  border: 1px solid var(--color-grey-dark-1);
+  padding: 0.5rem 2rem;
+  background-color: var(--color-grey-dark-1);
+  color: #fff;
+}
+
+/* ++++ STYLING FOR POPUP SECTION */
+.popup {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.popup__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: #fff;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  display: table;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.25);
+  transition: all 0.5s 0.2s;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup:target .popup__content {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.popup__close:link,
+.popup__close:visited {
+  color: var(--color-grey-dark-1);
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 3rem;
+  line-height: 1;
+}
+.popup__close:hover {
+  color: var(--color-primary);
+}
+
+.popup__content label {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 2rem 5rem;
+}
+.popup__content .form-group {
+  margin: 2rem 5rem;
+}
+
+.popup__content .form-group-flex {
+  display: flex;
+}
+
+.popup__content .form-group .input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.popup__content .form-group .input-group .form-control {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  margin: 1rem 0;
+  border: 1px solid #ced4da;
+  border-radius: 2px;
+  transition: all 0.2s;
+  font-size: 1.5rem;
+}
+
+/* ++++ STYLING FOR BUTTON*/
+.btn,
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  transition: all 0.2s;
+  position: relative;
+  font-size: 1.6rem;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 1rem 2rem rgba(#222, 0.2);
+}
+
+.btn:focus,
+.btn:active {
+  outline: none;
+  transform: translateY(-1rem);
+  box-shadow: 0 0.5rem 1rem rgba(#222, 0.2);
+}
+.btn--block {
+  display: block;
+  width: 100%;
+  color: #fff;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  border-radius: 4px;
+  font-weight: 400;
+  margin-top: 5rem;
+  letter-spacing: 3px;
+}
