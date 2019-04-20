@@ -33,13 +33,22 @@
     margin-bottom: 2rem;
   }
 }
-.loan-repayment__history--details > * > span {
+.loan-repayment__history--details > * > span,
+.loan-repayment__pay {
   border: 1px solid var(--color-grey-dark-1);
   padding: 0.5rem 2rem;
   background-color: var(--color-grey-dark-1);
   color: #fff;
 }
-
+.loan-repayment__pay {
+  display: inline-block;
+  margin: 5rem;
+  text-transform: uppercase;
+}
+.loan-repayment__pay > a {
+  text-decoration: none;
+  color: #fff;
+}
 /* ++++ STYLING FOR POPUP SECTION */
 .popup {
   height: 100vh;
