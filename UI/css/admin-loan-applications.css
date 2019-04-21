@@ -1,14 +1,13 @@
 :root {
   --color-primary: #b23242;
   --color-primary-light: #ff6175;
+
   --color-grey-light-1: #faf9f9;
-  /* --color-grey-light-2: #f4f2f2; */
-  --color-grey-light-3: #f0eeee;
-  --color-grey-light-4: #ccc;
+  --color-grey-light-2: #f0eeee;
+  --color-grey-light-3: #ccc;
 
   --color-grey-dark-1: #333;
   --color-grey-dark-2: #777;
-  /* --color-grey-dark-3: #999; */
 }
 
 /* ++++ BASE STYLING */
@@ -104,14 +103,13 @@ body {
   .header .search {
     order: 1;
     flex: 0 0 90%;
-    background-color: var(--color-grey-light-2);
   }
 }
 .header .search .search__input {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
-  background-color: var(--color-grey-light-4);
+  background-color: var(--color-grey-light-3);
   border: none;
   padding: 0.7rem 2rem;
   border-radius: 100px;
@@ -122,17 +120,17 @@ body {
 .header .search .search__input:focus {
   outline: none;
   width: 100%;
-  background-color: var(--color-grey-light-4);
+  background-color: var(--color-grey-light-3);
 }
 
 .header .search .search__input::-webkit-input-placeholder {
   font-weight: 100;
-  color: var(--color-grey-dark-4);
+  color: var(--color-grey-dark-2);
 }
 
 .header .search .search__button {
   border: none;
-  background-color: var(--color-grey-light-4);
+  background-color: var(--color-grey-light-3);
 }
 
 .header .search .search__button:active {
@@ -153,7 +151,7 @@ body {
 }
 
 .header .user-nav > *:hover {
-  background-color: var(--color-grey-light-3);
+  background-color: var(--color-grey-light-2);
 }
 
 .header .user-nav .user-nav__icon-box {
@@ -205,7 +203,7 @@ body {
   justify-content: space-between;
 }
 .content .sidebar .side-nav {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   list-style: none;
   margin-top: 3.5rem;
 }
@@ -262,7 +260,7 @@ body {
 .content .sidebar .side-nav__link:visited {
   color: var(--color-grey-light-1);
   text-transform: uppercase;
-  font-size: 1.6rem;
+  /* font-size: 1.6rem; */
   text-decoration: none;
   display: block;
   padding: 1.5rem 3rem;
@@ -289,84 +287,260 @@ body {
   }
 }
 
-/* ++++++++STYLING FOR ADMIN DASHBOARD VIEW SECTION +++++++ */
-.content .admin-dashboard-view {
+/* ++++++++STYLING FOR ADMIN USERS-LOAN APPLICATION VIEW SECTION +++++++ */
+.content .admin-users-loans--view {
   flex: 1;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   padding: 7rem 0;
 }
 @media only screen and (max-width: 600px) {
-  .content .admin-dashboard-view {
+  .content .admin-users-loans--view {
     padding: 3rem 0;
   }
 }
 
-.content .admin-dashboard-view .dashboard__info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+@media only screen and (max-width: 900px) {
+  .admin-users-loans__details .caption {
+    font-size: 3rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .admin-users-loans__details .caption {
+    font-size: 2.5rem;
+  }
+}
+.admin-users-loans--view .admin-users-loans__details--table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.content .admin-dashboard-view .dashboard__info > * {
-  border: 1px solid transparent;
-  padding: 3rem 5rem;
-  margin: 1.5rem 0;
-  color: #fff;
-  text-align: center;
-  border-radius: 3px;
-  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+.admin-users-loans__details--table td,
+.admin-users-loans__details--table th {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  height: 2rem;
 }
 
-.content .admin-dashboard-view .dashboard__info > * > span {
-  font-size: 3rem;
-  font-weight: bold;
+.admin-users-loans__details--table td {
+  height: 5rem;
 }
-.dashboard__info .dashboard__info--total-users {
-  background-color: rgb(75, 116, 71);
-}
-.dashboard__info .dashboard__info--new-users {
-  background-color: rgb(45, 66, 98);
-}
-.dashboard__info .dashboard__info--loan-requests {
-  background-color: rgb(102, 46, 28);
-}
-.dashboard__info .dashboard__info--repaid-loans {
-  background-color: rgb(250, 175, 8);
-}
-
-/* +++++++++++++STYLING FOR SECTION FOOTER +++++++ */
-.footer {
-  background-color: #333;
-  padding: 4rem;
-}
-
-.footer .nav {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.footer .nav__link:link,
-.footer .nav__link:visited {
-  font-size: 1.4rem;
-  color: #fff;
+.admin-users-loans__details--table td a {
+  display: inline-block;
   text-decoration: none;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 1.5rem;
-  display: block;
-  transition: all 0.2s;
+  padding: 1rem;
+  color: #fff;
+  background-color: var(--color-grey-dark-2);
+}
+@media only screen and (max-width: 600px) {
+  .admin-users-loans__details--table td a {
+    background-color: var(--color-primary);
+    padding: 1rem 2rem;
+  }
+}
+.admin-users-loans__details--table tr:nth-child(even) {
+  background-color: #fff;
 }
 
-.footer .nav__link:hover,
-.footer .nav__link:active {
-  background-color: rgba(255, 255, 255, 0.05);
-  transform: translateY(-3px);
+.admin-users-loans__details--table tr:hover {
+  background-color: var(--color-grey-light-2);
 }
-.footer .copyright {
-  font-size: 1.4rem;
-  color: #aaa;
-  margin-top: 6rem;
-  text-align: center;
+
+.admin-users-loans__details--table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ++++ STYLING FOR POPUP SECTION */
+.popup {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.popup__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem 4rem;
+  background-color: #fff;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100vh;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.25);
+  transition: all 0.5s 0.2s;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup:target .popup__content {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.popup__close:link,
+.popup__close:visited {
+  color: var(--color-grey-dark-1);
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 3rem;
+  line-height: 1;
+}
+.popup__close:hover {
+  color: var(--color-primary);
+}
+
+.popup__content label {
+  font-size: 1.8rem;
+  font-weight: 500;
+  /* margin: 2rem 5rem; */
+}
+.popup__content #user-loan-form > div {
+  margin: 2rem 0;
+}
+.popup__content label + div {
+  border: 1px solid var(--color-grey-dark-2);
+  padding: 1.5rem 3rem;
+  font-size: 1.6rem;
+}
+
+.popup__content .form-group {
+  margin-bottom: 0.5rem;
+}
+
+.popup__content .form-group .input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.popup__content .form-group .input-group .form-control {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  margin: 1rem 0;
+  border: 1px solid #ced4da;
+  border-radius: 2px;
+  transition: all 0.2s;
+  font-size: 1.5rem;
+}
+.popup__content .form-group .input-group .form-control-select {
+  color: var(--color-grey-dark);
+}
+/* ++++ STYLING FOR BUTTON*/
+.btn,
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  transition: all 0.2s;
+  position: relative;
+  font-size: 1.6rem;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 1rem 2rem rgba(#222, 0.2);
+}
+
+.btn:focus,
+.btn:active {
+  outline: none;
+  transform: translateY(-1rem);
+  box-shadow: 0 0.5rem 1rem rgba(#222, 0.2);
+}
+.btn--block {
+  display: block;
+  width: 100%;
+  color: #fff;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  border-radius: 4px;
+  font-weight: 400;
+  margin-top: 5rem;
+  letter-spacing: 3px;
+}
+
+/* MEDIA QUERY TO MAKE TABLE RESPONSIVE */
+@media screen and (max-width: 600px) {
+  .admin-users-loans__details--table > * > * > * {
+    display: block;
+  }
+  .admin-users-loans__details--table thead {
+    display: none;
+  }
+
+  td {
+    border: none;
+    position: relative;
+    padding-left: 20rem;
+    margin-left: 22rem;
+    font-size: 1.3rem;
+  }
+  td:before {
+    position: absolute;
+    top: 1.2rem;
+    left: 0.6rem;
+    width: 20rem;
+    padding-right: 4rem;
+    white-space: nowrap;
+    margin-left: -22rem;
+  }
+  td::before {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
+  td:nth-of-type(1)::before {
+    content: "Loan ID";
+  }
+
+  td:nth-of-type(2)::before {
+    content: "Email";
+  }
+  td:nth-of-type(3)::before {
+    content: "Date Registered";
+  }
+  td:nth-of-type(4)::before {
+    content: "Loan Status";
+  }
+  td:nth-of-type(5)::before {
+    content: "Repaid";
+  }
+  td:nth-of-type(6)::before {
+    content: "Tenor";
+  }
+  td:nth-of-type(7)::before {
+    content: "Loan Amount ₦";
+  }
+  td:nth-of-type(8)::before {
+    content: "Monthly Installments ₦";
+  }
+  td:nth-of-type(9)::before {
+    content: "Balance ₦";
+  }
+  td:nth-of-type(10)::before {
+    content: "Interest ₦";
+  }
 }
