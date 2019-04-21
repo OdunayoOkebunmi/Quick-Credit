@@ -58,8 +58,7 @@ body {
 .container {
   background-color: #f4f2f2;
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.2);
-  max-width: 120rem;
-  margin: 8rem auto;
+  max-width: 100%;
   min-height: 50rem;
 }
 
