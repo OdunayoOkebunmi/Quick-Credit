@@ -66,7 +66,6 @@ body {
   .container {
     margin: 0;
     max-width: 100%;
-    width: 100%;
   }
 }
 
@@ -260,18 +259,17 @@ body {
 .content .sidebar .side-nav__link:visited {
   color: var(--color-grey-light-1);
   text-transform: uppercase;
-  /* font-size: 1.6rem; */
   text-decoration: none;
   display: block;
   padding: 1.5rem 3rem;
   position: relative;
   z-index: 10;
-  display: flex;
-  align-items: center;
 }
 @media only screen and (max-width: 900px) {
   .content .sidebar .side-nav__link:link,
   .content .sidebar .side-nav__link:visited {
+    display: flex;
+    align-items: center;
     justify-content: center;
     padding: 2rem;
   }
@@ -481,7 +479,6 @@ body {
   margin-top: 5rem;
   letter-spacing: 3px;
 }
-
 /* MEDIA QUERY TO MAKE TABLE RESPONSIVE */
 @media screen and (max-width: 600px) {
   .admin-users-loans__details--table > * > * > * {
@@ -520,7 +517,7 @@ body {
     content: "Email";
   }
   td:nth-of-type(3)::before {
-    content: "Date Registered";
+    content: "Date Created";
   }
   td:nth-of-type(4)::before {
     content: "Loan Status";
@@ -541,6 +538,63 @@ body {
     content: "Balance ₦";
   }
   td:nth-of-type(10)::before {
+    content: "Interest ₦";
+  }
+}
+/* MEDIA QUERY TO MAKE  CURRENT LOANS TABLE RESPONSIVE */
+@media screen and (max-width: 600px) {
+  .admin-repaid-loans__details--table > * > * > * {
+    display: block;
+  }
+  .admin-users-loans__details--table thead {
+    display: none;
+  }
+
+  td {
+    border: none;
+    position: relative;
+    padding-left: 20rem;
+    margin-left: 22rem;
+    font-size: 1.3rem;
+  }
+  td:before {
+    position: absolute;
+    top: 1.2rem;
+    left: 0.6rem;
+    width: 20rem;
+    padding-right: 4rem;
+    white-space: nowrap;
+    margin-left: -22rem;
+  }
+  td::before {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
+  td:nth-of-type(1)::before {
+    content: "Loan ID";
+  }
+
+  td:nth-of-type(2)::before {
+    content: "Email";
+  }
+  td:nth-of-type(3)::before {
+    content: "Date Created";
+  }
+
+  td:nth-of-type(4)::before {
+    content: "Tenor";
+  }
+  td:nth-of-type(5)::before {
+    content: "Loan Amount ₦";
+  }
+  td:nth-of-type(6)::before {
+    content: "Monthly Installments ₦";
+  }
+  td:nth-of-type(7)::before {
+    content: "Balance ₦";
+  }
+  td:nth-of-type(8)::before {
     content: "Interest ₦";
   }
 }
