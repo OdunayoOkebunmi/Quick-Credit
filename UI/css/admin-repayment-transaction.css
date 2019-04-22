@@ -51,6 +51,7 @@ body {
   transition: all 0.2s;
   letter-spacing: 2px;
   transition: all 0.2s;
+  color: var(--color-primary);
   margin-bottom: 2rem;
 }
 @media only screen and (max-width: 900px) {
@@ -63,6 +64,7 @@ body {
     font-size: 1.5rem;
   }
 }
+
 /* ++++ STYLING FOR USER DASHBOARD */
 .container {
   background-color: #f4f2f2;
@@ -294,153 +296,74 @@ body {
   }
 }
 
-/* ++++++++STYLING FOR ADMIN USERS-LOAN APPLICATION VIEW SECTION +++++++ */
-.content .admin-users-loans--view {
+/* ++++++++STYLING FOR ADMIN POST LOANS REPAYMENT VIEW SECTION +++++++ */
+.content .admin-repay-loans--view {
   flex: 1;
   font-size: 1.2rem;
   padding: 7rem 0;
 }
 @media only screen and (max-width: 600px) {
-  .content .admin-users-loans--view {
+  .content .admin-repay-loans--view {
     padding: 3rem 0;
   }
 }
+/* ++++++STYLING FOR SECTION LOAN APPLICATION */
+.admin-repay-loans--view .form-container {
+  width: 40%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 5rem;
+  box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.4);
+  transition: all 0.2s;
+}
 
 @media only screen and (max-width: 900px) {
-  .admin-users-loans__details .caption {
-    font-size: 3rem;
+  .admin-repay-loans--view .form-container {
+    display: block;
+    width: 60%;
+    margin: 5rem auto;
   }
 }
 @media only screen and (max-width: 600px) {
-  .admin-users-loans__details .caption {
-    font-size: 2.5rem;
+  .admin-repay-loans--view .form-container {
+    display: block;
+    width: 90%;
+    margin: 5rem auto;
+    border: none;
+    box-shadow: none;
   }
 }
-.admin-users-loans--view .admin-users-loans__details--table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.admin-users-loans__details--table td,
-.admin-users-loans__details--table th {
-  border: 1px solid #ddd;
-  padding: 0.8rem;
-  height: 2rem;
-}
-
-.admin-users-loans__details--table td {
-  height: 5rem;
-}
-.admin-users-loans__details--table td a {
-  display: inline-block;
-  text-decoration: none;
-  padding: 1rem;
-  color: #fff;
-  background-color: var(--color-grey-dark-2);
-}
-@media only screen and (max-width: 600px) {
-  .admin-users-loans__details--table td a {
-    background-color: var(--color-primary);
-    padding: 1rem 2rem;
-  }
-}
-.admin-users-loans__details--table tr:nth-child(even) {
-  background-color: #fff;
-}
-
-.admin-users-loans__details--table tr:hover {
-  background-color: var(--color-grey-light-2);
-}
-
-.admin-users-loans__details--table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: var(--color-primary);
-  color: #fff;
-}
-
-/* ++++ STYLING FOR POPUP SECTION */
-.popup {
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 300;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-}
-
-.popup__content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem 4rem;
-  background-color: #fff;
-  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
+.admin-repay-loans--view .form-container .flex-group {
   display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  height: 100vh;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.25);
-  transition: all 0.5s 0.2s;
+  justify-content: space-between;
 }
-.popup:target {
-  opacity: 1;
-  visibility: visible;
+@media only screen and (max-width: 570px) {
+  .admin-repay-loans--view .form-container .flex-group {
+    display: block;
+  }
 }
-
-.popup:target .popup__content {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-.popup__close:link,
-.popup__close:visited {
-  color: var(--color-grey-dark-1);
-  position: absolute;
-  top: 2.5rem;
-  right: 2.5rem;
-  display: inline-block;
-  text-decoration: none;
-  font-size: 3rem;
-  line-height: 1;
-}
-.popup__close:hover {
-  color: var(--color-primary);
-}
-
-.popup__content label {
+.admin-repay-loans--view .form-container #loan-apply-form label {
   font-size: 1.8rem;
   font-weight: 500;
-  /* margin: 2rem 5rem; */
 }
-.popup__content #user-loan-form > div {
-  margin: 2rem 0;
-}
-.popup__content label + div {
-  border: 1px solid var(--color-grey-dark-2);
-  padding: 1.5rem 3rem;
-  font-size: 1.6rem;
-}
-
-.popup__content .form-group {
+.admin-repay-loans--view .form-container .form-group {
   margin-bottom: 0.5rem;
 }
 
-.popup__content .form-group .input-group {
+.admin-repay-loans--view .form-container .form-group .input-group {
   position: relative;
   display: flex;
   align-items: stretch;
   width: 100%;
 }
 
-.popup__content .form-group .input-group .form-control {
+.admin-repay-loans--view
+  .form-container
+  .form-group
+  .input-group
+  .form-control {
   width: 100%;
   padding: 1.2rem 2rem;
   margin: 1rem 0;
@@ -448,9 +371,6 @@ body {
   border-radius: 2px;
   transition: all 0.2s;
   font-size: 1.5rem;
-}
-.popup__content .form-group .input-group .form-control-select {
-  color: var(--color-grey-dark);
 }
 /* ++++ STYLING FOR BUTTON*/
 .btn,
@@ -487,123 +407,4 @@ body {
   font-weight: 400;
   margin-top: 5rem;
   letter-spacing: 3px;
-}
-/* MEDIA QUERY TO MAKE TABLE RESPONSIVE */
-@media screen and (max-width: 600px) {
-  .admin-users-loans__details--table > * > * > * {
-    display: block;
-  }
-  .admin-users-loans__details--table thead {
-    display: none;
-  }
-
-  td {
-    border: none;
-    position: relative;
-    padding-left: 20rem;
-    margin-left: 22rem;
-    font-size: 1.3rem;
-  }
-  td:before {
-    position: absolute;
-    top: 1.2rem;
-    left: 0.6rem;
-    width: 20rem;
-    padding-right: 4rem;
-    white-space: nowrap;
-    margin-left: -22rem;
-  }
-  td::before {
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    font-weight: bolder;
-  }
-  td:nth-of-type(1)::before {
-    content: "Loan ID";
-  }
-
-  td:nth-of-type(2)::before {
-    content: "Email";
-  }
-  td:nth-of-type(3)::before {
-    content: "Date Created";
-  }
-  td:nth-of-type(4)::before {
-    content: "Loan Status";
-  }
-  td:nth-of-type(5)::before {
-    content: "Repaid";
-  }
-  td:nth-of-type(6)::before {
-    content: "Tenor";
-  }
-  td:nth-of-type(7)::before {
-    content: "Loan Amount ₦";
-  }
-  td:nth-of-type(8)::before {
-    content: "Monthly Installments ₦";
-  }
-  td:nth-of-type(9)::before {
-    content: "Balance ₦";
-  }
-  td:nth-of-type(10)::before {
-    content: "Interest ₦";
-  }
-}
-/* MEDIA QUERY TO MAKE  CURRENT LOANS TABLE RESPONSIVE */
-@media screen and (max-width: 600px) {
-  .admin-repaid-loans__details--table > * > * > * {
-    display: block;
-  }
-  .admin-users-loans__details--table thead {
-    display: none;
-  }
-
-  td {
-    border: none;
-    position: relative;
-    padding-left: 20rem;
-    margin-left: 22rem;
-    font-size: 1.3rem;
-  }
-  td:before {
-    position: absolute;
-    top: 1.2rem;
-    left: 0.6rem;
-    width: 20rem;
-    padding-right: 4rem;
-    white-space: nowrap;
-    margin-left: -22rem;
-  }
-  td::before {
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    font-weight: bolder;
-  }
-  td:nth-of-type(1)::before {
-    content: "Loan ID";
-  }
-
-  td:nth-of-type(2)::before {
-    content: "Email";
-  }
-  td:nth-of-type(3)::before {
-    content: "Date Created";
-  }
-
-  td:nth-of-type(4)::before {
-    content: "Tenor";
-  }
-  td:nth-of-type(5)::before {
-    content: "Loan Amount ₦";
-  }
-  td:nth-of-type(6)::before {
-    content: "Monthly Installments ₦";
-  }
-  td:nth-of-type(7)::before {
-    content: "Balance ₦";
-  }
-  td:nth-of-type(8)::before {
-    content: "Interest ₦";
-  }
 }

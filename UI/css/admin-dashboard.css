@@ -44,7 +44,6 @@ body {
 }
 
 .heading-secondary {
-  /* display: inline-block; */
   font-size: 3.5rem;
   text-transform: uppercase;
   font-weight: 700;
@@ -53,7 +52,18 @@ body {
   transition: all 0.2s;
   letter-spacing: 2px;
   transition: all 0.2s;
-  margin: 3rem 0;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+@media only screen and (max-width: 900px) {
+  .heading-secondary {
+    font-size: 2.5rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .heading-secondary {
+    font-size: 1.5rem;
+  }
 }
 /* ++++ STYLING FOR USER DASHBOARD */
 .container {
