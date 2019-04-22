@@ -299,6 +299,7 @@ body {
   flex: 1;
   font-size: 1.2rem;
   padding: 7rem 0;
+  overflow-x: auto;
 }
 @media only screen and (max-width: 600px) {
   .content .admin-users-loans--view {
@@ -550,60 +551,32 @@ body {
     content: "Interest ₦";
   }
 }
-/* MEDIA QUERY TO MAKE  CURRENT LOANS TABLE RESPONSIVE */
+/* MEDIA QUERY TO MAKE  REPAID LOANS TABLE RESPONSIVE */
 @media screen and (max-width: 600px) {
-  .admin-repaid-loans__details--table > * > * > * {
-    display: block;
-  }
-  .admin-users-loans__details--table thead {
-    display: none;
-  }
-
-  td {
-    border: none;
-    position: relative;
-    padding-left: 20rem;
-    margin-left: 22rem;
-    font-size: 1.3rem;
-  }
-  td:before {
-    position: absolute;
-    top: 1.2rem;
-    left: 0.6rem;
-    width: 20rem;
-    padding-right: 4rem;
-    white-space: nowrap;
-    margin-left: -22rem;
-  }
-  td::before {
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    font-weight: bolder;
-  }
-  td:nth-of-type(1)::before {
+  .admin-current-loans__details--table td:nth-of-type(1)::before {
     content: "Loan ID";
   }
 
-  td:nth-of-type(2)::before {
+  .admin-current-loans__details--table td:nth-of-type(2)::before {
     content: "Email";
   }
-  td:nth-of-type(3)::before {
+  .admin-current-loans__details--table td:nth-of-type(3)::before {
     content: "Date Created";
   }
 
-  td:nth-of-type(4)::before {
+  .admin-current-loans__details--table td:nth-of-type(4)::before {
     content: "Tenor";
   }
-  td:nth-of-type(5)::before {
+  .admin-current-loans__details--table td:nth-of-type(5)::before {
     content: "Loan Amount ₦";
   }
-  td:nth-of-type(6)::before {
+  .admin-current-loans__details--table td:nth-of-type(6)::before {
     content: "Monthly Installments ₦";
   }
-  td:nth-of-type(7)::before {
+  .admin-current-loans__details--table td:nth-of-type(7)::before {
     content: "Balance ₦";
   }
-  td:nth-of-type(8)::before {
+  .admin-current-loans__details--table td:nth-of-type(8)::before {
     content: "Interest ₦";
   }
 }
