@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Odunayo Okebunmi" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/admin-repayment-transaction.css" />
+    <title>Admin | Dashboard</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <img src="img/logo@0,25x.png" alt="Quick Credit logo" class="logo" />
+        <form action="" class="search">
+          <input type="text" class="search__input" placeholder="Search" />
+          <button class="search__button">
+            <i class="search__icon fas fa-search"></i>
+          </button>
+        </form>
+        <nav class="user-nav">
+          <div class="user-nav__icon-box">
+            <i class="user-nav__icon fas fa-bell"></i>
+
+            <span class="user-nav__notification">7</span>
+          </div>
+          <div class="user-nav__user">
+            <img
+              src="img/user.jpg"
+              alt="User photo"
+              class="user-nav__user-photo"
+            />
+            <span class="user-nav__user-name">Odunayo(Admin)</span>
+          </div>
+        </nav>
+      </header>
+      <div class="content">
+        <nav class="sidebar">
+          <ul class="side-nav">
+            <li class="side-nav__item ">
+              <a href="admin-dashboard.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="side-nav__item">
+              <a href="admin-users-verification.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user-check"></i>
+
+                <span>Verify Users</span>
+              </a>
+            </li>
+            <li class="side-nav__item">
+              <a href="admin-loan-applications.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-edit"></i>
+                <span>Loan Applications</span>
+              </a>
+            </li>
+            <li class="side-nav__item">
+              <a href="admin-current-loans.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user"></i>
+                <span>Current Loans</span>
+              </a>
+            </li>
+            <li class="side-nav__item ">
+              <a href="admin-repaid-loans.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user"></i>
+                <span>Repaid Loans</span>
+              </a>
+            </li>
+            <li class="side-nav__item   side-nav__item--active">
+              <a href="#" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user"></i>
+                <span>Post Repayment Transactions</span>
+              </a>
+            </li>
+            <li class="side-nav__item">
+              <a href="index.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <main class="admin-repay-loans--view">
+          <h2 class="heading-secondary">
+            post repayment transaction
+          </h2>
+          <div class="form-container">
+            <form action="">
+              <label for="loan-id">Loan ID</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="text"
+                    id="loan-id"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="user-email">Email Address</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="text"
+                    id="user-email"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="date-created">Date Created</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="text"
+                    id="date-created"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="loan-amount">Loan Amount ₦ </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="loan-amount"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="loan-installments">Monthly Installments ₦ </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="loan-installments"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="amount-paid">Amount Paid ₦ </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="amount-paid"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="laon-balance">Balance ₦ </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="laon-balance"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="submit" value="submit" class="btn btn--block" />
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
