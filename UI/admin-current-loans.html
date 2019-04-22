@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Odunayo Okebunmi" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link
       rel="stylesheet"
@@ -10,8 +11,8 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/admin-users-verification.css" />
-    <title>Admin | Dashboard</title>
+    <link rel="stylesheet" href="css/admin-loan-applications.css" />
+    <title>Admin | Current Loans</title>
   </head>
   <body>
     <div class="container">
@@ -27,7 +28,7 @@
           <div class="user-nav__icon-box">
             <i class="user-nav__icon fas fa-bell"></i>
 
-            <span class="user-nav__notification">10</span>
+            <span class="user-nav__notification">7</span>
           </div>
           <div class="user-nav__user">
             <img
@@ -35,7 +36,7 @@
               alt="User photo"
               class="user-nav__user-photo"
             />
-            <span class="user-nav__user-name">Admin</span>
+            <span class="user-nav__user-name">Odunayo(Admin)</span>
           </div>
         </nav>
       </header>
@@ -55,13 +56,13 @@
                 <span>Verify Users</span>
               </a>
             </li>
-            <li class="side-nav__item  side-nav__item--active">
+            <li class="side-nav__item ">
               <a href="admin-loan-applications.html" class="side-nav__link">
                 <i class="side-nav__icon fas fa-edit"></i>
                 <span>Loan Applications</span>
               </a>
             </li>
-            <li class="side-nav__item">
+            <li class="side-nav__item side-nav__item--active">
               <a href="admin-current-loans.html" class="side-nav__link">
                 <i class="side-nav__icon fas fa-user"></i>
                 <span>Current Loans</span>
@@ -87,55 +88,53 @@
             </li>
           </ul>
         </nav>
-        <main class="admin-users-verify--view">
-          <div class="admin-users-verify__details">
+        <main class="admin-users-loans--view">
+          <div class="admin-users-loans__details">
             <h3 class="heading-secondary">
-              verify users
+              current loans
             </h3>
-            <table class="admin-users-verify__details--table">
+            <table
+              class="admin-users-loans__details--table admin-current-loans__details--table"
+            >
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                  <th>Loan ID</th>
                   <th>Email</th>
-                  <th>Work/Home Address</th>
-                  <th>Date Registered</th>
-                  <th>Action</th>
+                  <th>Date Created</th>
+                  <th>Status</th>
+                  <th>Repaid</th>
+                  <th>Tenor(in months)</th>
+                  <th>Amount ₦</th>
+                  <th>Monthly Installments ₦</th>
+                  <th>Balance ₦</th>
+                  <th>Interest ₦</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Odunayo</td>
-                  <td>Okebunmi</td>
+                  <td>#122392</td>
                   <td>odun@mail.com</td>
-                  <td>King's Landing</td>
                   <td>2019/01/01</td>
-                  <td>
-                    <label class="switch">
-                      <input type="checkbox" class="checkbox" />
-                      <div class="slider round">
-                        <span class="verify">Verified</span>
-                        <span class="unverify">Unverified</span>
-                      </div>
-                    </label>
-                  </td>
+                  <td>Approved</td>
+                  <td>False</td>
+                  <td>10</td>
+                  <td>2,000,000</td>
+                  <td>200,000</td>
+                  <td>0</td>
+                  <td>100,000</td>
                 </tr>
 
                 <tr>
-                  <td>Harry</td>
-                  <td>Potter</td>
+                  <td>#122323</td>
                   <td>harry@hedwig.com</td>
-                  <td>House Gryffindor, Hogwarts</td>
                   <td>2019/01/01</td>
-                  <td>
-                    <label class="switch">
-                      <input type="checkbox" class="checkbox" />
-                      <div class="slider round">
-                        <span class="verify">Verified</span>
-                        <span class="unverify">Unverified</span>
-                      </div>
-                    </label>
-                  </td>
+                  <td>Approved</td>
+                  <td>False</td>
+                  <td>12</td>
+                  <td>150,000</td>
+                  <td>13,125</td>
+                  <td>0</td>
+                  <td>7,500</td>
                 </tr>
               </tbody>
             </table>
@@ -143,25 +142,57 @@
         </main>
       </div>
     </div>
-    <footer class="footer">
-      <ul class="nav">
-        <li class="nav__item">
-          <a href="#" class="nav__link">Blog</a>
-        </li>
-        <li class="nav__item">
-          <a href="#" class="nav__link">Privacy and Security</a>
-        </li>
-        <li class="nav__item">
-          <a href="#" class="nav__link">Terms and Conditions</a>
-        </li>
-        <li class="nav__item">
-          <a href="#" class="nav__link">Contact us </a>
-        </li>
-      </ul>
-      <p class="copyright">
-        &copy; Copyright 2019. All rights reserved. <br />
-        Odunayo Okebunmi
-      </p>
-    </footer>
+    <div class="popup" id="user-loan-popup">
+      <div class="popup__content">
+        <a href="#" class="popup__close">&times;</a>
+        <br /><br />
+        <h3 class="heading-secondary">
+          Loan Application
+        </h3>
+        <form action="" id="user-loan-form">
+          <div class="loan-id">
+            <label for="loan-id">Loan ID</label>
+            <div>#122392</div>
+          </div>
+          <div class="user-fname">
+            <label for="user-fname">First Name</label>
+            <div>Odunayo</div>
+          </div>
+          <div class="user-lname">
+            <label for="user-lname">Last Name</label>
+            <div>Okebunmi</div>
+          </div>
+          <div class="user-email">
+            <label for="user-email">Email</label>
+            <div>odun@mail.com</div>
+          </div>
+
+          <div class="loan-address">
+            <label for="loan-address">Address</label>
+            <div>King's Landing</div>
+          </div>
+          <div class="loan-amount">
+            <label for="loan-amount">Loan Amount</label>
+            <div>2,000,000</div>
+          </div>
+          <div class="loan-tenor">
+            <label for="loan-tenor">Tenor</label>
+            <div>10 months</div>
+          </div>
+          <span class="form-group">
+            <div class="input-group">
+              <select id="user-role" class="form-control form-control-select">
+                <option value="">--Select Loan status--</option>
+                <option value="User">Accept</option>
+                <option value="Admin">Reject</option>
+              </select>
+            </div>
+          </span>
+          <div class="form-group">
+            <input type="submit" value="Update" class="btn btn--block" />
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
