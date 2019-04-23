@@ -27,6 +27,16 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 50%;
+  }
+}
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -298,59 +308,59 @@ body {
   }
 }
 
-/* ++++++++STYLING FOR LOAN REPAYMENT VIEW SECTION +++++++ */
-.content .loan-repayment-view {
+/* ++++++++STYLING FOR USER DASHBOARD VIEW SECTION +++++++ */
+.content .user-dashboard-view {
   flex: 1;
   font-size: 1.2rem;
   padding: 7rem 0;
   overflow-x: auto;
 }
 @media only screen and (max-width: 600px) {
-  .content .loan-repayment-view {
+  .content .user-dashboard-view {
     padding: 3rem 0;
   }
 }
 
 @media only screen and (max-width: 900px) {
-  .loan-repayment__history .caption {
+  .user-dashboard__history .caption {
     font-size: 3rem;
   }
 }
 @media only screen and (max-width: 600px) {
-  .loan-repayment__history .caption {
+  .user-dashboard__history .caption {
     font-size: 2.5rem;
   }
 }
-.loan-repayment-view .loan-repayment__history--table {
+.user-dashboard-view .user-dashboard__history--table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.loan-repayment__history--table td,
-.loan-repayment__history--table th {
+.user-dashboard__history--table td,
+.user-dashboard__history--table th {
   border: 1px solid #ddd;
   padding: 0.8rem;
   height: 2rem;
 }
 
-.loan-repayment__history--table td {
+.user-dashboard__history--table td {
   height: 5rem;
 }
-.loan-repayment__history--table td a {
+.user-dashboard__history--table td a {
   text-decoration: none;
   padding: 1rem 2.5rem;
   color: #fff;
   background-color: var(--color-grey-dark-2);
 }
-.loan-repayment__history--table tr:nth-child(even) {
+.user-dashboard__history--table tr:nth-child(even) {
   background-color: #fff;
 }
 
-.loan-repayment__history--table tr:hover {
+.user-dashboard__history--table tr:hover {
   background-color: var(--color-grey-light-3);
 }
 
-.loan-repayment__history--table th {
+.user-dashboard__history--table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -360,10 +370,10 @@ body {
 
 /* MEDIA QUERY TO MAKE TABLE RESPONSIVE */
 @media screen and (max-width: 600px) {
-  .loan-repayment__history--table > * > * > * {
+  .user-dashboard__history--table > * > * > * {
     display: block;
   }
-  .loan-repayment__history--table thead {
+  .user-dashboard__history--table thead {
     display: none;
   }
 
@@ -372,9 +382,9 @@ body {
     position: relative;
     padding-left: 20rem;
     margin-left: 22rem;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
   }
-  td:before {
+  td::before {
     position: absolute;
     top: 1.2rem;
     left: 0.6rem;
@@ -384,9 +394,9 @@ body {
     margin-left: -22rem;
   }
   td::before {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: bolder;
   }
   td:nth-of-type(1):before {
     content: "Loan ID";

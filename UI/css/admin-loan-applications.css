@@ -26,6 +26,16 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 50%;
+  }
+}
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -297,7 +307,7 @@ body {
 /* ++++++++STYLING FOR ADMIN USERS-LOAN APPLICATION VIEW SECTION +++++++ */
 .content .admin-users-loans--view {
   flex: 1;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   padding: 7rem 0;
   overflow-x: auto;
 }
@@ -469,14 +479,14 @@ body {
 }
 .btn:hover {
   transform: translateY(-0.3rem);
-  box-shadow: 0 1rem 2rem rgba(#222, 0.2);
+  box-shadow: 0 1rem 2rem rgba(34, 34, 34, 0.2);
 }
 
 .btn:focus,
 .btn:active {
   outline: none;
   transform: translateY(-1rem);
-  box-shadow: 0 0.5rem 1rem rgba(#222, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(34, 34, 34, 0.2);
 }
 .btn--block {
   display: block;
@@ -505,7 +515,7 @@ body {
     margin-left: 22rem;
     font-size: 1.3rem;
   }
-  td:before {
+  td::before {
     position: absolute;
     top: 1.2rem;
     left: 0.6rem;

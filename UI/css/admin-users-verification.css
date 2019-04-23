@@ -26,6 +26,16 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 50%;
+  }
+}
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -51,7 +61,6 @@ body {
   transition: all 0.2s;
   letter-spacing: 2px;
   transition: all 0.2s;
-  color: var(--color-primary);
   margin-bottom: 2rem;
 }
 @media only screen and (max-width: 900px) {
@@ -365,9 +374,9 @@ body {
     position: relative;
     padding-left: 20rem;
     margin-left: 22rem;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
-  td:before {
+  td::before {
     position: absolute;
     top: 1.2rem;
     left: 0.6rem;
