@@ -12,13 +12,23 @@
 }
 
 /* THIS STYLING ON THIS PAGE IS SPECIFIC TO THE LOAN REPAYMENT PAGE */
-
-/* ++++ STYLING FOR LOAN REPAYMENT HISTORY SECTION */
+/* ++++++++STYLING FORLOAN REPAYMENT VIEW SECTION +++++++ */
+.content .loan-repayment-view {
+  flex: 1;
+  font-size: 1.4rem;
+  padding: 7rem 0;
+  overflow-x: auto;
+}
+@media only screen and (max-width: 600px) {
+  .content .loan-repayment-view {
+    padding: 3rem 0;
+  }
+}
 .loan-repayment__history--details {
   display: flex;
   align-content: space-between;
   justify-content: space-around;
-  font-size: 2rem;
+  font-size: 1.6rem;
   text-transform: uppercase;
   font-weight: bold;
   flex-wrap: wrap;
@@ -31,8 +41,47 @@
   }
   .loan-repayment__history--details > * {
     margin-bottom: 2rem;
+    font-size: 1.4rem;
   }
 }
+
+.loan-repayment-view .loan-repayment__history--table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.loan-repayment__history--table td,
+.loan-repayment__history--table th {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  height: 2rem;
+}
+
+.loan-repayment__history--table td {
+  height: 5rem;
+}
+.loan-repayment__history--table td a {
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  color: #fff;
+  background-color: var(--color-grey-dark-2);
+}
+.loan-repayment__history--table tr:nth-child(even) {
+  background-color: #fff;
+}
+
+.loan-repayment__history--table tr:hover {
+  background-color: var(--color-grey-light-3);
+}
+
+.loan-repayment__history--table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--color-primary);
+  color: white;
+}
+
 .loan-repayment__history--details > * > span,
 .loan-repayment__pay {
   border: 1px solid var(--color-grey-dark-1);
@@ -49,6 +98,51 @@
   text-decoration: none;
   color: #fff;
 }
+
+/* MEDIA QUERY TO MAKE TABLE RESPONSIVE */
+@media screen and (max-width: 600px) {
+  .loan-repayment__history--table > * > * > * {
+    display: block;
+  }
+  .loan-repayment__history--table thead {
+    display: none;
+  }
+
+  td {
+    border: none;
+    position: relative;
+    padding-left: 20rem;
+    margin-left: 22rem;
+    font-size: 1.2rem;
+  }
+  td:before {
+    position: absolute;
+    top: 1.3rem;
+    left: 0.6rem;
+    width: 20rem;
+    padding-right: 4rem;
+    white-space: nowrap;
+    margin-left: -22rem;
+  }
+  td::before {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
+  td:nth-of-type(1):before {
+    content: "Month";
+  }
+  td:nth-of-type(2):before {
+    content: "Monthly Installments ₦";
+  }
+  td:nth-of-type(3):before {
+    content: "Due Date";
+  }
+  td:nth-of-type(4):before {
+    content: "Payment Status";
+  }
+}
+
 /* ++++ STYLING FOR POPUP SECTION */
 .popup {
   height: 100vh;
