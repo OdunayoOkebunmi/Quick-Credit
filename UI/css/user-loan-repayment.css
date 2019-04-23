@@ -147,14 +147,14 @@
 }
 .btn:hover {
   transform: translateY(-0.3rem);
-  box-shadow: 0 1rem 2rem rgba(#222, 0.2);
+  box-shadow: 0 1rem 2rem rgba(34, 34, 34, 0.2);
 }
 
 .btn:focus,
 .btn:active {
   outline: none;
   transform: translateY(-1rem);
-  box-shadow: 0 0.5rem 1rem rgba(#222, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(34, 34, 34, 0.2);
 }
 .btn--block {
   display: block;
