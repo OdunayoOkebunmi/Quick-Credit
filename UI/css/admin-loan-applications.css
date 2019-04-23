@@ -307,7 +307,7 @@ body {
 /* ++++++++STYLING FOR ADMIN USERS-LOAN APPLICATION VIEW SECTION +++++++ */
 .content .admin-users-loans--view {
   flex: 1;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   padding: 7rem 0;
   overflow-x: auto;
 }
@@ -515,7 +515,7 @@ body {
     margin-left: 22rem;
     font-size: 1.3rem;
   }
-  td:before {
+  td::before {
     position: absolute;
     top: 1.2rem;
     left: 0.6rem;

@@ -375,9 +375,9 @@ body {
     position: relative;
     padding-left: 20rem;
     margin-left: 22rem;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
-  td:before {
+  td::before {
     position: absolute;
     top: 1.2rem;
     left: 0.6rem;
