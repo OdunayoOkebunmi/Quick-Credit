@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Odunayo Okebunmi" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Archivo:500|Open+Sans:300,400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+
+    <link rel="shortcut icon" type="image/png" href="img/logo@0,25x.png" />
+    <link rel="stylesheet" href="css/admin-users-verification.css" />
+    <title>Admin | Users Verification</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <img src="img/logo@0,25x.png" alt="Quick Credit logo" class="logo" />
+        <form action="" class="search">
+          <input type="text" class="search__input" placeholder="Search" />
+          <button class="search__button">
+            <i class="search__icon fas fa-search"></i>
+          </button>
+        </form>
+        <nav class="user-nav">
+          <div class="user-nav__icon-box">
+            <i class="user-nav__icon fas fa-bell"></i>
+
+            <span class="user-nav__notification">10</span>
+          </div>
+          <div class="user-nav__user">
+            <img
+              src="img/user.jpg"
+              alt="User photo"
+              class="user-nav__user-photo"
+            />
+            <span class="user-nav__user-name">Admin</span>
+          </div>
+        </nav>
+      </header>
+      <div class="content">
+        <nav class="sidebar">
+          <ul class="side-nav">
+            <li class="side-nav__item ">
+              <a href="admin-dashboard.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="side-nav__item side-nav__item--active">
+              <a href="admin-users-verification.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user-check"></i>
+
+                <span>Verify Users</span>
+              </a>
+            </li>
+            <li class="side-nav__item  ">
+              <a href="admin-loan-applications.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-edit"></i>
+                <span>Loan Applications</span>
+              </a>
+            </li>
+            <li class="side-nav__item">
+              <a href="admin-current-loans.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user"></i>
+                <span>Current Loans</span>
+              </a>
+            </li>
+            <li class="side-nav__item ">
+              <a href="admin-repaid-loans.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user"></i>
+                <span>Repaid Loans</span>
+              </a>
+            </li>
+            <li class="side-nav__item">
+              <a href="admin-repayment-transaction.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-user"></i>
+                <span>Post Repayment Transactions</span>
+              </a>
+            </li>
+            <li class="side-nav__item">
+              <a href="index.html" class="side-nav__link">
+                <i class="side-nav__icon fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <main class="admin-users-verify--view">
+          <div class="admin-users-verify__details">
+            <h3 class="heading-secondary">
+              verify users
+            </h3>
+            <table class="admin-users-verify__details--table">
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Work/Home Address</th>
+                  <th>Date Registered</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Odunayo</td>
+                  <td>Okebunmi</td>
+                  <td>odun@mail.com</td>
+                  <td>King's Landing</td>
+                  <td>2019/01/01</td>
+                  <td>
+                    <label class="switch">
+                      <input type="checkbox" class="checkbox" />
+                      <div class="slider round">
+                        <span class="verify">Verified</span>
+                        <span class="unverify">Unverified</span>
+                      </div>
+                    </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Harry</td>
+                  <td>Potter</td>
+                  <td>harry@hedwig.com</td>
+                  <td>House Gryffindor, Hogwarts</td>
+                  <td>2019/01/01</td>
+                  <td>
+                    <label class="switch">
+                      <input type="checkbox" class="checkbox" />
+                      <div class="slider round">
+                        <span class="verify">Verified</span>
+                        <span class="unverify">Unverified</span>
+                      </div>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

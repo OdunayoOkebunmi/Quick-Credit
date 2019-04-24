@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Odunayo Okebunmi" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Archivo:500|Open+Sans:300,400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+
+    <link rel="shortcut icon" type="image/png" href="img/logo@0,25x.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/user-loan-application.css" />
+    <title>User | Loan Application</title>
+  </head>
+  <body>
+    <section class="section-loan-apply">
+      <div class="loan-calculator-container">
+        <div class="card">
+          <h2 class="heading-secondary loan-calc-heading">
+            Loan Calculator
+          </h2>
+          <form id="loan-form">
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="amount"
+                  placeholder="Loan Amount in Naira"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="interest"
+                  placeholder="Interest (5%)"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="tenor"
+                placeholder="Tenor  (maximum of 12 months)"
+              />
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Calculate" class="btn btn--block" />
+            </div>
+          </form>
+          <div id="loading">
+            <img src="img/loading.gif" alt="" />
+          </div>
+          <div id="results">
+            <h5 class="heading-tertiary">Results</h5>
+            <div class="form-group">
+              <div class="input-group">
+                <label for="monthly-payment">Monthly Payment ₦</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="monthly-payment"
+                  disabled
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <label for="total-interest">Total Interest ₦</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="total-interest"
+                  disabled
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <label for="total-payment">Total Payment ₦</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="total-payment"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+        <h2 class="heading-secondary">
+          LOAN APPLICATION
+        </h2>
+        <form action="" id="loan-apply-form">
+          <label for="user-fname">First Name</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                required
+                type="text"
+                id="user-fname"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <label for="user-lname">Last Name</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                required
+                type="text"
+                id="user-lname"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <label for="user-address">Contact Address</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                required
+                type="text"
+                id="user-address"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="flex-group">
+            <div>
+              <label for="user-pnumber">Phone Number</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="text"
+                    id="user-pnumber"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="user-acc-num">Account Number</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="user-acc-num"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <label for="user-bank-name">Bank Name</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                required
+                type="text"
+                id="user-bank-name"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="flex-group">
+            <div>
+              <label for="user-loan-amount">Loan Amount ₦</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="user-loan-amount"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="user-interest-amount">Interest ₦</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    id="user-interest-amount"
+                    class="form-control"
+                    placeholder="5%"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="user-repayment-time">Tenor</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input id="user-repayment-time" class="form-control" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="apply" class="btn btn--block" />
+          </div>
+        </form>
+      </div>
+    </section>
+    <script src="js/loan-calculator.js"></script>
+  </body>
+</html>

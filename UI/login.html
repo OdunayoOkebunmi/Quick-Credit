@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Odunayo Okebunmi" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Archivo:500|Open+Sans:300,400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+
+    <link rel="shortcut icon" type="image/png" href="img/logo@0,25x.png" />
+    <link rel="stylesheet" href="css/user-signup-login.css" />
+    <title>Log In</title>
+  </head>
+  <body>
+    <section class="section-sign-up">
+      <div class="form-container">
+        <h2 class="heading-secondary">
+          ACCOUNT LOGIN
+        </h2>
+        <form action="" id="sign-up-form">
+          <label for="user-email">Email</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                required
+                type="email"
+                id="user-email"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <label for="user-role">Select your role</label>
+          <div class="form-group">
+            <div class="input-group">
+              <select
+                id="user-role-login"
+                class="form-control form-control-select"
+              >
+                <option value="">--Select your required role--</option>
+                <option value="User">User</option>
+                <option value="Admin">Administrator</option>
+              </select>
+            </div>
+          </div>
+          <label for="user-password">Password</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                required
+                type="password"
+                id="user-password"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              type="submit"
+              value="LOGIN"
+              class="btn btn--block"
+              id="submit-btn"
+            />
+          </div>
+        </form>
+      </div>
+    </section>
+    <script src="js/user-redirect.js"></script>
+  </body>
+</html>

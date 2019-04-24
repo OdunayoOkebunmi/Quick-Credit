@@ -2,7 +2,6 @@
 :root {
   --color-primary: #b23242;
   --color-primary-light: #ff6175;
-  --color-grey-dark: #777;
 }
 /* BASE STYLING */
 *,
@@ -31,9 +30,9 @@ html {
 body {
   padding: 3rem;
   box-sizing: border-box;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  color: var(--color-grey-dark);
+  color: #777;
   line-height: 1.7;
 }
 @media only screen and (max-width: 900px) {
@@ -46,15 +45,6 @@ body {
 .u-center-text {
   text-align: center;
 }
-
-.u-margin-bottom-small {
-  margin-bottom: 1.5rem;
-}
-
-.u-margin-top-big {
-  margin-top: 8rem;
-}
-
 .u-margin-top-huge {
   margin-top: 10rem;
 }
@@ -101,7 +91,6 @@ body {
   100% {
     opacity: 1;
     transform: translateY(0);
-    /* //look the way it looks */
   }
 }
 
@@ -178,14 +167,14 @@ body {
 
 .btn:hover {
   transform: translateY(-0.3rem);
-  box-shadow: 0 1rem 2rem rgba(#222, 0.2);
+  box-shadow: 0 1rem 2rem rgba(34, 34, 34, 0.2);
 }
 
 .btn:focus,
 .btn:active {
   outline: none;
   transform: translateY(-1rem);
-  box-shadow: 0 0.5rem 1rem rgba(#222, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(34, 34, 34, 0.2);
 }
 
 .btn--white {
@@ -287,7 +276,7 @@ body {
 /* +++++++++++ STYLING FOR HEADER +++++++++++++++ */
 .header {
   height: 95vh;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)),
     url(../img/home-bgd-3.jpg) no-repeat center top;
   background-size: cover;
   position: relative;
@@ -356,6 +345,7 @@ body {
   display: flex;
   align-content: center;
   justify-content: center;
+  height: 100%;
 }
 @media only screen and (max-width: 900px) {
   .loan-calculator-container {
@@ -374,7 +364,6 @@ body {
 .loan-calculator-container .card {
   display: flex;
   flex-direction: column;
-  min-width: 0;
   background-color: #fff;
   border-radius: 0.25rem;
   flex: 0 0 40%;
@@ -421,7 +410,7 @@ body {
 
 /* +++++++++++ STYLING FOR SECTION-FEATURES +++++++++++++++ */
 .section-features {
-  background-color: #f7f7f7;
+  background-color: #fff;
   margin: 20rem 0;
   padding: 20rem 0;
   background-image: linear-gradient(
@@ -437,7 +426,6 @@ body {
   .section-features {
     padding: 10rem 0;
     margin: 5rem 0;
-
     -webkit-clip-path: polygon(0 5%, 100% 0%, 100% 100%, 0% 100%);
     clip-path: polygon(0 5%, 100% 0%, 100% 100%, 0% 100%);
   }
