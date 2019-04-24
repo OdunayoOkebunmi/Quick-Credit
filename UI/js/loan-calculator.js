@@ -1,3 +1,4 @@
+// LOAN CALCULATOR
 //listen for submit
 
 document.getElementById('loan-form').addEventListener('submit', function (e) {
@@ -81,3 +82,5 @@ function showError(error) {
   }, 2000);
 
 }
+
+
