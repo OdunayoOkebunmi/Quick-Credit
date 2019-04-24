@@ -127,6 +127,66 @@ body {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
+  background-color: var(--color-grey-light-4);
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 100px;
+  width: 90%;
+  transition: all 0.2s;
+  margin-right: -3.25rem;
+}
+.header .search .search__input:focus {
+  outline: none;
+  width: 100%;
+  background-color: var(--color-grey-light-4);
+}
+
+.header .search .search__input::-webkit-input-placeholder {
+  font-weight: 100;
+  color: var(--color-grey-dark-4);
+}
+.header .search .search__button {
+  border: none;
+  background-color: var(--color-grey-light-4);
+}
+/* ++++++++STYLING FOR HEADER SECTION */
+.container .header {
+  font-size: 1.4rem;
+  height: 10rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .container .header {
+    flex-wrap: wrap;
+    align-content: space-around;
+    height: 15rem;
+  }
+}
+
+.container .header .logo {
+  height: 6rem;
+  margin-left: 2rem;
+}
+.header .search {
+  flex: 0 0 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media only screen and (max-width: 600px) {
+  .header .search {
+    order: 1;
+    flex: 0 0 90%;
+  }
+}
+.header .search .search__input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
   background-color: var(--color-grey-light-3);
   border: none;
   padding: 0.7rem 2rem;
@@ -143,7 +203,7 @@ body {
 
 .header .search .search__input::-webkit-input-placeholder {
   font-weight: 100;
-  color: var(--color-grey-dark-2);
+  color: var(--color-grey-dark-4);
 }
 
 .header .search .search__button {
