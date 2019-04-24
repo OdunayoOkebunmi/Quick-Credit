@@ -360,6 +360,94 @@ body {
   color: #fff;
 }
 
+.admin-users-verify__details--table td .switch {
+  position: relative;
+  display: inline-block;
+  width: 15rem;
+  height: 3.4rem;
+}
+
+.admin-users-verify__details--table td .switch input {
+  display: none;
+}
+
+.admin-users-verify__details--table td .switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ca2222;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.admin-users-verify__details--table td .switch .slider.round {
+  border-radius: 3.4rem;
+}
+.admin-users-verify__details--table td .switch .slider.round::before {
+  border-radius: 50%;
+}
+
+.admin-users-verify__details--table td .switch .slider::before {
+  position: absolute;
+  content: "";
+  height: 2.6rem;
+  width: 2.6rem;
+  left: 6px;
+  bottom: 4px;
+  background-color: #fff;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.admin-users-verify__details--table td .switch input:checked + .slider {
+  background-color: rgb(42, 185, 52);
+}
+
+.admin-users-verify__details--table td input:focus + .slider {
+  box-shadow: 0 0 1px rgb(33, 150, 243);
+}
+
+.admin-users-verify__details--table td input:checked + .slider::before {
+  -webkit-transform: translateX(110px);
+  -moz-transform: translateX(110px);
+  -ms-transform: translateX(110px);
+  -o-transform: translateX(110px);
+  transform: translateX(110px);
+}
+
+.admin-users-verify__details--table td .switch .slider .verify {
+  display: none;
+}
+
+.admin-users-verify__details--table td .switch .slider .verify,
+.admin-users-verify__details--table td .switch .slider .unverify {
+  color: #fff;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 1.6rem;
+}
+
+.admin-users-verify__details--table td .switch input:checked + .slider .verify {
+  display: block;
+}
+
+.admin-users-verify__details--table
+  td
+  .switch
+  input:checked
+  + .slider
+  .unverify {
+  display: none;
+}
 /* MEDIA QUERY TO MAKE TABLE RESPONSIVE */
 @media screen and (max-width: 600px) {
   .admin-users-verify__details--table > * > * > * {
@@ -405,41 +493,4 @@ body {
   td:nth-of-type(5):before {
     content: "Date Registered";
   }
-}
-
-/* +++++++++++++STYLING FOR SECTION FOOTER +++++++ */
-.footer {
-  background-color: #333;
-  padding: 4rem;
-}
-
-.footer .nav {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.footer .nav__link:link,
-.footer .nav__link:visited {
-  font-size: 1.4rem;
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 1.5rem;
-  display: block;
-  transition: all 0.2s;
-}
-
-.footer .nav__link:hover,
-.footer .nav__link:active {
-  background-color: rgba(255, 255, 255, 0.05);
-  transform: translateY(-3px);
-}
-.footer .copyright {
-  font-size: 1.4rem;
-  color: #aaa;
-  margin-top: 6rem;
-  text-align: center;
 }
