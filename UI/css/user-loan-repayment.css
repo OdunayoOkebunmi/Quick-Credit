@@ -161,16 +161,24 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 50%;
   transform: translate(-50%, -50%);
-
+  padding: 1rem 4rem;
   background-color: #fff;
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  display: table;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100vh;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.25);
   transition: all 0.5s 0.2s;
+}
+@media only screen and (max-width: 700px) {
+  .popup__content {
+    width: 70%;
+  }
 }
 .popup:target {
   opacity: 1;
@@ -200,13 +208,25 @@
   font-size: 1.8rem;
   font-weight: 500;
   margin: 2rem 5rem;
+  text-align: center;
+}
+@media only screen and (max-width: 700px) {
+  .popup__content label {
+    font-size: 1.6rem;
+    margin: 2rem;
+  }
 }
 .popup__content .form-group {
   margin: 2rem 5rem;
 }
-
+@media only screen and (max-width: 700px) {
+  .popup__content .form-group {
+    margin: 2rem;
+  }
+}
 .popup__content .form-group-flex {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .popup__content .form-group .input-group {
