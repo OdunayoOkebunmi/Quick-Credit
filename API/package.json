@@ -1,0 +1,35 @@
+{
+  "name": "quick-credit-api",
+  "version": "1.0.0",
+  "description": "Quick Credit is an online lending platform that provides short term soft loans to individuals",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OdunayoOkebunmi/Quick-Credit.git"
+  },
+  "keywords": [
+    "Quick-Credit"
+  ],
+  "author": "Odunayo Okebunmi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OdunayoOkebunmi/Quick-Credit/issues"
+  },
+  "homepage": "https://github.com/OdunayoOkebunmi/Quick-Credit#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "babel-watch": "^7.0.0"
+  }
+}
