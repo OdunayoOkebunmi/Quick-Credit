@@ -1,16 +1,14 @@
-// import moment from 'moment';
-import uuid from 'uuid';
 import Validate from '../middlewares/validation';
 import Auth from '../middlewares/auth';
 import Helper from '../middlewares/helper';
-import models from '../models/dummyData';
+import userModel from '../models/userData';
 
 class UserController {
   /**
   *
-  * @param {req} object
-  * @param {res} object
-  * @returns {json} json
+  * @param {object} req
+  * @param {object} res
+  * @returns {object} user object
    * @memberof UserController
   */
   static createUser(req, res) {
@@ -23,7 +21,7 @@ class UserController {
     }
     try {
       // check if user already exists
-      const emailExits = models.Users.find(user => user.email === req.body.email);
+      const emailExits = userModel.find(user => user.email === req.body.email);
 
       if (emailExits) {
         return res.status(409).json({
@@ -33,27 +31,22 @@ class UserController {
       }
 
       const hashPassword = Helper.hashPassword(req.body.password);
-
+      const token = Auth.generateToken(userModel[0].id);
       const data = {
-        id: uuid.v4(),
+        token,
+        id: userModel.length + 1,
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         password: hashPassword,
         status: 'unverified',
-        isAdmin: req.body.isAdmin,
+        isAdmin: false,
       };
-      models.Users.push(data);
-      const token = Auth.generateToken(models.Users[0].id);
+      userModel.push(data);
 
       return res.status(201).json({
         status: 201,
-        data: [
-          {
-            token,
-            data,
-          },
-        ],
+        data,
       });
     } catch (e) {
       return res.status(400).json({

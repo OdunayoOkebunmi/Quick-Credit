@@ -7,13 +7,25 @@ class Validate {
 
   static validateUser(user) {
     const schema = Joi.object().keys({
-      email: Joi.string().email().trim().lowercase()
+      email: Joi.string()
+        .email()
+        .trim()
         .required(),
-      firstName: Joi.strict().regex(/^[A-Z]|[a-z]+$/).required(),
-      lastName: Joi.strict().regex(/^[A-Z]|[a-z]+$/).required(),
-      password: Joi.string().min(7).required().strict(),
-      address: Joi.string().trim().required(),
-      status: Joi.string().default('unverified'),
+      firstName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .required(),
+      lastName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .required(),
+      password: Joi.string()
+        .regex(/^[a-zA-Z0-9]{3,30}$/)
+        .min(7)
+        .alphanum()
+        .required(),
+      address: Joi.string().required(),
+      status: Joi.string()
+        .insensitive()
+        .default('unverified'),
       isAdmin: Joi.boolean().default(false),
 
     });

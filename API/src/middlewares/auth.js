@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import models from '../models/dummyData';
+import userModel from '../models/userData';
 
 dotenv.config();
 
@@ -44,7 +44,7 @@ class Auth {
       const decodedToken = jwt.verify(token, process.env.SECRET);
 
       // find user by email
-      const user = models.Users.find(user_ => user_.email === req.body.email);
+      const user = userModel.find(user_ => user_.email === req.body.email);
 
       // ceheck if user exist
       if (!user) {
