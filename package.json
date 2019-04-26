@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel API/server.js --out-dir build"
+    "build": "babel API/server.js --out-dir build",
+    "dev-start": "babel-watch API/server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,9 @@
   },
   "homepage": "https://github.com/OdunayoOkebunmi/Quick-Credit#readme",
   "dependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
     "express": "^4.16.4",
     "moment": "^2.24.0",
     "uuid": "^3.3.2"
