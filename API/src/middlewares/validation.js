@@ -31,6 +31,18 @@ class Validate {
     });
     return Joi.validate(user, schema);
   }
+
+  /**
+ * @param data string
+ */
+  static validateLogin(data) {
+    const schema = Joi.object().keys({
+      email: Joi.string().email().trim().lowercase()
+        .required(),
+      password: Joi.string().min(7).required().strict(),
+    });
+    return Joi.validate(data, schema);
+  }
 }
 
 export default Validate;
