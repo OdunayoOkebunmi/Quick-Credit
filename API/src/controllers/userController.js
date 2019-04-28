@@ -20,9 +20,9 @@ class UserController {
     }
     try {
       // check if user already exists
-      const emailExits = userModel.find(user => user.email === req.body.email);
+      const emailExist = userModel.find(user => user.email === req.body.email);
 
-      if (emailExits) {
+      if (emailExist) {
         return res.status(409).json({
           status: 409,
           error: 'User already exist',
@@ -91,9 +91,9 @@ class UserController {
       status: 200,
       token,
       id: userExists.id,
-      email: userExists.email,
       firstName: userExists.firstName,
       lastName: userExists.lastName,
+      email: userExists.email,
     });
   }
 }
