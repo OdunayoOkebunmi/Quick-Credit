@@ -9,7 +9,6 @@ class Validate {
     const schema = Joi.object().keys({
       email: Joi.string()
         .email()
-        .trim()
         .required(),
       firstName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)

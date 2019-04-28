@@ -10,14 +10,8 @@ class Authenticator {
   * @param {number} id
   * @param {string} token
   */
-  static generateToken(id) {
-    const token = jwt.sign(
-      {
-        id,
-      },
-      process.env.SECRET, { expiresIn: '7d' },
-    );
-    return token;
+  static generateToken(payload) {
+    return jwt.sign({ payload }, process.env.SECRET, { expiresIn: '7d' });
   }
 
   /**
@@ -26,7 +20,7 @@ class Authenticator {
    * @returns {object} payload - the decoded access token
    */
   static verifyToken(token) {
-    return jwt.verify(token, process.env.SECRETKEY);
+    return jwt.verify(token, process.env.SECRET);
   }
 
   /**
