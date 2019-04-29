@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 const { createUser, loginUser, adminVerifyUser } = UserController;
-const { loanApply, getAllLoans } = LoanController;
+const { loanApply, getAllLoans, getSpecificLoan } = LoanController;
 // router to create user accont
 router.post('/api/v1/auth/signup', createUser);
 
@@ -23,4 +23,7 @@ router.post('/api/v1/loans', verifyUser, loanApply);
 
 // router for admin to get all loan application
 router.get('/api/v1/loans', verifyAdmin, getAllLoans);
+
+// router for admin to get all a specifc application
+router.get('/api/v1/loans/:id', verifyAdmin, getSpecificLoan);
 export default router;
