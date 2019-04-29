@@ -83,7 +83,9 @@ class UserController {
         error: 'User does not exist',
       });
     }
-    const { id, firstName, lastName } = userExists;
+    const {
+      id, firstName, lastName, status, isAdmin,
+    } = userExists;
 
     const hashedPassword = userExists.password;
 
@@ -94,7 +96,12 @@ class UserController {
         error: 'Invalid password/email',
       });
     }
-    const token = Authenticator.generateToken(userModel[0].id);
+    const token = Authenticator.generateToken({
+      id,
+      email,
+      status,
+      isAdmin,
+    });
     return res.status(200).json({
       status: 200,
       data: {

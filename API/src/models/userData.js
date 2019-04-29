@@ -11,6 +11,16 @@ const Users = [
     status: 'unverified',
     isAdmin: false,
   },
+  {
+    id: 2,
+    email: 'hedwig@mail.com',
+    firstName: 'Harry',
+    lastName: 'Potter',
+    password: Authenticator.hashPassword('passsword'),
+    address: 'hogwarts school of wizadry',
+    status: 'verified',
+    isAdmin: true,
+  },
 ];
 
 export default Users;
