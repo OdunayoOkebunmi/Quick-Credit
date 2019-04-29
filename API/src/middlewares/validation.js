@@ -42,6 +42,31 @@ class Validate {
     });
     return Joi.validate(data, schema);
   }
+
+  /**
+   *
+   * @param {user} object
+   */
+  static validateLoan(loan) {
+    const schema = Joi.object().keys({
+      email: Joi.string()
+        .email()
+        .required(),
+      firstName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .required(),
+      lastName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .required(),
+      tenor: Joi.number()
+        .integer()
+        .min(1)
+        .max(12)
+        .required(),
+      amount: Joi.number().required(),
+    });
+    return Joi.validate(loan, schema);
+  }
 }
 
 export default Validate;
