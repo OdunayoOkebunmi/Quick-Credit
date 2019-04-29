@@ -65,6 +65,30 @@ class LoanController {
       data,
     });
   }
+
+  /**
+   * @method getAllLoans
+   * @description gets all loan applications
+   * @param {object} req
+   * @param {object} res
+   * @returns {object}
+   */
+
+  static getAllLoans(req, res) {
+    const { status, repaid } = req.query;
+    if (status && repaid) {
+      const currentLoan = loanModel
+        .filter(loan => loan.status === status && loan.repaid === repaid);
+      return res.status(200).send({
+        status: 200,
+        data: currentLoan,
+      });
+    }
+    return res.status(200).send({
+      status: 200,
+      data: loanModel,
+    });
+  }
 }
 
 export default LoanController;
