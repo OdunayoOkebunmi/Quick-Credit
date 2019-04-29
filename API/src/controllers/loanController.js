@@ -89,6 +89,29 @@ class LoanController {
       data: loanModel,
     });
   }
+
+  /**
+  * @method getAllLoans
+  * @description gets a specific loan applications
+  * @param {object} req
+  * @param {object} res
+  * @returns {object}
+  */
+
+  static getSpecificLoan(req, res) {
+    const { id } = req.params;
+    const specificLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
+    if (!specificLoan) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Requested loan not found',
+      });
+    }
+    return res.status(200).json({
+      status: 200,
+      data: specificLoan,
+    });
+  }
 }
 
 export default LoanController;
