@@ -78,9 +78,9 @@ class UserController {
     // checks if user exists
     const userExists = userModel.find(user => user.email === email);
     if (!userExists) {
-      return res.status(404).json({
-        status: 404,
-        error: 'User does not exist',
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid email',
       });
     }
     const {
@@ -91,8 +91,8 @@ class UserController {
 
     // checks if password matches
     if (!Authenticator.comparePassword(hashedPassword, password)) {
-      return res.status(401).json({
-        status: 401,
+      return res.status(400).json({
+        status: 400,
         error: 'Invalid password/email',
       });
     }

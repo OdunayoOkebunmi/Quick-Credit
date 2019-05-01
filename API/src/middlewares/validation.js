@@ -12,9 +12,11 @@ class Validate {
         .required(),
       firstName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
         .required(),
       lastName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
         .required(),
       password: Joi.string()
         .regex(/^[a-zA-Z0-9]{3,30}$/)
