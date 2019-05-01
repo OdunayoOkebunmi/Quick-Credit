@@ -91,7 +91,7 @@ class LoanController {
   }
 
   /**
-  * @method getAllLoans
+  * @method getSpecificLoan
   * @description gets a specific loan applications
   * @param {object} req
   * @param {object} res
@@ -110,6 +110,37 @@ class LoanController {
     return res.status(200).json({
       status: 200,
       data: specificLoan,
+    });
+  }
+
+  /**
+  * @description approve o reject loans
+  * @param {object} req
+  * @param {object} res
+  * @returns {object}
+  */
+  static loanApproval(req, res) {
+    const { id } = req.params;
+    const { status } = req.body;
+    const userLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
+    if (userLoan) {
+      userLoan.status = status;
+      const updatedData = {
+        loanId: userLoan.id,
+        loanAmount: userLoan.amount,
+        tenor: userLoan.tenor,
+        monthlyInstallments: userLoan.paymentInstallment,
+        status: userLoan.status,
+        interest: userLoan.interest,
+      };
+      return res.status(200).send({
+        status: 200,
+        data: updatedData,
+      });
+    }
+    return res.status(404).send({
+      status: 404,
+      error: 'Loan with that id not found',
     });
   }
 }

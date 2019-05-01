@@ -8,9 +8,8 @@ class Authorization {
     try {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
-      req.user = decoded.payload;
-
-      if (!req.user.isAdmin) {
+      console.log(decoded.payload);
+      if (decoded.payload.isAdmin === false) {
         return res.status(403).send({
           status: 403,
           error: 'Only Admin can access this route',

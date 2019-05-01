@@ -25,10 +25,10 @@ class UserController {
     const id = userModel.length + 1;
     const status = 'unverified';
     const isAdmin = false;
+
     const token = Authenticator.generateToken({
       id,
       email,
-      status,
       isAdmin,
     });
     const data = {
@@ -84,7 +84,7 @@ class UserController {
       });
     }
     const {
-      id, firstName, lastName, status, isAdmin,
+      id, firstName, lastName, isAdmin,
     } = userExists;
 
     const hashedPassword = userExists.password;
@@ -99,7 +99,6 @@ class UserController {
     const token = Authenticator.generateToken({
       id,
       email,
-      status,
       isAdmin,
     });
     return res.status(200).json({
@@ -109,6 +108,7 @@ class UserController {
         id,
         firstName,
         lastName,
+        isAdmin,
         email: userExists.email,
       },
     });
