@@ -122,25 +122,33 @@ class UserController {
   static adminVerifyUser(req, res) {
     const { email } = req.params;
     const userData = userModel.find(user => user.email === email);
-    if (userData) {
-      userData.status = 'verified';
-      const updatedData = {
-        email: userData.email,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        password: userData.password,
-        address: userData.address,
-        status: userData.status,
-        isAdmin: userData.isAdmin,
-      };
-      return res.status(200).json({
-        status: 200,
-        data: updatedData,
+    // if user is not found
+    if (!userData) {
+      return res.status(404).send({
+        status: 404,
+        error: 'User with this email not found!',
       });
     }
-    return res.status(404).send({
-      status: 404,
-      error: 'User with this email not found!',
+
+    if (userData.status === 'verified') {
+      return res.status(409).json({
+        status: 409,
+        message: 'User has already been verified',
+      });
+    }
+    userData.status = 'verified';
+    const updatedData = {
+      email: userData.email,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      password: userData.password,
+      address: userData.address,
+      status: userData.status,
+      isAdmin: userData.isAdmin,
+    };
+    return res.status(200).json({
+      status: 200,
+      data: updatedData,
     });
   }
 }
