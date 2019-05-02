@@ -69,6 +69,18 @@ class Validate {
     });
     return Joi.validate(loan, schema);
   }
+
+  /**
+   *
+   * @param {user} object
+   */
+  static validateRepayment(repayment) {
+    const schema = Joi.object().keys({
+      amount: Joi.number().required(),
+      paidAmount: Joi.number().required(),
+    });
+    return Joi.validate(repayment, schema);
+  }
 }
 
 export default Validate;

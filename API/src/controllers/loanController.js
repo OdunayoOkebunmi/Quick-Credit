@@ -75,10 +75,11 @@ class LoanController {
    */
 
   static getAllLoans(req, res) {
+    // for the request parameters
     const { status, repaid } = req.query;
     if (status && repaid) {
       const currentLoan = loanModel
-        .filter(loan => loan.status === status && loan.repaid === repaid);
+        .filter(loan => loan.status === status && loan.repaid === JSON.parse(repaid));
       return res.status(200).send({
         status: 200,
         data: currentLoan,
@@ -114,7 +115,7 @@ class LoanController {
   }
 
   /**
-  * @description approve o reject loans
+  * @description approve or reject loans
   * @param {object} req
   * @param {object} res
   * @returns {object}
