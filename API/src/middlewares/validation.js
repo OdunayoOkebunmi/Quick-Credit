@@ -56,9 +56,11 @@ class Validate {
         .required(),
       firstName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
         .required(),
       lastName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
         .required(),
       tenor: Joi.number()
         .integer()
