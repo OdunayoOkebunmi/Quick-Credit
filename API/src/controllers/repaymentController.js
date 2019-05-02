@@ -24,7 +24,6 @@ class RepaymentController {
     if (userLoan) {
       const updatedData = {
         id,
-        user: userLoan.user,
         loanId: userLoan.id,
         createdOn: userLoan.createdOn,
         amount: userLoan.amount,
