@@ -40,6 +40,7 @@ class LoanController {
       balance,
       interest,
     };
+    // updated user data
     const updatedData = {
       id: data.loanId,
       user: data.email,
@@ -52,7 +53,7 @@ class LoanController {
       balance,
       interest,
     };
-    const loanExist = loanModel.find(loan => loan.email === email);
+    const loanExist = loanModel.find(loan => loan.user === email);
     if (loanExist) {
       return res.status(409).json({
         status: 409,
@@ -75,10 +76,11 @@ class LoanController {
    */
 
   static getAllLoans(req, res) {
+    // for the request parameters
     const { status, repaid } = req.query;
     if (status && repaid) {
       const currentLoan = loanModel
-        .filter(loan => loan.status === status && loan.repaid === repaid);
+        .filter(loan => loan.status === status && loan.repaid === JSON.parse(repaid));
       return res.status(200).send({
         status: 200,
         data: currentLoan,
@@ -114,33 +116,46 @@ class LoanController {
   }
 
   /**
-  * @description approve o reject loans
+  * @description approve or reject loans
   * @param {object} req
   * @param {object} res
   * @returns {object}
   */
   static loanApproval(req, res) {
+    const { error } = Validate.validateLoanApproval(req.body);
+    if (error) {
+      return res.status(422).json({
+        status: 422,
+        message: error.details[0].message,
+      });
+    }
     const { id } = req.params;
     const { status } = req.body;
     const userLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
-    if (userLoan) {
-      userLoan.status = status;
-      const updatedData = {
-        loanId: userLoan.id,
-        loanAmount: userLoan.amount,
-        tenor: userLoan.tenor,
-        monthlyInstallments: userLoan.paymentInstallment,
-        status: userLoan.status,
-        interest: userLoan.interest,
-      };
-      return res.status(200).send({
-        status: 200,
-        data: updatedData,
+    if (!userLoan) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Loan with that id not found',
       });
     }
-    return res.status(404).send({
-      status: 404,
-      error: 'Loan with that id not found',
+    if (userLoan.status === 'approved') {
+      return res.status(409).send({
+        status: 409,
+        error: 'Loan already approved',
+      });
+    }
+    userLoan.status = status;
+    const updatedData = {
+      loanId: userLoan.id,
+      loanAmount: userLoan.amount,
+      tenor: userLoan.tenor,
+      status: userLoan.status,
+      monthlyInstallments: userLoan.paymentInstallment,
+      interest: userLoan.interest,
+    };
+    return res.status(200).send({
+      status: 200,
+      data: updatedData,
     });
   }
 }

@@ -34,7 +34,7 @@ class Validate {
   }
 
   /**
- * @param data string
+ * @param {data} string
  */
   static validateLogin(data) {
     const schema = Joi.object().keys({
@@ -47,7 +47,7 @@ class Validate {
 
   /**
    *
-   * @param {user} object
+   * @param {loan} object
    */
   static validateLoan(loan) {
     const schema = Joi.object().keys({
@@ -68,6 +68,31 @@ class Validate {
         .max(12)
         .required(),
       amount: Joi.number().required(),
+    });
+    return Joi.validate(loan, schema);
+  }
+
+  /**
+   *
+   * @param {repayment} object
+   */
+  static validateRepayment(repayment) {
+    const schema = Joi.object().keys({
+      paidAmount: Joi.number().required(),
+    });
+    return Joi.validate(repayment, schema);
+  }
+
+  /**
+  *
+  * @param {loan} object
+  */
+  static validateLoanApproval(loan) {
+    const schema = Joi.object().keys({
+      status: Joi.string()
+        .insensitive()
+        .valid('approved', 'rejected')
+        .required(),
     });
     return Joi.validate(loan, schema);
   }
