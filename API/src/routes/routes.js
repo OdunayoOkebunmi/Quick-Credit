@@ -1,7 +1,8 @@
 import express from 'express';
+import Authorization from '../middlewares/authorize';
 import UserController from '../controllers/userController';
 import LoanController from '../controllers/loanController';
-import Authorization from '../middlewares/authorize';
+import RepaymentController from '../controllers/repaymentController';
 
 const { verifyUser, verifyAdmin } = Authorization;
 const router = express.Router();
@@ -11,6 +12,9 @@ const { createUser, loginUser, adminVerifyUser } = UserController;
 const {
   loanApply, getAllLoans, getSpecificLoan, loanApproval,
 } = LoanController;
+const { postRepayment } = RepaymentController;
+
+
 // router to create user accont
 router.post('/api/v1/auth/signup', createUser);
 
@@ -31,5 +35,8 @@ router.get('/api/v1/loans/:id', verifyAdmin, getSpecificLoan);
 
 // router for admin to aprove or reject loan
 router.patch('/api/v1/loans/:id', verifyAdmin, loanApproval);
+
+// router for admin to post repayment transaction for client
+router.post('/api/v1/loans/:id/repayment', verifyAdmin, postRepayment);
 
 export default router;
