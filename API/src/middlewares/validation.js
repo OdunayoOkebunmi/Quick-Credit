@@ -67,7 +67,7 @@ class Validate {
         .min(1)
         .max(12)
         .required(),
-      amount: Joi.number().required(),
+      amount: Joi.number().min(10000).required(),
     });
     return Joi.validate(loan, schema);
   }
