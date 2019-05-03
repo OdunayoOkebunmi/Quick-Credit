@@ -183,7 +183,7 @@ describe('Test user signup', () => {
           done();
         });
     });
-    it('should throw an error if the firstName is less than 3 characters', (done) => {
+    it('should throw an error if the lastName is less than 3 characters', (done) => {
       const user = {
         email: 'voldemort@nadini.com',
         firstName: 'Tom',

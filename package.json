@@ -4,16 +4,19 @@
   "description": "Quick Credit is an online lending platform that provides short term soft loans to individuals",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --require @babel/register API/src/tests/**.test.js --exit",
+    "test": "nyc mocha --require @babel/register API/src/tests/index.test.js --exit",
     "build": "babel API/server.js --out-dir build",
-    "dev-start": "babel-watch API/server.js"
+    "dev-start": "babel-watch API/server.js",
+    "cover":"istanbul cover",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/OdunayoOkebunmi/Quick-Credit.git"
   },
   "keywords": [
-    "Quick-Credit"
+    "Quick-Credit",
+    "Andela"
   ],
   "author": "Odunayo Okebunmi",
   "license": "ISC",
@@ -42,7 +45,9 @@
     "babel-watch": "^7.0.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^6.1.4"
+    "istanbul": "^0.4.5",
+    "mocha": "^6.1.4",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^14.1.0"
   }
 }
-

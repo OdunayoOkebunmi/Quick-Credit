@@ -56,16 +56,18 @@ class Validate {
         .required(),
       firstName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
         .required(),
       lastName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
         .required(),
       tenor: Joi.number()
         .integer()
         .min(1)
         .max(12)
         .required(),
-      amount: Joi.number().required(),
+      amount: Joi.number().min(10000).required(),
     });
     return Joi.validate(loan, schema);
   }

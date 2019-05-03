@@ -8,7 +8,7 @@ class Authorization {
     try {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
-      console.log(decoded.payload);
+      // console.log(decoded.payload);
       if (decoded.payload.isAdmin === false) {
         return res.status(403).send({
           status: 403,
