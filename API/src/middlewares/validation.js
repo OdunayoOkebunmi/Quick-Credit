@@ -96,6 +96,22 @@ class Validate {
     });
     return Joi.validate(loan, schema);
   }
+
+  /**
+  *
+  * @param {loan} object
+  */
+  static validateLoanQuery(loan) {
+    const schema = Joi.object().keys({
+      status: Joi.string()
+        .insensitive()
+        .valid('approved'),
+      repaid: Joi.boolean()
+        .insensitive()
+        .valid(true, false),
+    });
+    return Joi.validate(loan, schema);
+  }
 }
 
 export default Validate;

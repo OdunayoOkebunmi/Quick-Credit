@@ -76,6 +76,13 @@ class LoanController {
    */
 
   static getAllLoans(req, res) {
+    const { error } = Validate.validateLoanQuery(req.query);
+    if (error) {
+      return res.status(422).json({
+        status: 422,
+        message: error.details[0].message,
+      });
+    }
     // for the request parameters
     const { status, repaid } = req.query;
     if (status && repaid) {

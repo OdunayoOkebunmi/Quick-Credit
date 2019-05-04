@@ -6,7 +6,8 @@ chai.should();
 chai.use(chaiHttp);
 
 // TEST FOR USER LOAN APPLICATION
-
+const loginUrl = '/api/v1/auth/signin';
+const loanUrl = '/api/v1/loans';
 let currentToken;
 
 describe('Test user loan application', () => {
@@ -18,7 +19,7 @@ describe('Test user loan application', () => {
     before((done) => {
       chai
         .request(app)
-        .post('/api/v1/auth/signin')
+        .post(`${loginUrl}`)
         .send(user)
         .end((loginErr, loginRes) => {
           // eslint-disable-next-line prefer-destructuring
@@ -35,7 +36,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -54,7 +55,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .send(userLoan)
         .end((err, res) => {
           res.should.have.status(401);
@@ -71,7 +72,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -89,7 +90,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -108,7 +109,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -127,7 +128,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -145,7 +146,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -164,7 +165,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -183,7 +184,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -201,7 +202,7 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
@@ -220,13 +221,197 @@ describe('Test user loan application', () => {
         tenor: 4,
       };
       chai.request(app)
-        .post('/api/v1/loans')
+        .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
           res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('message');
+          done();
+        });
+    });
+  });
+  describe('POST /loans', () => {
+    const user = {
+      email: 'odun@mail.com',
+      password: 'password',
+    };
+    before((done) => {
+      chai.request(app)
+        .post(`${loginUrl}`)
+        .send(user)
+        .end((loginErr, loginRes) => {
+          currentToken = `Bearer ${loginRes.body.data.token}`;
+          done();
+        });
+    });
+    const userLoan = {
+      firstName: 'Odun',
+      lastName: 'Odunayo',
+      email: 'oduna@mail.com',
+      amount: 10000,
+      tenor: 4,
+    };
+    before((done) => {
+      chai.request(app)
+        .post(`${loanUrl}`)
+        .send(userLoan)
+        .set('token', currentToken)
+        .end(() => done());
+    });
+    it('should throw an error if user applies for loan more than once', (done) => {
+      chai.request(app)
+        .post(`${loanUrl}`)
+        .set('authorization', currentToken)
+        .send(userLoan)
+        .end((err, res) => {
+          res.should.have.status(409);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+  });
+  // TEST TO GET ALL LOAN APPLICATION
+  describe(`GET ${loanUrl}`, () => {
+    const adminLogin = {
+      email: 'hedwig@mail.com',
+      password: 'passsword',
+    };
+    before((done) => {
+      chai.request(app)
+        .post(`${loginUrl}`)
+        .send(adminLogin)
+        .end((loginErr, loginRes) => {
+          currentToken = `Bearer ${loginRes.body.data.token}`;
+          done();
+        });
+    });
+    it('Should return all loan applications', (done) => {
+      chai
+        .request(app)
+        .get(loanUrl)
+        .set('authorization', currentToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.data[0].should.have.property('user');
+          res.body.data[0].should.have.property('id');
+          done();
+        });
+    });
+
+    it('Should throw an error if user is not an admin', (done) => {
+      const login = {
+        email: 'odun@mail.com',
+        password: 'password',
+      };
+      chai
+        .request(app)
+        .post(loginUrl)
+        .send(login)
+        .end((loginErr, loginRes) => {
+          currentToken = `Bearer ${loginRes.body.data.token}`;
+          chai
+            .request(app)
+            .get(loanUrl)
+            .set('authorization', currentToken)
+            .end((err, res) => {
+              res.should.have.status(403);
+              res.body.should.be.a('object');
+              res.body.should.have.property('error');
+              res.body.error.should.be.eql('Only Admin can access this route');
+              done();
+            });
+        });
+    });
+
+    it('should return a single loan application', (done) => {
+      chai
+        .request(app)
+        .post(loginUrl)
+        .send(adminLogin)
+        .end((loginErr, loginRes) => {
+          currentToken = `Bearer ${loginRes.body.data.token}`;
+          chai
+            .request(app)
+            .get(`${loanUrl}/1`)
+            .set('authorization', currentToken)
+            .end((err, res) => {
+              res.should.have.status(200);
+              res.body.should.be.a('object');
+              res.body.should.have.property('data');
+              res.body.data.should.have.property('user');
+              res.body.data.should.have.property('createdOn');
+              done();
+            });
+        });
+    });
+
+    it('Should throw an error if loan id does not exist', (done) => {
+      chai
+        .request(app)
+        .post(loginUrl)
+        .send(adminLogin)
+        .end((loginErr, loginRes) => {
+          currentToken = `Bearer ${loginRes.body.data.token}`;
+          chai
+            .request(app)
+            .get(`${loanUrl}/10`)
+            .set('authorization', currentToken)
+            .end((err, res) => {
+              res.should.have.status(404);
+              res.body.should.be.a('object');
+              res.body.should.have.property('error');
+              done();
+            });
+        });
+    });
+  });
+
+  // TEST TO VALIDATE LOANS QUERIES
+
+  describe(`GET ${loanUrl}`, () => {
+    const adminLogin = {
+      email: 'hedwig@mail.com',
+      password: 'passsword',
+    };
+    before((done) => {
+      chai.request(app)
+        .post(`${loginUrl}`)
+        .send(adminLogin)
+        .end((loginErr, loginRes) => {
+          currentToken = `Bearer ${loginRes.body.data.token}`;
+          done();
+        });
+    });
+    it('should return all loans that have been approved and repaid', (done) => {
+      chai
+        .request(app)
+        .get(`${loanUrl}?status=approved&repaid=true`)
+        .set('authorization', currentToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.data[0].should.have.property('user');
+          res.body.data[0].should.have.property('id');
+          done();
+        });
+    });
+    it('should return all loans that have been approved but not repaid', (done) => {
+      chai
+        .request(app)
+        .get(`${loanUrl}?status=approved&repaid=false`)
+        .set('authorization', currentToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.data[0].should.have.property('user');
+          res.body.data[0].should.have.property('id');
           done();
         });
     });
