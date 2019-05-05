@@ -288,7 +288,7 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    it('Should return all loan applications', (done) => {
+    it('should return all loan applications', (done) => {
       chai
         .request(app)
         .get(loanUrl)
@@ -412,6 +412,31 @@ describe('Test user loan application', () => {
           res.body.should.have.property('data');
           res.body.data[0].should.have.property('user');
           res.body.data[0].should.have.property('id');
+          done();
+        });
+    });
+    it('should throw an error if status="approved" query is incorrect', (done) => {
+      chai
+        .request(app)
+        .get(`${loanUrl}?status=approvved&repaid=false`)
+        .set('authorization', currentToken)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message');
+          done();
+        });
+    });
+    it('should throw an error if repaid=true or repaid=false query is incorrect', (done) => {
+      chai
+        .request(app)
+        .get(`${loanUrl}?status=approved&repaid=repaid`)
+        .set('authorization', currentToken)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message');
+          res.body.message.should.be.eql('"repaid" must be a boolean');
           done();
         });
     });

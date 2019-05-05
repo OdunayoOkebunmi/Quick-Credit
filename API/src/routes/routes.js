@@ -24,6 +24,10 @@ router.post('/api/v1/auth/signin', loginUser);
 // router for user loan application
 router.post('/api/v1/loans', verifyUser, loanApply);
 
+
+// router for admin to post repayment transaction for client
+router.post('/api/v1/loans/:id/repayment', verifyAdmin, postRepayment);
+
 // router for admin to verify user
 router.patch('/api/v1/users/:email/verify', verifyAdmin, adminVerifyUser);
 
@@ -47,8 +51,6 @@ router.get('/api/v1/loans?status=approved&repaid=true', verifyAdmin, getAllLoans
 router.get('/api/v1/loans/:id', verifyAdmin, getSpecificLoan);
 
 
-// router for admin to post repayment transaction for client
-router.post('/api/v1/loans/:id/repayment', verifyAdmin, postRepayment);
 
 
 export default router;
