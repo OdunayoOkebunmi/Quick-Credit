@@ -1,7 +1,7 @@
 const Loans = [
   {
     id: 1,
-    user: 'odun@mail.com',
+    user: 'odunayo@mail.com',
     createdOn: 'Fri, Jul 8, 2016 11:54 PM',
     status: 'pending',
     repaid: false,
@@ -13,14 +13,14 @@ const Loans = [
   },
   {
     id: 2,
-    user: 'harry@hedwig.com',
+    user: 'harry@mail.com',
     createdOn: 'Fri, Jul 8, 2016 11:54 PM',
     status: 'approved',
-    repaid: true,
-    tenor: 3,
+    repaid: false,
+    tenor: 4,
     amount: 10000.00,
     paymentInstallment: 3500.00,
-    balance: 0,
+    balance: 5000,
     interest: 500.00,
   },
   {

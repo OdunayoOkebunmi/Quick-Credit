@@ -1,5 +1,5 @@
-// import Joi from 'joi';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
+// import Joi from '@hapi/joi';
 
 class Validate {
   /**
@@ -96,7 +96,7 @@ class Validate {
         .valid('approved'),
       repaid: Joi.boolean()
         .insensitive()
-        .valid(true, false),
+        .valid([true, false]),
     });
     return Joi.validate(loan, schema);
   }
@@ -109,7 +109,7 @@ class Validate {
     const schema = Joi.object().keys({
       status: Joi.string()
         .insensitive()
-        .valid('approved', 'rejected')
+        .valid(['approved', 'rejected'])
         .required(),
     });
     return Joi.validate(loan, schema);

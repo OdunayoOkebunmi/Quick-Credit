@@ -12,7 +12,7 @@ let currentToken;
 describe('Test loan repayment', () => {
   describe(`POST ${repaymentUrl}`, () => {
     const adminLogin = {
-      email: 'hedwig@mail.com',
+      email: 'hedwig@quickcredit.com',
       password: 'passsword',
     };
     const amount = { paidAmount: 5000 };
@@ -25,7 +25,7 @@ describe('Test loan repayment', () => {
           done();
         });
     });
-    it('should return loan applications', (done) => {
+    it('should post loan applications for a client', (done) => {
       chai
         .request(app)
         .post(repaymentUrl)

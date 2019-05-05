@@ -302,11 +302,11 @@ describe('Test Admin mark user as verified', () => {
   describe('PATCH /api/v1/users/:email/verify', () => {
     it('should mark a user as verified', (done) => {
       const Admin = {
-        email: 'hedwig@mail.com',
+        email: 'hedwig@quickcredit.com',
         password: 'passsword',
       };
 
-      const email = 'odun@mail.com';
+      const email = 'harry@mail.com';
       chai
         .request(app)
         .post('/api/v1/auth/signin')
@@ -353,7 +353,7 @@ describe('Test Admin mark user as verified', () => {
     });
     it('should  throw an error if user email is not correct', (done) => {
       const admin = {
-        email: 'hedwig@mail.com',
+        email: 'hedwig@quickcredit.com',
         password: 'passsword',
       };
 
@@ -380,7 +380,7 @@ describe('Test Admin mark user as verified', () => {
     });
     it('should throw a 401 when no token is provided', (done) => {
       const Admin = {
-        email: 'hedwig@mail.com',
+        email: 'hedwig@quickcredit.com',
         password: 'passsword',
       };
 
