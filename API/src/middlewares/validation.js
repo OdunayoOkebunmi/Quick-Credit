@@ -1,4 +1,5 @@
-import Joi from 'joi';
+// import Joi from 'joi';
+import Joi from '@hapi/joi';
 
 class Validate {
   /**
@@ -81,6 +82,23 @@ class Validate {
       paidAmount: Joi.number().required(),
     });
     return Joi.validate(repayment, schema);
+  }
+
+
+  /**
+  *
+  * @param {loan} object
+  */
+  static validateLoanQuery(loan) {
+    const schema = Joi.object().keys({
+      status: Joi.string()
+        .insensitive()
+        .valid('approved'),
+      repaid: Joi.boolean()
+        .insensitive()
+        .valid(true, false),
+    });
+    return Joi.validate(loan, schema);
   }
 
   /**

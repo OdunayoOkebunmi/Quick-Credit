@@ -11,7 +11,7 @@ class Authenticator {
   * @param {string} token
   */
   static generateToken(payload) {
-    return jwt.sign({ payload }, process.env.SECRET, { expiresIn: '7d' });
+    return jwt.sign({ payload }, process.env.SECRET, { expiresIn: '14d' });
   }
 
   /**

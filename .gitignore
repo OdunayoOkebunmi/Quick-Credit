@@ -5,5 +5,5 @@ node_modules
 .env
 #build
 build
-#vscode 
-.vscode
+#.nyc_output
+.nyc_output
