@@ -22,7 +22,6 @@ describe('Test user loan application', () => {
         .post(`${loginUrl}`)
         .send(user)
         .end((loginErr, loginRes) => {
-          // eslint-disable-next-line prefer-destructuring
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
         });
@@ -31,7 +30,7 @@ describe('Test user loan application', () => {
       const userLoan = {
         firstName: 'Odun',
         lastName: 'Odunayo',
-        email: 'oduna@mail.com',
+        email: 'odun@mail.com',
         amount: 10000,
         tenor: 4,
       };
@@ -234,8 +233,8 @@ describe('Test user loan application', () => {
   });
   describe('POST /loans', () => {
     const user = {
-      email: 'odun@mail.com',
-      password: 'password',
+      email: 'harry@mail.com',
+      password: 'dementor',
     };
     before((done) => {
       chai.request(app)
@@ -247,9 +246,9 @@ describe('Test user loan application', () => {
         });
     });
     const userLoan = {
-      firstName: 'Odun',
-      lastName: 'Odunayo',
-      email: 'oduna@mail.com',
+      firstName: 'Harry',
+      lastName: 'Potter',
+      email: 'harry@mail.com',
       amount: 10000,
       tenor: 4,
     };
@@ -276,7 +275,7 @@ describe('Test user loan application', () => {
   // TEST TO GET ALL LOAN APPLICATION
   describe(`GET ${loanUrl}`, () => {
     const adminLogin = {
-      email: 'hedwig@mail.com',
+      email: 'hedwig@quickcredit.com',
       password: 'passsword',
     };
     before((done) => {
@@ -375,7 +374,7 @@ describe('Test user loan application', () => {
 
   describe(`GET ${loanUrl}`, () => {
     const adminLogin = {
-      email: 'hedwig@mail.com',
+      email: 'hedwig@quickcredit.com',
       password: 'passsword',
     };
     before((done) => {
@@ -437,6 +436,66 @@ describe('Test user loan application', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('message');
           res.body.message.should.be.eql('"repaid" must be a boolean');
+          done();
+        });
+    });
+  });
+
+  // TEST ADMIN APPROVE OR REJECT LOAN
+  describe(`PATCH ${loanUrl}/:id`, () => {
+    const adminLogin = {
+      email: 'hedwig@quickcredit.com',
+      password: 'passsword',
+    };
+    const loanId = 1;
+    before((done) => {
+      chai.request(app)
+        .post(`${loginUrl}`)
+        .send(adminLogin)
+        .end((loginErr, loginRes) => {
+          currentToken = `Bearer ${loginRes.body.data.token}`;
+          done();
+        });
+    });
+    it('should approve user loan', (done) => {
+      const adminDecision = { status: 'approved' };
+      chai
+        .request(app)
+        .patch(`${loanUrl}/${loanId}`)
+        .set('authorization', currentToken)
+        .send(adminDecision)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          done();
+        });
+    });
+    it('should throw an error if user has already been approved', (done) => {
+      const adminDecision = { status: 'rejected' };
+      chai
+        .request(app)
+        .patch(`${loanUrl}/${loanId}`)
+        .set('authorization', currentToken)
+        .send(adminDecision)
+        .end((err, res) => {
+          res.should.have.status(409);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+    it('should return error if a status is ommitted', (done) => {
+      const adminDecision = { status: 3 };
+      chai
+        .request(app)
+        .patch(`${loanUrl}/${loanId}`)
+        .set('authorization', currentToken)
+        .send(adminDecision)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message');
           done();
         });
     });

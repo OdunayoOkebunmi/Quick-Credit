@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Validate from '../middlewares/validation';
+import userModel from '../models/userData';
 import loanModel from '../models/loansData';
 
 class LoanController {
@@ -21,58 +22,71 @@ class LoanController {
     const {
       email, firstName, lastName, amount, tenor,
     } = req.body;
-    const loanId = loanModel.length + 1;
-    const status = 'pending';
-    const interest = 0.05;
-    const paymentInstallment = parseFloat((amount * interest) / tenor).toFixed(2);
-    const balance = parseFloat(amount).toFixed(2);
-    const createdOn = moment().format('llll');
-    const repaid = false;
-    const data = {
-      loanId,
-      firstName,
-      lastName,
-      email,
-      tenor,
-      amount,
-      paymentInstallment,
-      status,
-      balance,
-      interest,
-    };
-    // updated user data
-    const updatedData = {
-      id: data.loanId,
-      user: data.email,
-      createdOn,
-      status,
-      repaid,
-      tenor,
-      amount,
-      paymentInstallment,
-      balance,
-      interest,
-    };
-    const loanExist = loanModel.find(loan => loan.user === email);
-    if (loanExist) {
-      return res.status(409).json({
-        status: 409,
-        error: 'Already applied for a loan',
+    // check if user is verifed
+    const verifiedUser = userModel.find(user => user.email === email);
+
+    // console.log(verifiedUser.status);
+    // allow only verified user apply for loan
+    if (verifiedUser.status === 'verified') {
+      // check if user has applied for loan before
+      const loanExist = loanModel.find(loan => loan.user === email);
+      if (loanExist) {
+        return res.status(409).json({
+          status: 409,
+          error: 'Already applied for a loan',
+        });
+      }
+      const loanId = loanModel.length + 1;
+      const status = 'pending';
+      const interest = 0.05 * parseFloat(amount).toFixed(2);
+      const paymentInstallment = parseFloat((amount + interest) / tenor).toFixed(2);
+      const balance = parseFloat(paymentInstallment * tenor).toFixed(2);
+      const createdOn = moment().format('llll');
+      const repaid = false;
+      const data = {
+        loanId,
+        firstName,
+        lastName,
+        email,
+        tenor,
+        amount,
+        paymentInstallment,
+        status,
+        balance,
+        interest,
+      };
+      // updated user data
+      const updatedData = {
+        id: data.loanId,
+        user: data.email,
+        createdOn,
+        status,
+        repaid,
+        tenor,
+        amount,
+        paymentInstallment,
+        balance,
+        interest,
+      };
+
+      loanModel.push(data);
+      return res.status(201).json({
+        status: 201,
+        data: updatedData,
       });
     }
-    loanModel.push(updatedData);
-    return res.status(201).json({
-      status: 201,
-      data,
+    return res.status(400).json({
+      status: 400,
+      error: 'User not verified. You cannot apply for a loan yet',
     });
   }
 
   /**
    * @method getAllLoans
    * @description gets all loan applications
-   * @param {object} req
-   * @param {object} res
-   * @returns {object}
+   * @param {object} req - the request object
+   * @param {object} res - the response object
+   * @returns {array}
    */
 
   static getAllLoans(req, res) {
