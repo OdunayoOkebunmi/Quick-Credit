@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/OdunayoOkebunmi/Quick-Credit.svg?branch=develop)](https://travis-ci.com/OdunayoOkebunmi/Quick-Credit)
 [![Coverage Status](https://coveralls.io/repos/github/OdunayoOkebunmi/Quick-Credit/badge.svg?branch=develop)](https://coveralls.io/github/OdunayoOkebunmi/Quick-Credit?branch=develop)
 
  
