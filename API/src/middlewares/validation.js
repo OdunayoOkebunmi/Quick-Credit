@@ -1,0 +1,141 @@
+/* eslint-disable no-unused-vars */
+import Joi from 'joi';
+// import Joi from '@hapi/joi';
+
+class Validate {
+  /**
+   * @param {user} object
+   */
+
+  static validateUser(user) {
+    const schema = Joi.object().keys({
+      email: Joi.string()
+        .email()
+        .required(),
+
+      firstName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
+        .max(30)
+        .required(),
+      lastName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
+        .max(30)
+        .required(),
+      password: Joi.string()
+        .regex(/^[a-zA-Z0-9]{3,30}$/)
+        .min(7)
+        .alphanum()
+        .required(),
+      address: Joi.string().required(),
+      status: Joi.string()
+        .insensitive()
+        .default('unverified'),
+      isAdmin: Joi.boolean().default(false),
+
+    });
+    return Joi.validate(user, schema);
+  }
+
+  /**
+ * @param {data} string
+ */
+  static validateLogin(data) {
+    const schema = Joi.object().keys({
+      email: Joi.string().email().trim().lowercase()
+        .required(),
+      password: Joi.string().min(7).required().strict(),
+    });
+    return Joi.validate(data, schema);
+  }
+
+  /**
+   *
+   * @param {loan} object
+   */
+  static validateLoan(loan) {
+    const schema = Joi.object().keys({
+      email: Joi.string()
+        .email()
+        .required(),
+      firstName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
+        .required(),
+      lastName: Joi.string()
+        .regex(/^[A-Z]|[a-z]+$/)
+        .min(3)
+        .required(),
+      tenor: Joi.number()
+        .integer()
+        .min(1)
+        .max(12)
+        .required(),
+      amount: Joi.number().min(10000).required(),
+    });
+    return Joi.validate(loan, schema);
+  }
+
+  /**
+   *
+   * @param {repayment} object
+   */
+  static validateRepayment(repayment) {
+    const schema = Joi.object().keys({
+      paidAmount: Joi.number().required(),
+    });
+    return Joi.validate(repayment, schema);
+  }
+
+
+  /**
+  *
+  * @param {loan} object
+  */
+  static validateLoanQuery(loan) {
+    const schema = Joi.object().keys({
+      status: Joi.string()
+        .insensitive()
+        .valid('approved'),
+      repaid: Joi.boolean()
+        .insensitive()
+        .valid([true, false]),
+    });
+    return Joi.validate(loan, schema);
+  }
+
+  /**
+  *
+  * @param {loan} object
+  */
+  static validateLoanApproval(loan) {
+    const schema = Joi.object().keys({
+      status: Joi.string()
+        .insensitive()
+        .valid(['approved', 'rejected'])
+        .required(),
+
+    });
+    return Joi.validate(loan, schema);
+  }
+
+  /**
+  *
+  * @param {loan} object
+  */
+  static validateID(id) {
+    const schema = {
+      id: Joi
+        .number()
+        .required()
+        .error(errors => ({ message: 'ID must be an integer' })),
+    };
+    const value = {
+      id,
+    };
+    return Joi.validate(value, schema, { abortEarly: false });
+  }
+}
+
+export default Validate;

@@ -1,1 +1,11 @@
+#ignored files/folders
+# Dependency directories
 node_modules
+# dotenv environment variables file
+.env
+#build
+build/server.js
+#.nyc_output
+.nyc_output
+
+.coveralls.yml
