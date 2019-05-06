@@ -11,11 +11,18 @@ class RepaymentController {
   * @returns {object} repayment object
   */
   static postRepayment(req, res) {
-    const { error } = Validate.validateRepayment(req.body);
-    if (error) {
+    const bodyError = Validate.validateRepayment(req.body).error;
+    const idError = Validate.validateID(req.params.id).error;
+    if (bodyError) {
       return res.status(422).json({
         status: 422,
-        message: error.details[0].message,
+        message: bodyError.details[0].message,
+      });
+    }
+    if (idError) {
+      return res.status(422).json({
+        status: 422,
+        message: idError.details[0].message,
       });
     }
     const id = parseInt(req.params.id, 10);
@@ -79,6 +86,13 @@ class RepaymentController {
   * @returns {object}
   */
   static getRepaymentHistory(req, res) {
+    const { error } = Validate.validateID(req.params.id);
+    if (error) {
+      return res.status(422).json({
+        status: 422,
+        message: error.details[0].message,
+      });
+    }
     const { id } = req.params;
     const specificRepayment = repaymentModel
       .filter(repayment => repayment.loanId === parseInt(id, 10));
