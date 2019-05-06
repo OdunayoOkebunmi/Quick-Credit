@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Joi from 'joi';
 // import Joi from '@hapi/joi';
 
@@ -11,13 +12,16 @@ class Validate {
       email: Joi.string()
         .email()
         .required(),
+
       firstName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
         .min(3)
+        .max(30)
         .required(),
       lastName: Joi.string()
         .regex(/^[A-Z]|[a-z]+$/)
         .min(3)
+        .max(30)
         .required(),
       password: Joi.string()
         .regex(/^[a-zA-Z0-9]{3,30}$/)
@@ -111,8 +115,26 @@ class Validate {
         .insensitive()
         .valid(['approved', 'rejected'])
         .required(),
+
     });
     return Joi.validate(loan, schema);
+  }
+
+  /**
+  *
+  * @param {loan} object
+  */
+  static validateID(id) {
+    const schema = {
+      id: Joi
+        .number()
+        .required()
+        .error(errors => ({ message: 'ID must be an integer' })),
+    };
+    const value = {
+      id,
+    };
+    return Joi.validate(value, schema, { abortEarly: false });
   }
 }
 

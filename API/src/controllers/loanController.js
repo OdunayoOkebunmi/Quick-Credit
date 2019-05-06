@@ -122,6 +122,13 @@ class LoanController {
   */
 
   static getSpecificLoan(req, res) {
+    const { error } = Validate.validateID(req.params.id);
+    if (error) {
+      return res.status(422).json({
+        status: 422,
+        message: error.details[0].message,
+      });
+    }
     const { id } = req.params;
     const specificLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
     if (!specificLoan) {
@@ -143,11 +150,18 @@ class LoanController {
   * @returns {object}
   */
   static loanApproval(req, res) {
-    const { error } = Validate.validateLoanApproval(req.body);
-    if (error) {
+    const bodyError = Validate.validateLoanApproval(req.body).error;
+    const idError = Validate.validateID(req.params.id).error;
+    if (bodyError) {
       return res.status(422).json({
         status: 422,
-        message: error.details[0].message,
+        message: bodyError.details[0].message,
+      });
+    }
+    if (idError) {
+      return res.status(422).json({
+        status: 422,
+        message: idError.details[0].message,
       });
     }
     const { id } = req.params;
