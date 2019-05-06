@@ -7,5 +7,5 @@ node_modules
 build/server.js
 #.nyc_output
 .nyc_output
-
+#coveralls
 .coveralls.yml
