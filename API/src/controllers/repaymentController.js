@@ -3,44 +3,41 @@ import repaymentModel from '../models/repaymentsData';
 
 class RepaymentController {
   /**
-  * @method postRepayment
-  * @description creates a loan repayment transaction for the user by the admin
-  * @param {object} req
-  * @param {object} res
-  * @returns {object} repayment object
-  */
+    * create new user
+    * @param {object} request express request object
+    * @param {object} response express response object
+    *
+    * @returns {json} json
+    * @memberof RepaymentController
+    */
   static postRepayment(req, res) {
     const id = parseInt(req.params.id, 10);
     const userLoan = loanModel.find(loan => loan.id === id);
     const paidAmount = parseFloat(req.body.paidAmount);
     if (userLoan) {
-      // check if the loan has been approved
       if (userLoan.status !== 'approved') {
         return res.status(400).send({
           status: 400,
           error: 'This loan has not yet been approved!',
         });
       }
-      // check if the amount been paid is greater than the balance left
       if (paidAmount > userLoan.balance) {
         return res.status(400).send({
           status: 400,
           error: `The paid amount exceeds remaining balance!You only have ₦ ${userLoan.balance} left`,
         });
       }
-
-      // check if the amount been paid is less than the balance
       if (paidAmount <= userLoan.balance) {
         userLoan.balance -= paidAmount;
-
+        const { createdOn, amount, balance } = userLoan;
         const updatedData = {
           id,
           loanId: userLoan.id,
-          createdOn: userLoan.createdOn,
-          amount: userLoan.amount,
+          createdOn,
+          amount,
           monthlyInstallemnt: userLoan.paymentInstallment,
           paidAmount,
-          balance: userLoan.balance,
+          balance,
         };
         if (userLoan.balance === 0) {
           userLoan.repaid = true;
@@ -64,12 +61,13 @@ class RepaymentController {
   }
 
   /**
-  * @method getRepaymentHistory
-  * @description user can view loan repayment history
-  * @param {object} req
-  * @param {object} res
-  * @returns {object}
-  */
+   * create new user
+   * @param {object} request express request object
+   * @param {object} response express response object
+   *
+   * @returns [array] array
+   * @memberof RepaymentController
+   */
   static getRepaymentHistory(req, res) {
     const { id } = req.params;
     const specificRepayment = repaymentModel
