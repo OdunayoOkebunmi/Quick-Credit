@@ -1,5 +1,4 @@
 import moment from 'moment';
-import Validate from '../middlewares/validation';
 import userModel from '../models/userData';
 import loanModel from '../models/loansData';
 
@@ -12,13 +11,6 @@ class LoanController {
    * @memberof LoanController
   */
   static loanApply(req, res) {
-    const { error } = Validate.validateLoan(req.body);
-    if (error) {
-      return res.status(422).json({
-        status: 422,
-        message: error.details[0].message,
-      });
-    }
     const {
       email, firstName, lastName, amount, tenor,
     } = req.body;
@@ -90,14 +82,6 @@ class LoanController {
    */
 
   static getAllLoans(req, res) {
-    const { error } = Validate.validateLoanQuery(req.query);
-    if (error) {
-      return res.status(422).json({
-        status: 422,
-        message: error.details[0].message,
-      });
-    }
-    // for the request parameters
     const { status, repaid } = req.query;
     if (status && repaid) {
       const currentLoan = loanModel
@@ -122,13 +106,6 @@ class LoanController {
   */
 
   static getSpecificLoan(req, res) {
-    const { error } = Validate.validateID(req.params.id);
-    if (error) {
-      return res.status(422).json({
-        status: 422,
-        message: error.details[0].message,
-      });
-    }
     const { id } = req.params;
     const specificLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
     if (!specificLoan) {
@@ -150,20 +127,6 @@ class LoanController {
   * @returns {object}
   */
   static loanApproval(req, res) {
-    const bodyError = Validate.validateLoanApproval(req.body).error;
-    const idError = Validate.validateID(req.params.id).error;
-    if (bodyError) {
-      return res.status(422).json({
-        status: 422,
-        message: bodyError.details[0].message,
-      });
-    }
-    if (idError) {
-      return res.status(422).json({
-        status: 422,
-        message: idError.details[0].message,
-      });
-    }
     const { id } = req.params;
     const { status } = req.body;
     const userLoan = loanModel.find(loan => loan.id === parseInt(id, 10));

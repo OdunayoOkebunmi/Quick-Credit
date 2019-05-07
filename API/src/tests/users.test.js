@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../server';
@@ -54,7 +53,7 @@ describe('Test user signup', () => {
           done();
         });
     });
-    it('should throw a 422 error if the email is ommitted', (done) => {
+    it('should throw a 400 error if the email is ommitted', (done) => {
       const user = {
         firstName: 'Tom',
         lastName: 'Riddle',
@@ -66,13 +65,13 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
-    it('should throw a 422 if the first name is ommitted', (done) => {
+    it('should throw a 400 if the first name is ommitted', (done) => {
       const user = {
         email: 'voldemort@nadini.com',
         lastName: 'Riddle',
@@ -84,13 +83,13 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
-    it('should throw a 422 if the password is ommitted', (done) => {
+    it('should throw a 400 if the password is ommitted', (done) => {
       const user = {
         email: 'voldemort@nadini.com',
         firstName: 'Tom',
@@ -102,13 +101,13 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
-    it('should throw a 422 if the address is ommitted', (done) => {
+    it('should throw a 400 if the address is ommitted', (done) => {
       const user = {
         email: 'voldemort@nadini.com',
         firstName: 'Tom',
@@ -120,13 +119,13 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
-    it('should throw a 422 if the firstName is not a string', (done) => {
+    it('should throw a 400 if the firstName is not a string', (done) => {
       const user = {
         email: 'voldemort@nadini.com',
         firstName: 123,
@@ -139,13 +138,13 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
-    it('should throw a 422 if the lastName is not a string', (done) => {
+    it('should throw a 400 if the lastName is not a string', (done) => {
       const user = {
         email: 'voldemort@nadini.com',
         firstName: 'Tom',
@@ -158,9 +157,9 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -177,9 +176,9 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -196,9 +195,9 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -215,9 +214,9 @@ describe('Test user signup', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -278,7 +277,7 @@ describe('Test user signin', () => {
           done();
         });
     });
-    it('should return 422 status if email is not entered ', (done) => {
+    it('should return 400 status if email is not entered ', (done) => {
       const user = {
         password: 'password',
       };
@@ -287,9 +286,9 @@ describe('Test user signin', () => {
         .post('/api/v1/auth/signin')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });

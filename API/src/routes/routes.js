@@ -3,6 +3,16 @@ import Authorization from '../middlewares/authorize';
 import UserController from '../controllers/userController';
 import LoanController from '../controllers/loanController';
 import RepaymentController from '../controllers/repaymentController';
+import {
+  validateSignUp,
+  validateLogin,
+  validateLoan,
+  validateRepayment,
+  validateLoanQuery,
+  validateLoanApproval,
+  validateId,
+  validateVerification,
+} from '../middlewares/validation';
 
 const { verifyUser, verifyAdmin } = Authorization;
 const router = express.Router();
@@ -16,41 +26,38 @@ const { postRepayment, getRepaymentHistory } = RepaymentController;
 
 
 // router to create user accont
-router.post('/api/v1/auth/signup', createUser);
+router.post('/api/v1/auth/signup', validateSignUp, createUser);
 
 // router to sign in user
-router.post('/api/v1/auth/signin', loginUser);
+router.post('/api/v1/auth/signin', validateLogin, loginUser);
 
 // router for user loan application
-router.post('/api/v1/loans', verifyUser, loanApply);
+router.post('/api/v1/loans', verifyUser, validateLoan, loanApply);
 
 
 // router for admin to post repayment transaction for client
-router.post('/api/v1/loans/:id/repayment', verifyAdmin, postRepayment);
+router.post('/api/v1/loans/:id/repayment', verifyAdmin, validateId, validateRepayment, postRepayment);
 
 // router for admin to verify user
-router.patch('/api/v1/users/:email/verify', verifyAdmin, adminVerifyUser);
+router.patch('/api/v1/users/:email/verify', verifyAdmin, validateVerification, adminVerifyUser);
 
 // router for admin to aprove or reject loan
-router.patch('/api/v1/loans/:id', verifyAdmin, loanApproval);
+router.patch('/api/v1/loans/:id', verifyAdmin, validateLoanApproval, validateId, loanApproval);
 
 
 // router for user to get repayment hsitory
-router.get('/api/v1/loans/:id/repayments', verifyUser, getRepaymentHistory);
+router.get('/api/v1/loans/:id/repayments', verifyUser, validateId, getRepaymentHistory);
 
 // router for admin to get all loan application
-router.get('/api/v1/loans', verifyAdmin, getAllLoans);
+router.get('/api/v1/loans', verifyAdmin, validateLoanQuery, getAllLoans);
 
 // router for admin to get all loan application that has been approved but not repaid
-router.get('/api/v1/loans?status=approved&repaid=false', verifyAdmin, getAllLoans);
+router.get('/api/v1/loans?status=approved&repaid=false', verifyAdmin, validateLoanQuery, getAllLoans);
 
 // router for admin to get all loan application that has been approved and repaid
-router.get('/api/v1/loans?status=approved&repaid=true', verifyAdmin, getAllLoans);
+router.get('/api/v1/loans?status=approved&repaid=true', verifyAdmin, validateLoanQuery, getAllLoans);
 
 // router for admin to get all a specifc application
-router.get('/api/v1/loans/:id', verifyAdmin, getSpecificLoan);
-
-
-
+router.get('/api/v1/loans/:id', verifyAdmin, validateId, getSpecificLoan);
 
 export default router;

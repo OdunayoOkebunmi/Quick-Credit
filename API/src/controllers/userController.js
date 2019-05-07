@@ -1,4 +1,4 @@
-import Validate from '../middlewares/validation';
+// import Validate from '../middlewares/validation';
 import Authenticator from '../middlewares/authenticate';
 import userModel from '../models/userData';
 
@@ -11,14 +11,6 @@ class UserController {
    * @memberof UserController
   */
   static createUser(req, res) {
-    const { error } = Validate.validateUser(req.body);
-    if (error) {
-      return res.status(422).json({
-        status: 422,
-        message: error.details[0].message,
-      });
-    }
-
     const {
       email, firstName, lastName, password, address,
     } = req.body;
@@ -66,14 +58,6 @@ class UserController {
    */
 
   static loginUser(req, res) {
-    const { error } = Validate.validateLogin(req.body);
-    if (error) {
-      return res.status(422).json({
-        status: 422,
-        message: error.details[0].message,
-      });
-    }
-
     const { email, password } = req.body;
     // checks if user exists
     const userExists = userModel.find(user => user.email === email);

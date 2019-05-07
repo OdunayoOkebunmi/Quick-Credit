@@ -1,141 +1,202 @@
-/* eslint-disable no-unused-vars */
-import Joi from 'joi';
-// import Joi from '@hapi/joi';
+import Schemas from './schemas';
 
-class Validate {
-  /**
-   * @param {user} object
-   */
+export const validateSignUp = (req, res, next) => {
+  try {
+    const {
+      firstName, lastName, email, password, address, status, isAdmin,
+    } = req.body;
 
-  static validateUser(user) {
-    const schema = Joi.object().keys({
-      email: Joi.string()
-        .email()
-        .required(),
-
-      firstName: Joi.string()
-        .regex(/^[A-Z]|[a-z]+$/)
-        .min(3)
-        .max(30)
-        .required(),
-      lastName: Joi.string()
-        .regex(/^[A-Z]|[a-z]+$/)
-        .min(3)
-        .max(30)
-        .required(),
-      password: Joi.string()
-        .regex(/^[a-zA-Z0-9]{3,30}$/)
-        .min(7)
-        .alphanum()
-        .required(),
-      address: Joi.string().required(),
-      status: Joi.string()
-        .insensitive()
-        .default('unverified'),
-      isAdmin: Joi.boolean().default(false),
-
-    });
-    return Joi.validate(user, schema);
-  }
-
-  /**
- * @param {data} string
- */
-  static validateLogin(data) {
-    const schema = Joi.object().keys({
-      email: Joi.string().email().trim().lowercase()
-        .required(),
-      password: Joi.string().min(7).required().strict(),
-    });
-    return Joi.validate(data, schema);
-  }
-
-  /**
-   *
-   * @param {loan} object
-   */
-  static validateLoan(loan) {
-    const schema = Joi.object().keys({
-      email: Joi.string()
-        .email()
-        .required(),
-      firstName: Joi.string()
-        .regex(/^[A-Z]|[a-z]+$/)
-        .min(3)
-        .required(),
-      lastName: Joi.string()
-        .regex(/^[A-Z]|[a-z]+$/)
-        .min(3)
-        .required(),
-      tenor: Joi.number()
-        .integer()
-        .min(1)
-        .max(12)
-        .required(),
-      amount: Joi.number().min(10000).required(),
-    });
-    return Joi.validate(loan, schema);
-  }
-
-  /**
-   *
-   * @param {repayment} object
-   */
-  static validateRepayment(repayment) {
-    const schema = Joi.object().keys({
-      paidAmount: Joi.number().required(),
-    });
-    return Joi.validate(repayment, schema);
-  }
-
-
-  /**
-  *
-  * @param {loan} object
-  */
-  static validateLoanQuery(loan) {
-    const schema = Joi.object().keys({
-      status: Joi.string()
-        .insensitive()
-        .valid('approved'),
-      repaid: Joi.boolean()
-        .insensitive()
-        .valid([true, false]),
-    });
-    return Joi.validate(loan, schema);
-  }
-
-  /**
-  *
-  * @param {loan} object
-  */
-  static validateLoanApproval(loan) {
-    const schema = Joi.object().keys({
-      status: Joi.string()
-        .insensitive()
-        .valid(['approved', 'rejected'])
-        .required(),
-
-    });
-    return Joi.validate(loan, schema);
-  }
-
-  /**
-  *
-  * @param {loan} object
-  */
-  static validateID(id) {
-    const schema = {
-      id: Joi
-        .number()
-        .required()
-        .error(errors => ({ message: 'ID must be an integer' })),
+    const userDetails = {
+      firstName, lastName, email, password, address, status, isAdmin,
     };
-    const value = {
-      id,
-    };
-    return Joi.validate(value, schema, { abortEarly: false });
-  }
-}
+    const result = Schemas.createUser(userDetails);
 
-export default Validate;
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};
+
+export const validateLogin = (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    const userDetails = {
+      email, password,
+    };
+    const result = Schemas.createLogin(userDetails);
+
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};
+
+export const validateLoan = (req, res, next) => {
+  try {
+    const {
+      email, firstName, lastName, tenor, amount,
+    } = req.body;
+
+    const userLoan = {
+      email, firstName, lastName, tenor, amount,
+    };
+    const result = Schemas.createLoan(userLoan);
+
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};
+
+export const validateRepayment = (req, res, next) => {
+  try {
+    const { paidAmount } = req.body;
+
+    const userAmount = { paidAmount };
+    const result = Schemas.createRepayment(userAmount);
+
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};
+
+export const validateLoanQuery = (req, res, next) => {
+  try {
+    const { status, repaid } = req.query;
+
+    const userQuery = { status, repaid };
+    const result = Schemas.loanQuery(userQuery);
+
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};
+
+export const validateLoanApproval = (req, res, next) => {
+  try {
+    const { status } = req.body;
+
+    const adminApproval = { status };
+    const result = Schemas.loanApproval(adminApproval);
+
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};
+
+export const validateId = (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+
+    const userID = { id };
+    const result = Schemas.userId(userID);
+    console.log(id)
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};
+export const validateVerification = (req, res, next) => {
+  try {
+    const { email } = req.params;
+
+    const userID = { email };
+    const result = Schemas.userEmail(userID);
+
+    if (result.error) {
+      const errorMessage = result.error.details[0].message;
+
+      return res.status(400).json({
+        status: 400,
+        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+      });
+    }
+    return next();
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Missing required parameters',
+    });
+  }
+};

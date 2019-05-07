@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './src/routes/routes';
@@ -8,9 +7,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
-
-
-app.get('/', (req, res) => res.status(200).send({ message: 'Hello World' }));
 
 // Handle non existing routes
 app.all('*', (req, res) => res.status(404).json({

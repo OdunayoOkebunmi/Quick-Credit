@@ -75,9 +75,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -93,9 +93,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -112,9 +112,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -131,9 +131,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -149,9 +149,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -168,9 +168,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -187,9 +187,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -205,9 +205,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -224,9 +224,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(userLoan)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -420,9 +420,9 @@ describe('Test user loan application', () => {
         .get(`${loanUrl}?status=approvved&repaid=false`)
         .set('authorization', currentToken)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -432,10 +432,10 @@ describe('Test user loan application', () => {
         .get(`${loanUrl}?status=approved&repaid=repaid`)
         .set('authorization', currentToken)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
-          res.body.message.should.be.eql('"repaid" must be a boolean');
+          res.body.should.have.property('error');
+          res.body.error.should.be.eql('repaid must be a boolean');
           done();
         });
     });
@@ -493,9 +493,9 @@ describe('Test user loan application', () => {
         .set('authorization', currentToken)
         .send(adminDecision)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('message');
+          res.body.should.have.property('error');
           done();
         });
     });

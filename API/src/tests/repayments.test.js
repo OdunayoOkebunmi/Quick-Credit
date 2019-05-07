@@ -62,9 +62,9 @@ describe('Test loan repayment', () => {
           .post(repaymentUrl)
           .set('authorization', currentToken)
           .end((err, res) => {
-            res.should.have.status(422);
+            res.should.have.status(400);
             res.body.should.be.a('object');
-            res.body.should.have.property('message');
+            res.body.should.have.property('error');
             done();
           });
       });
@@ -76,9 +76,9 @@ describe('Test loan repayment', () => {
           .set('authorization', currentToken)
           .send(wrongAmount)
           .end((err, res) => {
-            res.should.have.status(422);
+            res.should.have.status(400);
             res.body.should.be.a('object');
-            res.body.should.have.property('message');
+            res.body.should.have.property('error');
             done();
           });
       });
@@ -122,9 +122,9 @@ describe('Test loan repayment', () => {
           .set('authorization', currentToken)
           .send(amount)
           .end((err, res) => {
-            res.should.have.status(422);
+            res.should.have.status(400);
             res.body.should.be.a('object');
-            res.body.should.have.property('message');
+            res.body.should.have.property('error');
             done();
           });
       });
@@ -134,9 +134,9 @@ describe('Test loan repayment', () => {
           .post(repaymentUrl)
           .set('authorization', currentToken)
           .end((err, res) => {
-            res.should.have.status(422);
+            res.should.have.status(400);
             res.body.should.be.a('object');
-            res.body.should.have.property('message');
+            res.body.should.have.property('error');
             done();
           });
       });
@@ -148,9 +148,9 @@ describe('Test loan repayment', () => {
           .set('authorization', currentToken)
           .send(wrongAmount)
           .end((err, res) => {
-            res.should.have.status(422);
+            res.should.have.status(400);
             res.body.should.be.a('object');
-            res.body.should.have.property('message');
+            res.body.should.have.property('error');
             done();
           });
       });
@@ -251,9 +251,9 @@ describe('Test loan repayment', () => {
           .get(wrongUrl)
           .set('authorization', currentToken)
           .end((err, res) => {
-            res.should.have.status(422);
+            res.should.have.status(400);
             res.body.should.be.a('object');
-            res.body.should.have.property('message');
+            res.body.should.have.property('error');
             done();
           });
       });

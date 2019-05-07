@@ -30,6 +30,8 @@ class Authorization {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
       const userEmail = decoded.payload.email;
+      // console.log(decoded.payload.email);
+
       if (userEmail.endsWith('quickcredit.com')) {
         return res.status(403).send({
           status: 403,

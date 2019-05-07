@@ -4,8 +4,8 @@ node_modules
 # dotenv environment variables file
 .env
 #build
-build/server.js
+build/
 #.nyc_output
-.nyc_output
+.nyc_output/
 #coveralls
 .coveralls.yml
