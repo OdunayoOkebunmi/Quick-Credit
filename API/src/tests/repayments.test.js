@@ -128,7 +128,7 @@ describe('Test loan repayment', () => {
             done();
           });
       });
-      it('should throw an error if paid is not found', (done) => {
+      it('should throw an error if paidAmount is not found', (done) => {
         chai
           .request(app)
           .post(repaymentUrl)

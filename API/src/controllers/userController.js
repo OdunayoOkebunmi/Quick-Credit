@@ -1,23 +1,24 @@
-// import Validate from '../middlewares/validation';
+/* eslint-disable no-unused-vars */
 import Authenticator from '../middlewares/authenticate';
 import userModel from '../models/userData';
 
+
 class UserController {
   /**
-  *
-  * @param {object} req
-  * @param {object} res
-  * @returns {object} user object
-   * @memberof UserController
-  */
+    * create new user
+    * @param {object} request express request object
+    * @param {object} response express response object
+    *
+    * @returns {json} json
+    * @memberof UserController
+    */
   static createUser(req, res) {
     const {
       email, firstName, lastName, password, address,
     } = req.body;
+    const details = req.body;
     const id = userModel.length + 1;
-    const status = 'unverified';
     const isAdmin = false;
-
     const token = Authenticator.generateToken({
       id,
       email,
@@ -26,12 +27,9 @@ class UserController {
     const data = {
       token,
       id,
-      email,
-      firstName,
-      lastName,
+      ...details,
       password: Authenticator.hashPassword(password),
-      address,
-      status,
+      status: 'unverified',
       isAdmin,
     };
 
@@ -52,11 +50,13 @@ class UserController {
   }
 
   /**
-   * Login User
-   * @param {object} req
-   * @param {object} res
-   */
-
+  * log  user in
+  * @param {object} request express request object
+  * @param {object} response express response object
+  *
+  * @returns {json} json
+  * @memberof UserController
+  */
   static loginUser(req, res) {
     const { email, password } = req.body;
     // checks if user exists
@@ -71,10 +71,8 @@ class UserController {
       id, firstName, lastName, isAdmin,
     } = userExists;
 
-    const hashedPassword = userExists.password;
-
     // checks if password matches
-    if (!Authenticator.comparePassword(hashedPassword, password)) {
+    if (!Authenticator.comparePassword(userExists.password, password)) {
       return res.status(400).json({
         status: 400,
         error: 'Invalid password/email',
@@ -99,10 +97,13 @@ class UserController {
   }
 
   /**
-    * Verify User
-    * @param {object} req
-    * @param {object} res
-    */
+  * check if a user is verified
+  * @param {object} request express request object
+  * @param {object} response express response object
+  *
+  * @returns {json} json
+  * @memberof UserController
+  */
   static adminVerifyUser(req, res) {
     const { email } = req.params;
     const userData = userModel.find(user => user.email === email);
@@ -122,13 +123,7 @@ class UserController {
     }
     userData.status = 'verified';
     const updatedData = {
-      email: userData.email,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      password: userData.password,
-      address: userData.address,
-      status: userData.status,
-      isAdmin: userData.isAdmin,
+      ...userData,
     };
     return res.status(200).json({
       status: 200,

@@ -1,202 +1,133 @@
 import Schemas from './schemas';
+import Helper from '../helper/helper';
 
-export const validateSignUp = (req, res, next) => {
+const validateSignUp = (req, res, next) => {
   try {
-    const {
-      firstName, lastName, email, password, address, status, isAdmin,
-    } = req.body;
+    const userSignUpDetails = Helper.signupDetailsHandler(req);
+    const signupResult = Schemas.createUser(userSignUpDetails);
 
-    const userDetails = {
-      firstName, lastName, email, password, address, status, isAdmin,
-    };
-    const result = Schemas.createUser(userDetails);
-
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    if (signupResult.error) {
+      const signupErrorMessage = signupResult.error.details[0].message;
+      return Helper.errorMessageHandler(signupErrorMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
 };
 
-export const validateLogin = (req, res, next) => {
+
+const validateLogin = (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const userLoginDetails = Helper.loginDetailsHandler(req);
+    const loginResult = Schemas.createLogin(userLoginDetails);
 
-    const userDetails = {
-      email, password,
-    };
-    const result = Schemas.createLogin(userDetails);
-
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    if (loginResult.error) {
+      const loginErrorMessage = loginResult.error.details[0].message;
+      return Helper.errorMessageHandler(loginErrorMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
 };
 
-export const validateLoan = (req, res, next) => {
+const validateLoan = (req, res, next) => {
   try {
-    const {
-      email, firstName, lastName, tenor, amount,
-    } = req.body;
+    const loanDetails = Helper.loanDetailsHandler(req);
+    const loanResult = Schemas.createLoan(loanDetails);
 
-    const userLoan = {
-      email, firstName, lastName, tenor, amount,
-    };
-    const result = Schemas.createLoan(userLoan);
-
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    if (loanResult.error) {
+      const loanErrorMessage = loanResult.error.details[0].message;
+      return Helper.errorMessageHandler(loanErrorMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
 };
 
-export const validateRepayment = (req, res, next) => {
+const validateRepayment = (req, res, next) => {
   try {
-    const { paidAmount } = req.body;
-
-    const userAmount = { paidAmount };
-    const result = Schemas.createRepayment(userAmount);
-
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    const repaymentDetails = Helper.repaymentDetailsHandler(req);
+    const repaymentResult = Schemas.createRepayment(repaymentDetails);
+    if (repaymentResult.error) {
+      const repaymentErrorMessage = repaymentResult.error.details[0].message;
+      return Helper.errorMessageHandler(repaymentErrorMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
 };
 
-export const validateLoanQuery = (req, res, next) => {
+const validateLoanQuery = (req, res, next) => {
   try {
-    const { status, repaid } = req.query;
+    const queryDetails = Helper.loanQueryHandler(req);
+    const queryResult = Schemas.loanQuery(queryDetails);
 
-    const userQuery = { status, repaid };
-    const result = Schemas.loanQuery(userQuery);
-
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    if (queryResult.error) {
+      const queryErrorMessage = queryResult.error.details[0].message;
+      return Helper.errorMessageHandler(queryErrorMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
 };
 
-export const validateLoanApproval = (req, res, next) => {
+
+const validateLoanApproval = (req, res, next) => {
   try {
-    const { status } = req.body;
+    const approvalDetails = Helper.loanApprovalHandler(req);
+    const approvalResult = Schemas.loanApproval(approvalDetails);
 
-    const adminApproval = { status };
-    const result = Schemas.loanApproval(adminApproval);
-
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    if (approvalResult.error) {
+      const approvalErrorMessage = approvalResult.error.details[0].message;
+      return Helper.errorMessageHandler(approvalErrorMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
 };
 
-export const validateId = (req, res, next) => {
+const validateId = (req, res, next) => {
   try {
-    const id = parseInt(req.params.id, 10);
-
-    const userID = { id };
-    const result = Schemas.userId(userID);
-    console.log(id)
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    const id = Helper.idHandler(req);
+    const idResult = Schemas.userId(id);
+    if (idResult.error) {
+      const idErrorMessage = idResult.error.details[0].message;
+      return Helper.errorMessageHandler(idErrorMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
 };
-export const validateVerification = (req, res, next) => {
+const validateVerification = (req, res, next) => {
   try {
-    const { email } = req.params;
+    const verifyDetails = Helper.verificationHandler(req);
+    const verificationResult = Schemas.userEmail(verifyDetails);
 
-    const userID = { email };
-    const result = Schemas.userEmail(userID);
-
-    if (result.error) {
-      const errorMessage = result.error.details[0].message;
-
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
-      });
+    if (verificationResult.error) {
+      const verificationMessage = verificationResult.error.details[0].message;
+      return Helper.errorMessageHandler(verificationMessage, res);
     }
     return next();
   } catch (e) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Missing required parameters',
-    });
+    return Helper.errorResponseHandler(res);
   }
+};
+
+
+module.exports = {
+  validateSignUp,
+  validateLogin,
+  validateLoan,
+  validateRepayment,
+  validateLoanQuery,
+  validateLoanApproval,
+  validateId,
+  validateVerification,
 };

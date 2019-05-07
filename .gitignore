@@ -9,3 +9,4 @@ build/
 .nyc_output/
 #coveralls
 .coveralls.yml
+.codeclimate.yml
