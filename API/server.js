@@ -8,6 +8,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
+app.get('/', (req, res) => res.status(200).json({
+  status: 200,
+  message: 'Welcome to Quick Credit!',
+}));
+
 // Handle non existing routes
 app.all('*', (req, res) => res.status(404).json({
   status: 404,
