@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import swaggerUI from 'swagger-ui-express';
-import swaggerDocument from './swagger.json';
+import swaggerDocument from './docs/swagger.json';
 import router from './src/routes/routes';
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.get('/', (req, res) => res.status(200).json({
   status: 200,
-  message: 'Welcome to Quick Credit!',
+  message: 'Welcome to Quick Credit',
 }));
 
 app.use(router);
