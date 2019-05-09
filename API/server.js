@@ -28,14 +28,7 @@ app.all('*', (req, res) => res.status(404).json({
   error: 'Page not found',
 }));
 
-// handles 500 error
-app.use((err, req, res, next) => {
-  if (!err) return next();
-  return res.status(500).json({
-    status: 500,
-    error: 'OOps! Looks like something broke',
-  });
-});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App is running on port ${port}`);
