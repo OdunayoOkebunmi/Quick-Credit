@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.com/OdunayoOkebunmi/Quick-Credit.svg?branch=develop)](https://travis-ci.com/OdunayoOkebunmi/Quick-Credit)
 [![Coverage Status](https://coveralls.io/repos/github/OdunayoOkebunmi/Quick-Credit/badge.svg?branch=develop)](https://coveralls.io/github/OdunayoOkebunmi/Quick-Credit?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bda4c876e9f0454cd65/maintainability)](https://codeclimate.com/github/OdunayoOkebunmi/Quick-Credit/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
  
 # Quick-Credit
@@ -10,6 +11,11 @@
 ## UI hosted on gh pages
 https://odunayookebunmi.github.io/Quick-Credit/UI/index.html
 
+## Server side hosted on Heroku
+https://quick-credit-odunayo.herokuapp.com/
+
+## API Documentation
+https://quick-credit-odunayo.herokuapp.com/api-docs
 
 ## Table of Content
  * [Getting Started](#getting-started)
@@ -75,6 +81,8 @@ run test using ```npm test```.
 
 <tr><td>PATCH</td> <td>/api/v1/loans/:id</td>  <td>Approve or Reject Loans</td></tr>
 
+<tr><td>GET</td> <td>/api/v1/loans/:id/repayments</td>  <td>Get loan repayment records</td></tr>
+
 <tr><td>GET</td> <td>/api/v1/loans</td>  <td>Get all loan appplications</td></tr>
 
 <tr><td>GET</td> <td>/api/v1/loans?status=approved&repaid=false</td>  <td>Get all approved but not repaid loans</td></tr>
@@ -120,3 +128,6 @@ run test using ```npm test```.
 
 ## Author
 *  [Odunayo Olajumoke Okebunmi](https://twitter.com/OdunayoO_)
+
+## License
+This project is licensed under the MIT license - see the LICENSE.md file for details.
