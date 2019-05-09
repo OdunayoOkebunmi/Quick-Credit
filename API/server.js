@@ -24,6 +24,7 @@ app.all('*', (req, res) => res.status(404).json({
   error: 'Page not found',
 }));
 
+// handles 500 error
 app.use((err, req, res, next) => {
   if (!err) return next();
   return res.status(500).json({
