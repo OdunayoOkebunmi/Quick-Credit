@@ -123,7 +123,12 @@ class UserController {
     }
     userData.status = 'verified';
     const updatedData = {
-      ...userData,
+      email: userData.email,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      password: userData.password,
+      address: userData.address,
+      status: userData.status,
     };
     return res.status(200).json({
       status: 200,
