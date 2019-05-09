@@ -2,7 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import swaggerUI from 'swagger-ui-express';
+<<<<<<< HEAD
 import swaggerDocument from './docs/swagger.json';
+=======
+import swaggerDocument from './swagger.json';
+>>>>>>> 8c955e8da908e939b84e152a9b53e582bbc4d7e7
 import router from './src/routes/routes';
 
 const app = express();
@@ -32,7 +36,6 @@ app.use((err, req, res, next) => {
     error: 'OOps! Looks like something broke',
   });
 });
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App is running on port ${port}`);
