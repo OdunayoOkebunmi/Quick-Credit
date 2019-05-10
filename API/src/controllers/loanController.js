@@ -3,6 +3,9 @@ import moment from 'moment';
 import userModel from '../models/userData';
 import loanModel from '../models/loansData';
 
+import EmailHandler from '../helper/emailHandler';
+import MessageHandler from '../helper/messageHandler';
+
 class LoanController {
   /**
   * creates a loan appication
@@ -61,10 +64,10 @@ class LoanController {
       interest,
     };
 
-    loanModel.push(data);
+    loanModel.push(updatedData);
     return res.status(201).json({
       status: 201,
-      data: updatedData,
+      data,
     });
   }
 
@@ -104,15 +107,16 @@ class LoanController {
   static getSpecificLoan(req, res) {
     const { id } = req.params;
     const specificLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
-    if (!specificLoan) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Requested loan not found',
+    console.log(id);
+    if (specificLoan) {
+      return res.status(200).send({
+        status: 200,
+        data: specificLoan,
       });
     }
-    return res.status(200).json({
-      status: 200,
-      data: specificLoan,
+    return res.status(404).send({
+      status: 404,
+      error: 'No Loan with that id exist on database',
     });
   }
 
@@ -153,6 +157,10 @@ class LoanController {
       monthlyInstallments,
       interest,
     };
+
+    const emailData = MessageHandler.loanApprovalMessage(userLoan, userLoan.user);
+    EmailHandler.sendNotif(emailData);
+
     return res.status(200).send({
       status: 200,
       data: updatedData,

@@ -45,7 +45,7 @@ router.patch('/api/v1/users/:email/verify', verifyAdmin, validateVerification, a
 router.patch('/api/v1/loans/:id', verifyAdmin, validateLoanApproval, validateId, loanApproval);
 
 
-// router for user to get repayment hsitory
+// router for user to get repayment hository
 router.get('/api/v1/loans/:id/repayments', verifyUser, validateId, getRepaymentHistory);
 
 // router for admin to get all loan application

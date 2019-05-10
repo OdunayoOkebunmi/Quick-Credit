@@ -8,6 +8,9 @@
 
 > Quick Credit is an online lending platform that provides short term soft loans to individuals.
 
+## Pivotal Tracker Stories
+https://www.pivotaltracker.com/n/projects/2327029
+
 ## UI hosted on gh pages
 https://odunayookebunmi.github.io/Quick-Credit/UI/index.html
 

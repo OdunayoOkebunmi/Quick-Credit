@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import Authenticator from '../middlewares/authenticate';
 import userModel from '../models/userData';
+import EmailHandler from '../helper/emailHandler';
+import MessageHandler from '../helper/messageHandler';
 
 
 class UserController {
@@ -42,6 +44,10 @@ class UserController {
       });
     }
     userModel.push(data);
+    // send email to user
+    const emailData = MessageHandler.signupMessage(data);
+    EmailHandler.sendNotif(emailData);
+
 
     return res.status(201).json({
       status: 201,
