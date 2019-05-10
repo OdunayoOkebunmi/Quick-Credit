@@ -28,7 +28,7 @@ https://quick-credit-odunayo.herokuapp.com/api-docs
  
  * [API End Points Test Using Postman](#api-end-points-test-using-postman)
 
- * [Coding Style](#coding-style)
+ * [Linting Style](#linting-style)
  
  * [Features](#features)
  
@@ -94,8 +94,8 @@ run test using ```npm test```.
  
 </table>
 
-### Coding Style
-* Airbnb style guide. 
+### Linting Style
+* ESLint with Airbnb style guide. 
 
 ## Features
 
