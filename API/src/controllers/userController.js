@@ -45,8 +45,8 @@ class UserController {
     }
     userModel.push(data);
     // send email to user
-    const emailData = MessageHandler.signupMessage(data);
-    EmailHandler.sendNotif(emailData);
+    // const emailData = MessageHandler.signupMessage(data);
+    // EmailHandler.sendNotif(emailData);
 
 
     return res.status(201).json({

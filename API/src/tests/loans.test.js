@@ -435,7 +435,6 @@ describe('Test user loan application', () => {
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error');
-          res.body.error.should.be.eql('repaid must be a boolean');
           done();
         });
     });
@@ -485,7 +484,7 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    
+
     it('should return error if a status is ommitted', (done) => {
       const adminDecision = { status: 3 };
       chai
