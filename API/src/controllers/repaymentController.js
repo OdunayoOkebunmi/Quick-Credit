@@ -21,6 +21,12 @@ class RepaymentController {
           error: 'This loan has not yet been approved!',
         });
       }
+      if (userLoan.repaid === true) {
+        return res.status(400).send({
+          status: 400,
+          error: 'This loan has been repaid',
+        });
+      }
       if (paidAmount > userLoan.balance) {
         return res.status(400).send({
           status: 400,
@@ -40,16 +46,18 @@ class RepaymentController {
           balance,
         };
         if (userLoan.balance === 0) {
+
+          repaymentModel.push(updatedData);
           userLoan.repaid = true;
-          return res.status(200).send({
-            status: 200,
+          return res.status(201).send({
+            status: 201,
             message: 'Loan has been fully repaid',
             data: updatedData,
           });
         }
         repaymentModel.push(updatedData);
-        return res.status(200).send({
-          status: 200,
+        return res.status(201).send({
+          status: 201,
           data: updatedData,
         });
       }

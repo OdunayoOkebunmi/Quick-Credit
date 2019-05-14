@@ -68,9 +68,9 @@ class UserController {
     // checks if user exists
     const userExists = userModel.find(user => user.email === email);
     if (!userExists) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Invalid email',
+      return res.status(404).json({
+        status: 404,
+        error: 'User with the email does not exist',
       });
     }
     const {

@@ -485,6 +485,7 @@ describe('Test user loan application', () => {
           done();
         });
     });
+    
     it('should return error if a status is ommitted', (done) => {
       const adminDecision = { status: 3 };
       chai

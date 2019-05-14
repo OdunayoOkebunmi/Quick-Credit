@@ -1,6 +1,6 @@
 const errorMessageHandler = (errorMessage, res) => res.status(400).json({
   status: 400,
-  error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
+  error: errorMessage,
 });
 
 const errorResponseHandler = res => res.status(400).json({

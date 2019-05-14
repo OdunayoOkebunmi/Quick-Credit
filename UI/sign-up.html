@@ -26,7 +26,12 @@
         <h2 class="heading-secondary">
           ACCOUNT REGISTRATION
         </h2>
-        <form action="" id="sign-up-form">
+        <form
+          action=""
+          id="sign-up-form"
+          name="loginForm"
+          onsubmit="return formValidation()"
+        >
           <label for="new-user-fname">First Name</label>
           <div class="form-group">
             <div class="input-group">
@@ -35,6 +40,7 @@
                 type="text"
                 id="new-user-fname"
                 class="form-control"
+                name="firstName"
               />
             </div>
           </div>
@@ -46,6 +52,7 @@
                 type="text"
                 id="new-user-lname"
                 class="form-control"
+                name="lastName"
               />
             </div>
           </div>
@@ -57,6 +64,7 @@
                 type="email"
                 id="new-user-email"
                 class="form-control"
+                name="email"
               />
             </div>
           </div>
@@ -68,6 +76,7 @@
                 type="text"
                 id="new-user-address"
                 class="form-control"
+                name="address"
               />
             </div>
           </div>
@@ -79,6 +88,7 @@
                 type="password"
                 id="new-user-password"
                 class="form-control"
+                name="password"
               />
             </div>
           </div>
@@ -87,11 +97,12 @@
               type="submit"
               value="REGISTER"
               class="btn btn--block"
-              onclick="location.href='login.html'"
+              id="submit-btn"
             />
           </div>
         </form>
       </div>
     </section>
+    <script src="js/user-redirect.js"></script>
   </body>
 </html>
