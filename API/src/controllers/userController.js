@@ -45,8 +45,8 @@ class UserController {
     }
     userModel.push(data);
     // send email to user
-    const emailData = MessageHandler.signupMessage(data);
-    EmailHandler.sendNotif(emailData);
+    // const emailData = MessageHandler.signupMessage(data);
+    // EmailHandler.sendNotif(emailData);
 
 
     return res.status(201).json({
@@ -68,9 +68,9 @@ class UserController {
     // checks if user exists
     const userExists = userModel.find(user => user.email === email);
     if (!userExists) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Invalid email',
+      return res.status(404).json({
+        status: 404,
+        error: 'User with the email does not exist',
       });
     }
     const {

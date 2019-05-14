@@ -158,8 +158,8 @@ class LoanController {
       interest,
     };
 
-    const emailData = MessageHandler.loanApprovalMessage(userLoan, userLoan.user);
-    EmailHandler.sendNotif(emailData);
+    // const emailData = MessageHandler.loanApprovalMessage(userLoan, userLoan.user);
+    // EmailHandler.sendNotif(emailData);
 
     return res.status(200).send({
       status: 200,

@@ -405,9 +405,8 @@ body {
 .admin-users-loans__details--table td a {
   display: inline-block;
   text-decoration: none;
-  padding: 1rem;
-  color: #fff;
-  background-color: var(--color-grey-dark-2);
+  padding: 0.5rem;
+  color: var(--color-grey-dark-2);
 }
 @media only screen and (max-width: 600px) {
   .admin-users-loans__details--table td a {

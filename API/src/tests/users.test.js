@@ -253,10 +253,10 @@ describe('Test user signin', () => {
         .post('/api/v1/auth/signin')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(404);
           res.body.should.be.a('object');
           res.body.should.have.property('error');
-          res.body.error.should.be.eql('Invalid email');
+          res.body.error.should.be.eql('User with the email does not exist');
           done();
         });
     });
