@@ -18,13 +18,11 @@ let currentToken;
 describe('Test user signup', () => {
   describe('POST /api/v1/auth/signup', () => {
     it('should create a new user', (done) => {
-
       server()
         .post(`${signupUrl}`)
         .send(testDB.users[0])
         .end((err, res) => {
           res.should.have.status(201);
-          console.log(res.text)
           res.body.should.be.a('object');
           res.body.should.have.property('data');
           res.body.data.should.have.property('token');
