@@ -16,8 +16,8 @@ class RepaymentController {
     const paidAmount = parseFloat(req.body.paidAmount);
     if (userLoan) {
       if (userLoan.status !== 'approved') {
-        return res.status(400).send({
-          status: 400,
+        return res.status(401).send({
+          status: 401,
           error: 'This loan has not yet been approved!',
         });
       }
@@ -46,7 +46,6 @@ class RepaymentController {
           balance,
         };
         if (userLoan.balance === 0) {
-
           repaymentModel.push(updatedData);
           userLoan.repaid = true;
           return res.status(201).send({
@@ -78,12 +77,12 @@ class RepaymentController {
    */
   static getRepaymentHistory(req, res) {
     const { id } = req.params;
-    const specificRepayment = repaymentModel
+    const repaymentHistory = repaymentModel
       .filter(repayment => repayment.loanId === parseInt(id, 10));
-    if (specificRepayment.length !== 0) {
+    if (repaymentHistory.length !== 0) {
       return res.status(200).send({
         status: 200,
-        specificRepayment,
+        data: repaymentHistory,
       });
     }
     return res.status(404).send({

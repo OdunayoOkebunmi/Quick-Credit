@@ -1,48 +1,113 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../server';
+import testDB from './testsDB';
 
 chai.should();
 chai.use(chaiHttp);
 
-// TESTS FOR SIGNUP
+const server = () => chai.request(app);
 
+const signupUrl = '/api/v1/auth/signup';
+
+const signinUrl = '/api/v1/auth/signin';
+
+let currentToken;
+
+// TESTS FOR SIGNUP
 describe('Test user signup', () => {
   describe('POST /api/v1/auth/signup', () => {
     it('should create a new user', (done) => {
-      const newUser = {
-        email: 'voldemort@email.com',
-        firstName: 'Tom',
-        lastName: 'Riddle',
-        password: 'averdekardabra',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(newUser)
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[0])
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.should.have.property('data');
           res.body.data.should.have.property('token');
-          res.body.data.should.have.property('password');
           res.body.data.should.have.property('isAdmin');
           done();
         });
     });
-    it('should throw a 409 error if the email already exists', (done) => {
-      const user = {
-        email: 'odun@mail.com',
-        firstName: 'Tom',
-        lastName: 'Riddle',
-        password: 'averdekardabra',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
+    it('should return an error if the email is ommitted', (done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[2])
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+    it('should return an error if the first name is ommitted', (done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[3])
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+    it('should return an error if the password is ommitted', (done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[4])
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+    it('should return an error if the address is ommitted', (done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[5])
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+    it('should return an error if the firstName is not a string', (done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[6])
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+    it('should return an error if the lastName is not a string', (done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[7])
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+  });
+  describe('POST /api/v1/auth/signup', () => {
+    before((done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[0])
+        .end(() => done());
+    });
+    it('should return an error if the email already exists', (done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[0])
         .end((err, res) => {
           res.should.have.status(409);
           res.body.should.be.a('object');
@@ -53,205 +118,33 @@ describe('Test user signup', () => {
           done();
         });
     });
-    it('should throw a 400 error if the email is ommitted', (done) => {
-      const user = {
-        firstName: 'Tom',
-        lastName: 'Riddle',
-        password: 'averdekardabra',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw a 400 if the first name is ommitted', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        lastName: 'Riddle',
-        password: 'averdekardabra',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw a 400 if the password is ommitted', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        firstName: 'Tom',
-        lastName: 'Riddle',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw a 400 if the address is ommitted', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        firstName: 'Tom',
-        lastName: 'Riddle',
-        password: 'averderkarbra',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw a 400 if the firstName is not a string', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        firstName: 123,
-        lastName: 'Riddle',
-        password: 'averdekardabra',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw a 400 if the lastName is not a string', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        firstName: 'Tom',
-        lastName: 123,
-        password: 'averdekardabra',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if the firstName is less than 3 characters', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        firstName: 'To',
-        lastName: 'Riddle',
-        password: 'aver',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if the lastName is less than 3 characters', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        firstName: 'Tom',
-        lastName: 'Ri',
-        password: 'aver',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if the password is less than 7 characters', (done) => {
-      const user = {
-        email: 'voldemort@nadini.com',
-        firstName: 'Tom',
-        lastName: 'Riddle',
-        password: 'aver',
-        address: 'hollow',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
   });
 });
 
-
-// TESTS FOR SIGNUP
+// TESTS FOR SIGNIN
 
 describe('Test user signin', () => {
   describe('POST /api/v1/auth/signin', () => {
+    before((done) => {
+      server()
+        .post(`${signupUrl}`)
+        .send(testDB.users[0])
+        .end(() => done());
+    });
     it('should sign registered user in', (done) => {
-      const user = {
-        email: 'odun@mail.com',
-        password: 'password',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(user)
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[8])
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           done();
         });
     });
-    it('should return 400 status if email is incorrect ', (done) => {
-      const user = {
-        email: 'odunayo@mail.com',
-        password: 'password',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(user)
+    it('should return an error if email does not exist', (done) => {
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[10])
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
@@ -260,15 +153,10 @@ describe('Test user signin', () => {
           done();
         });
     });
-    it('should return 400 status if password is incorrect ', (done) => {
-      const user = {
-        email: 'odun@mail.com',
-        password: 'mypassword',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(user)
+    it('should return an error if password is incorrect ', (done) => {
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[15])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -277,14 +165,10 @@ describe('Test user signin', () => {
           done();
         });
     });
-    it('should return 400 status if email is not entered ', (done) => {
-      const user = {
-        password: 'password',
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(user)
+    it('should return an error if email is not entered ', (done) => {
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[11])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -295,29 +179,22 @@ describe('Test user signin', () => {
   });
 });
 
-
 // TESTS FOR ADMIN TO MARK USER AS VERIFIED
 describe('Test Admin mark user as verified', () => {
   describe('PATCH /api/v1/users/:email/verify', () => {
     it('should mark a user as verified', (done) => {
-      const Admin = {
-        email: 'hedwig@quickcredit.com',
-        password: 'passsword',
-      };
-
-      const email = 'harry@mail.com';
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(Admin)
+      const { email } = testDB.users[8];
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
-          // eslint-disable-next-line prefer-destructuring
-          const token = `Bearer ${loginRes.body.data.token}`;
+          currentToken = `Bearer ${loginRes.body.data.token}`;
           chai
             .request.agent(app)
             .patch(`/api/v1/users/${email}/verify`)
-            .set('authorization', token)
+            .set('authorization', currentToken)
             .end((err, res) => {
+              // console.log(res);
               res.should.have.status(200);
               res.body.should.be.a('object');
               res.body.should.have.property('data');
@@ -325,24 +202,17 @@ describe('Test Admin mark user as verified', () => {
             });
         });
     });
-    it('should  throw an error if not admin to mark user as verified', (done) => {
-      const notAdmin = {
-        email: 'odun@mail.com',
-        password: 'password',
-      };
-
-      const email = 'odun@mail.com';
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(notAdmin)
+    it('should  throw an error if unauthorized', (done) => {
+      const email = 'name@mail.com';
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
-          // eslint-disable-next-line prefer-destructuring
-          const token = `Bearer ${loginRes.body.data.token}`;
+          currentToken = `Bearer ${loginRes.body.data.token}`;
           chai
             .request.agent(app)
             .patch(`/api/v1/users/${email}/verify`)
-            .set('authorization', token)
+            .set('authorization', currentToken)
             .end((err, res) => {
               res.should.have.status(403);
               res.body.should.be.a('object');
@@ -351,46 +221,32 @@ describe('Test Admin mark user as verified', () => {
         });
     });
     it('should  throw an error if user email is not correct', (done) => {
-      const admin = {
-        email: 'hedwig@quickcredit.com',
-        password: 'passsword',
-      };
-
-      const email = 'odunayo@mail.com';
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(admin)
+      const { email } = testDB.users[11];
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
-          // eslint-disable-next-line prefer-destructuring
-          const token = `Bearer ${loginRes.body.data.token}`;
+          currentToken = `Bearer ${loginRes.body.data.token}`;
           chai
             .request.agent(app)
             .patch(`/api/v1/users/${email}/verify`)
-            .set('authorization', token)
+            .set('authorization', currentToken)
             .end((err, res) => {
-              res.should.have.status(404);
+              res.should.have.status(400);
               res.body.should.be.a('object');
               res.body.should.have.property('error');
-              res.body.error.should.be.eql('User with this email not found!');
+
               done();
             });
         });
     });
-    it('should throw a 401 when no token is provided', (done) => {
-      const Admin = {
-        email: 'hedwig@quickcredit.com',
-        password: 'passsword',
-      };
-
+    it('should throw an error if no token is provided', (done) => {
       const email = 'odun@mail.com';
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(Admin)
+      server()
+        .post(`${signinUrl}`)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
-          // eslint-disable-next-line no-unused-vars
-          const token = `Bearer ${loginRes.body.data.token}`;
+          currentToken = `Bearer ${loginRes.body.data.token}`;
           chai
             .request.agent(app)
             .patch(`/api/v1/users/${email}/verify`)

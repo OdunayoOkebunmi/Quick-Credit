@@ -6,7 +6,7 @@ const Repayments = [
     amount: 10000.00,
     monthlyInstallment: 3500.00,
     paidAmount: 4000.00,
-    balance: 500.00,
+    balance: 5000.00,
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const Repayments = [
     amount: 200000.00,
     monthlyInstallment: 10000.00,
     paidAmount: 100000.00,
-    balance: 0.00,
+    balance: 15000.00,
   },
   {
     id: 3,
