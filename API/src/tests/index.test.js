@@ -1,3 +1,3 @@
-import './users.test';
+// import './users.test';
 import './loans.test';
-import './repayments.test';
+// import './repayments.test';

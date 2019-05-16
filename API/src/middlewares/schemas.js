@@ -72,7 +72,7 @@ const loanQuery = (loan) => {
   return Joi.validate(loan, schema);
 };
 
-const loanApproval = (loan) => {
+const approveLoan = (loan) => {
   const schema = Joi.object().keys({
     status: Joi.string()
       .insensitive()
@@ -83,7 +83,7 @@ const loanApproval = (loan) => {
   return Joi.validate(loan, schema);
 };
 
-const userId = (id) => {
+const getUserId = (id) => {
   const schema = {
     id: Joi
       .number()
@@ -92,7 +92,7 @@ const userId = (id) => {
 
   return Joi.validate(id, schema);
 };
-const userEmail = (user) => {
+const getUserEmail = (user) => {
   const schema = {
     email,
   };
@@ -106,7 +106,7 @@ module.exports = {
   createLoan,
   createRepayment,
   loanQuery,
-  loanApproval,
-  userId,
-  userEmail,
+  approveLoan,
+  getUserId,
+  getUserEmail,
 };

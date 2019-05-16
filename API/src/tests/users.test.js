@@ -18,11 +18,13 @@ let currentToken;
 describe('Test user signup', () => {
   describe('POST /api/v1/auth/signup', () => {
     it('should create a new user', (done) => {
+
       server()
         .post(`${signupUrl}`)
         .send(testDB.users[0])
         .end((err, res) => {
           res.should.have.status(201);
+          console.log(res.text)
           res.body.should.be.a('object');
           res.body.should.have.property('data');
           res.body.data.should.have.property('token');
@@ -121,7 +123,6 @@ describe('Test user signup', () => {
   });
 });
 
-
 // TESTS FOR SIGNIN
 
 describe('Test user signin', () => {
@@ -157,7 +158,7 @@ describe('Test user signin', () => {
     it('should return an error if password is incorrect ', (done) => {
       server()
         .post(`${signinUrl}`)
-        .send(testDB.users[12])
+        .send(testDB.users[15])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -180,12 +181,11 @@ describe('Test user signin', () => {
   });
 });
 
-
 // TESTS FOR ADMIN TO MARK USER AS VERIFIED
 describe('Test Admin mark user as verified', () => {
   describe('PATCH /api/v1/users/:email/verify', () => {
     it('should mark a user as verified', (done) => {
-      const email = 'name@mail.com';
+      const { email } = testDB.users[8];
       server()
         .post(`${signinUrl}`)
         .send(testDB.users[9])
@@ -196,6 +196,7 @@ describe('Test Admin mark user as verified', () => {
             .patch(`/api/v1/users/${email}/verify`)
             .set('authorization', currentToken)
             .end((err, res) => {
+              // console.log(res);
               res.should.have.status(200);
               res.body.should.be.a('object');
               res.body.should.have.property('data');
@@ -222,7 +223,7 @@ describe('Test Admin mark user as verified', () => {
         });
     });
     it('should  throw an error if user email is not correct', (done) => {
-      const email = 'odunayo@mail.com';
+      const { email } = testDB.users[11];
       server()
         .post(`${signinUrl}`)
         .send(testDB.users[9])
@@ -233,10 +234,10 @@ describe('Test Admin mark user as verified', () => {
             .patch(`/api/v1/users/${email}/verify`)
             .set('authorization', currentToken)
             .end((err, res) => {
-              res.should.have.status(404);
+              res.should.have.status(400);
               res.body.should.be.a('object');
               res.body.should.have.property('error');
-              res.body.error.should.be.eql('User with this email not found!');
+
               done();
             });
         });

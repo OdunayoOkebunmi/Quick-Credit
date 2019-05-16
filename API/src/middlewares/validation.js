@@ -80,7 +80,7 @@ const validateLoanQuery = (req, res, next) => {
 const validateLoanApproval = (req, res, next) => {
   try {
     const approvalDetails = Helper.loanApprovalHandler(req);
-    const approvalResult = Schemas.loanApproval(approvalDetails);
+    const approvalResult = Schemas.approveLoan(approvalDetails);
 
     if (approvalResult.error) {
       const approvalErrorMessage = approvalResult.error.details[0].message;
@@ -95,7 +95,7 @@ const validateLoanApproval = (req, res, next) => {
 const validateId = (req, res, next) => {
   try {
     const id = Helper.idHandler(req);
-    const idResult = Schemas.userId(id);
+    const idResult = Schemas.getUserId(id);
     if (idResult.error) {
       const idErrorMessage = idResult.error.details[0].message;
       return Helper.errorMessageHandler(idErrorMessage, res);
@@ -108,7 +108,7 @@ const validateId = (req, res, next) => {
 const validateVerification = (req, res, next) => {
   try {
     const verifyDetails = Helper.verificationHandler(req);
-    const verificationResult = Schemas.userEmail(verifyDetails);
+    const verificationResult = Schemas.getUserEmail(verifyDetails);
 
     if (verificationResult.error) {
       const verificationMessage = verificationResult.error.details[0].message;

@@ -1,70 +1,76 @@
+import faker from 'faker';
 
+const email = faker.internet.email();
+const firstName = faker.name.firstName();
+const lastName = faker.name.lastName();
+const password = faker.internet.password();
+const address = faker.address.streetAddress();
 const users = [
   {
     // sign up test data
-    email: 'name@mail.com',
-    firstName: 'First',
-    lastName: 'Last',
-    password: 'password',
-    address: 'address',
+    email,
+    firstName,
+    lastName,
+    password,
+    address,
   },
   {
     // invalid email
     email: 123,
-    firstName: 'First',
-    lastName: 'Last',
-    password: 'password',
-    address: 'address',
+    firstName,
+    lastName,
+    password,
+    address,
   },
   {
     // email ommitted
-    firstName: 'First',
-    lastName: 'Last',
-    password: 'password',
-    address: 'address',
+    firstName,
+    lastName,
+    password,
+    address,
   },
   {
     // firstName ommited
-    email: 'name@mail.com',
-    lastName: 'Last',
-    password: 'password',
-    address: 'address',
+    email,
+    lastName,
+    password,
+    address,
   },
   {
     // password ommtted
-    email: 'name@mail.com',
-    firstName: 'First',
-    lastName: 'Last',
-    address: 'address',
+    email,
+    firstName,
+    lastName,
+    address,
   },
   {
     // address ommtted
-    email: 'name@mail.com',
-    firstName: 'First',
-    lastName: 'Last',
-    password: 'password',
+    email,
+    firstName,
+    lastName,
+    password,
   },
   {
     // firstName is not a string
-    email: 'name@mail.com',
-    firstName: 123,
-    lastName: 'Last',
-    password: 'password',
-    address: 'address',
+    email,
+    firstName: 122,
+    lastName,
+    password,
+    address,
   },
   {
     // lastName is not a string
-    email: 'name@mail.com',
-    firstName: 'First',
-    lastName: 234,
-    password: 'password',
-    address: 'address',
+    email,
+    firstName,
+    lastName: 222,
+    password,
+    address,
   },
 
   // sign in test data 8
   {
-    email: 'name@mail.com',
-    password: 'password',
+    email,
+    password,
   },
   // admin signin
   {
@@ -73,7 +79,7 @@ const users = [
   },
   {
     email: 'aname@mail.com', // invalid login email
-    password: 'password',
+    password,
   },
   {
     // invalid login email
@@ -87,13 +93,19 @@ const users = [
 
   {
     // email is not entered
-    password: 'password',
+    password,
   },
   {
     email: 'myname@mail.com',
     password: 'password',
   },
-
+  {
+    email, // invalid login email
+    password: 'passsword', // incorrect password
+  },
+  {
+    email, // verify user
+  },
 ];
 
 const loanApplication = [
@@ -111,7 +123,7 @@ const loanApplication = [
   {
     // unathorized user
 
-    email: 'aname@mail.com',
+    email,
     amount: 10000,
     tenor: 4,
   },

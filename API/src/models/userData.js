@@ -9,7 +9,7 @@ const Users = [
     lastName: faker.name.lastName(),
     password: Authenticator.hashPassword(faker.internet.password()),
     address: faker.address.streetAddress(),
-    status: 'verified',
+    status: 'unverified',
     isAdmin: false,
   },
   {

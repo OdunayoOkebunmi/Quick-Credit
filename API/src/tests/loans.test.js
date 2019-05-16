@@ -15,6 +15,7 @@ let currentToken;
 
 describe('Test user loan application', () => {
   describe('POST /loans', () => {
+    console.log('currentToken');
     before((done) => {
       server()
         .post(`${loginUrl}`)
@@ -25,11 +26,13 @@ describe('Test user loan application', () => {
         });
     });
     it('should successfully create user loan', (done) => {
+
       server()
         .post(`${loanUrl}`)
         .set('authorization', currentToken)
         .send(testDB.loanApplication[0])
         .end((err, res) => {
+
           res.body.should.be.a('object');
           res.should.have.status(201);
           res.body.should.have.property('data');
