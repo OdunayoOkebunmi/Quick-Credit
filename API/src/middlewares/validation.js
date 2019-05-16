@@ -1,5 +1,5 @@
 import Schemas from './schemas';
-import Helper from '../helper/helper';
+import Helper from '../helper/validatonHelper';
 
 const validateSignUp = (req, res, next) => {
   try {

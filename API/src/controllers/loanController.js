@@ -4,11 +4,11 @@ import userModel from '../models/userData';
 import loanModel from '../models/loansData';
 
 import EmailHandler from '../helper/emailHandler';
-import MessageHandler from '../helper/messageHandler';
+import MessageHandler from '../helper/emailMessageHandler';
 
 class LoanController {
   /**
-  * creates a loan appication
+  * creates a loan application
   * @param {object} request express request object
   * @param {object} response express response object
   *
@@ -17,18 +17,25 @@ class LoanController {
   */
   static loanApply(req, res) {
     const {
-      email, firstName, lastName, amount, tenor,
+      email, amount, tenor,
     } = req.body;
     const details = req.body;
 
     // check if user is verifed
-    const verifiedUser = userModel.find(user => user.email === email);
-    if (verifiedUser.status !== 'verified') {
-      return res.status(400).json({
-        status: 400,
+    const userData = userModel.find(user => user.email === email);
+    if (!userData) {
+      return res.status(401).json({
+        status: 401,
+        error: 'Email do not match! Enter the email you registered with',
+      });
+    }
+    if (userData.status !== 'verified') {
+      return res.status(401).json({
+        status: 401,
         error: 'User not verified. You cannot apply for a loan yet',
       });
     }
+
     if (loanModel.find(loan => loan.user === email)) {
       return res.status(409).json({
         status: 409,
@@ -104,10 +111,10 @@ class LoanController {
      * @memberof LoanController
      */
 
-  static getSpecificLoan(req, res) {
+  static getOneLoan(req, res) {
     const { id } = req.params;
     const specificLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
-    console.log(id);
+    // console.log(id);
     if (specificLoan) {
       return res.status(200).send({
         status: 200,
@@ -116,7 +123,7 @@ class LoanController {
     }
     return res.status(404).send({
       status: 404,
-      error: 'No Loan with that id exist on database',
+      error: 'No Loan with that id exist',
     });
   }
 
@@ -128,7 +135,7 @@ class LoanController {
       * @returns {json} json
       * @memberof LoanController
       */
-  static loanApproval(req, res) {
+  static approveLoan(req, res) {
     const { id } = req.params;
     const { status } = req.body;
     const userLoan = loanModel.find(loan => loan.id === parseInt(id, 10));

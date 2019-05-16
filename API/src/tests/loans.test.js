@@ -1,9 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../server';
+import testDB from './testsDB';
 
 chai.should();
 chai.use(chaiHttp);
+
+const server = () => chai.request(app);
 
 // TEST FOR USER LOAN APPLICATION
 const loginUrl = '/api/v1/auth/signin';
@@ -12,32 +15,20 @@ let currentToken;
 
 describe('Test user loan application', () => {
   describe('POST /loans', () => {
-    const user = {
-      email: 'odun@mail.com',
-      password: 'password',
-    };
     before((done) => {
-      chai
-        .request(app)
+      server()
         .post(`${loginUrl}`)
-        .send(user)
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
         });
     });
     it('should successfully create user loan', (done) => {
-      const userLoan = {
-        firstName: 'Odun',
-        lastName: 'Odunayo',
-        email: 'odun@mail.com',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
+      server()
         .post(`${loanUrl}`)
         .set('authorization', currentToken)
-        .send(userLoan)
+        .send(testDB.loanApplication[0])
         .end((err, res) => {
           res.body.should.be.a('object');
           res.should.have.status(201);
@@ -46,16 +37,9 @@ describe('Test user loan application', () => {
         });
     });
     it('should throw an error if user is not authenticated', (done) => {
-      const userLoan = {
-        firstName: 'Odun',
-        lastName: 'Odunayo',
-        email: 'odun@mail.com',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
+      server()
         .post(`${loanUrl}`)
-        .send(userLoan)
+        .send(testDB.loanApplication[2])
         .end((err, res) => {
           res.should.have.status(401);
           res.body.should.be.a('object');
@@ -64,16 +48,10 @@ describe('Test user loan application', () => {
         });
     });
     it('should throw an error if email is ommitted', (done) => {
-      const userLoan = {
-        firstName: 'Odun',
-        lastName: 'Odunayo',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
+      server()
         .post(`${loanUrl}`)
         .set('authorization', currentToken)
-        .send(userLoan)
+        .send(testDB.loanApplication[3])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -81,148 +59,11 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    it('should throw an error if firstName is ommitted', (done) => {
-      const userLoan = {
-        email: 'odun@mail.com',
-        lastName: 'Odunayo',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
+    it('should throw an error if the amount is invalid', (done) => {
+      server()
         .post(`${loanUrl}`)
         .set('authorization', currentToken)
-        .send(userLoan)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if firstName is less than 3 characters', (done) => {
-      const userLoan = {
-        firstName: 'Od',
-        lastName: 'Odunayo',
-        email: 'odun@mail.com',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(userLoan)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if firstName is not a string', (done) => {
-      const userLoan = {
-        firstName: 123,
-        lastName: 'Odunayo',
-        email: 'odun@mail.com',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(userLoan)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if lastName is ommitted', (done) => {
-      const userLoan = {
-        email: 'odun@mail.com',
-        firstName: 'Odunayo',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(userLoan)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if lastName is less than 3 characters', (done) => {
-      const userLoan = {
-        lastName: 'Od',
-        firstName: 'Odun',
-        email: 'odun@mail.com',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(userLoan)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if lastName is not a string', (done) => {
-      const userLoan = {
-        lastName: 123,
-        firstName: 'Odun',
-        email: 'odun@mail.com',
-        amount: 10000,
-        tenor: 4,
-      };
-      chai.request(app)
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(userLoan)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if amount is ommitted', (done) => {
-      const userLoan = {
-        email: 'odun@mail.com',
-        firstName: 'Odunayo',
-        lastName: 'okeb',
-        tenor: 4,
-      };
-      chai.request(app)
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(userLoan)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should throw an error if amount is not a number', (done) => {
-      const userLoan = {
-        email: 'odun@mail.com',
-        firstName: 'Odunayo',
-        lastName: 'okeb',
-        amount: 'two hundred',
-        tenor: 4,
-      };
-      chai.request(app)
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(userLoan)
+        .send(testDB.loanApplication[1])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -232,38 +73,27 @@ describe('Test user loan application', () => {
     });
   });
   describe('POST /loans', () => {
-    const user = {
-      email: 'harry@mail.com',
-      password: 'dementor',
-    };
     before((done) => {
-      chai.request(app)
+      server()
         .post(`${loginUrl}`)
-        .send(user)
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
         });
     });
-    const userLoan = {
-      firstName: 'Harry',
-      lastName: 'Potter',
-      email: 'harry@mail.com',
-      amount: 10000,
-      tenor: 4,
-    };
     before((done) => {
-      chai.request(app)
+      server()
         .post(`${loanUrl}`)
-        .send(userLoan)
+        .send(testDB.loanApplication[0])
         .set('token', currentToken)
         .end(() => done());
     });
     it('should throw an error if user applies for loan more than once', (done) => {
-      chai.request(app)
+      server()
         .post(`${loanUrl}`)
         .set('authorization', currentToken)
-        .send(userLoan)
+        .send(testDB.loanApplication[0])
         .end((err, res) => {
           res.should.have.status(409);
           res.body.should.be.a('object');
@@ -274,22 +104,17 @@ describe('Test user loan application', () => {
   });
   // TEST TO GET ALL LOAN APPLICATION
   describe(`GET ${loanUrl}`, () => {
-    const adminLogin = {
-      email: 'hedwig@quickcredit.com',
-      password: 'passsword',
-    };
     before((done) => {
-      chai.request(app)
+      server()
         .post(`${loginUrl}`)
-        .send(adminLogin)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
         });
     });
     it('should return all loan applications', (done) => {
-      chai
-        .request(app)
+      server()
         .get(loanUrl)
         .set('authorization', currentToken)
         .end((err, res) => {
@@ -302,19 +127,13 @@ describe('Test user loan application', () => {
         });
     });
 
-    it('Should throw an error if user is not an admin', (done) => {
-      const login = {
-        email: 'odun@mail.com',
-        password: 'password',
-      };
-      chai
-        .request(app)
+    it('Should throw an error if user is not authorized', (done) => {
+      server()
         .post(loginUrl)
-        .send(login)
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
-          chai
-            .request(app)
+          server()
             .get(loanUrl)
             .set('authorization', currentToken)
             .end((err, res) => {
@@ -328,14 +147,12 @@ describe('Test user loan application', () => {
     });
 
     it('should return a single loan application', (done) => {
-      chai
-        .request(app)
+      server()
         .post(loginUrl)
-        .send(adminLogin)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
-          chai
-            .request(app)
+          server()
             .get(`${loanUrl}/1`)
             .set('authorization', currentToken)
             .end((err, res) => {
@@ -349,15 +166,13 @@ describe('Test user loan application', () => {
         });
     });
 
-    it('Should throw an error if loan id does not exist', (done) => {
-      chai
-        .request(app)
+    it('should return an error if loan id does not exist', (done) => {
+      server()
         .post(loginUrl)
-        .send(adminLogin)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
-          chai
-            .request(app)
+          server()
             .get(`${loanUrl}/10`)
             .set('authorization', currentToken)
             .end((err, res) => {
@@ -369,26 +184,20 @@ describe('Test user loan application', () => {
         });
     });
   });
-
   // TEST TO VALIDATE LOANS QUERIES
 
   describe(`GET ${loanUrl}`, () => {
-    const adminLogin = {
-      email: 'hedwig@quickcredit.com',
-      password: 'passsword',
-    };
     before((done) => {
-      chai.request(app)
+      server()
         .post(`${loginUrl}`)
-        .send(adminLogin)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
         });
     });
     it('should return all loans that have been approved and repaid', (done) => {
-      chai
-        .request(app)
+      server()
         .get(`${loanUrl}?status=approved&repaid=true`)
         .set('authorization', currentToken)
         .end((err, res) => {
@@ -401,8 +210,7 @@ describe('Test user loan application', () => {
         });
     });
     it('should return all loans that have been approved but not repaid', (done) => {
-      chai
-        .request(app)
+      server()
         .get(`${loanUrl}?status=approved&repaid=false`)
         .set('authorization', currentToken)
         .end((err, res) => {
@@ -415,8 +223,7 @@ describe('Test user loan application', () => {
         });
     });
     it('should throw an error if status="approved" query is incorrect', (done) => {
-      chai
-        .request(app)
+      server()
         .get(`${loanUrl}?status=approvved&repaid=false`)
         .set('authorization', currentToken)
         .end((err, res) => {
@@ -427,8 +234,7 @@ describe('Test user loan application', () => {
         });
     });
     it('should throw an error if repaid=true or repaid=false query is incorrect', (done) => {
-      chai
-        .request(app)
+      server()
         .get(`${loanUrl}?status=approved&repaid=repaid`)
         .set('authorization', currentToken)
         .end((err, res) => {
@@ -439,30 +245,23 @@ describe('Test user loan application', () => {
         });
     });
   });
-
   // TEST ADMIN APPROVE OR REJECT LOAN
   describe(`PATCH ${loanUrl}/:id`, () => {
-    const adminLogin = {
-      email: 'hedwig@quickcredit.com',
-      password: 'passsword',
-    };
     const loanId = 1;
     before((done) => {
-      chai.request(app)
+      server()
         .post(`${loginUrl}`)
-        .send(adminLogin)
+        .send(testDB.users[9])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
         });
     });
     it('should approve user loan', (done) => {
-      const adminDecision = { status: 'approved' };
-      chai
-        .request(app)
+      server()
         .patch(`${loanUrl}/${loanId}`)
         .set('authorization', currentToken)
-        .send(adminDecision)
+        .send(testDB.adminDecision[0])
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -471,12 +270,10 @@ describe('Test user loan application', () => {
         });
     });
     it('should throw an error if user has already been approved', (done) => {
-      const adminDecision = { status: 'rejected' };
-      chai
-        .request(app)
+      server()
         .patch(`${loanUrl}/${loanId}`)
         .set('authorization', currentToken)
-        .send(adminDecision)
+        .send(testDB.adminDecision[0])
         .end((err, res) => {
           res.should.have.status(409);
           res.body.should.be.a('object');
@@ -485,13 +282,11 @@ describe('Test user loan application', () => {
         });
     });
 
-    it('should return error if a status is ommitted', (done) => {
-      const adminDecision = { status: 3 };
-      chai
-        .request(app)
+    it('should return error if a status is incorrect', (done) => {
+      server()
         .patch(`${loanUrl}/${loanId}`)
         .set('authorization', currentToken)
-        .send(adminDecision)
+        .send(testDB.adminDecision[2])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');

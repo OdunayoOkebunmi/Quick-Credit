@@ -43,14 +43,12 @@ const createLogin = (user) => {
 const createLoan = (loan) => {
   const schema = Joi.object().keys({
     email,
-    firstName: name,
-    lastName: name,
     tenor: Joi.number()
       .integer()
       .min(1)
       .max(12)
       .required(),
-    amount: Joi.number().min(10000).required(),
+    amount: Joi.number().min(5000).required(),
   });
   return Joi.validate(loan, schema);
 };

@@ -11,7 +11,7 @@ const router = express.Router();
 
 const { createUser, loginUser, adminVerifyUser } = UserController;
 const {
-  loanApply, getAllLoans, getSpecificLoan, loanApproval,
+  loanApply, getAllLoans, getOneLoan, approveLoan,
 } = LoanController;
 const { postRepayment, getRepaymentHistory } = RepaymentController;
 
@@ -42,7 +42,7 @@ router.post('/api/v1/loans/:id/repayment', verifyAdmin, validateRepayment, valid
 router.patch('/api/v1/users/:email/verify', verifyAdmin, validateVerification, adminVerifyUser);
 
 // router for admin to aprove or reject loan
-router.patch('/api/v1/loans/:id', verifyAdmin, validateLoanApproval, validateId, loanApproval);
+router.patch('/api/v1/loans/:id', verifyAdmin, validateLoanApproval, validateId, approveLoan);
 
 
 // router for user to get repayment hository
@@ -58,6 +58,6 @@ router.get('/api/v1/loans?status=approved&repaid=false', verifyAdmin, validateLo
 router.get('/api/v1/loans?status=approved&repaid=true', verifyAdmin, validateLoanQuery, getAllLoans);
 
 // router for admin to get all a specifc application
-router.get('/api/v1/loans/:id', verifyAdmin, validateId, getSpecificLoan);
+router.get('/api/v1/loans/:id', verifyAdmin, validateId, getOneLoan);
 
 export default router;

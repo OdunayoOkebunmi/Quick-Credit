@@ -1,7 +1,11 @@
+import faker from 'faker';
+
+
+
 const Loans = [
   {
     id: 1,
-    user: 'odunayo@mail.com',
+    user: faker.internet.email(),
     createdOn: 'Fri, Jul 8, 2016 11:54 PM',
     status: 'pending',
     repaid: false,
@@ -13,7 +17,7 @@ const Loans = [
   },
   {
     id: 2,
-    user: 'harry@mail.com',
+    user: faker.internet.email(),
     createdOn: 'Fri, Jul 8, 2016 11:54 PM',
     status: 'approved',
     repaid: false,
@@ -25,7 +29,7 @@ const Loans = [
   },
   {
     id: 3,
-    user: 'arya@noone.com',
+    user: faker.internet.email(),
     createdOn: 'Fri, Jul 8, 2016 11:54 PM',
     status: 'approved',
     repaid: false,
@@ -37,7 +41,7 @@ const Loans = [
   },
   {
     id: 4,
-    user: 'gandalf@grey.com',
+    user: faker.internet.email(),
     createdOn: 'Fri, Jul 8, 2016 11:54 PM',
     status: 'approved',
     repaid: true,
@@ -49,7 +53,7 @@ const Loans = [
   },
   {
     id: 5,
-    user: 'voldemort@riddle.com',
+    user: faker.internet.email(),
     createdOn: 'Fri, Jul 8, 2016 11:54 PM',
     status: 'approved',
     repaid: false,

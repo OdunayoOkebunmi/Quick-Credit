@@ -2,7 +2,7 @@
 import Authenticator from '../middlewares/authenticate';
 import userModel from '../models/userData';
 import EmailHandler from '../helper/emailHandler';
-import MessageHandler from '../helper/messageHandler';
+import MessageHandler from '../helper/emailMessageHandler';
 
 
 class UserController {
@@ -18,22 +18,6 @@ class UserController {
     const {
       email, firstName, lastName, password, address,
     } = req.body;
-    const details = req.body;
-    const id = userModel.length + 1;
-    const isAdmin = false;
-    const token = Authenticator.generateToken({
-      id,
-      email,
-      isAdmin,
-    });
-    const data = {
-      token,
-      id,
-      ...details,
-      password: Authenticator.hashPassword(password),
-      status: 'unverified',
-      isAdmin,
-    };
 
     // check if user already exists
     const emailExist = userModel.find(user => user.email === email);
@@ -43,15 +27,38 @@ class UserController {
         error: 'User already exist',
       });
     }
+
+    const id = userModel.length + 1;
+    const isAdmin = false;
+    const status = 'unverifed';
+    const token = Authenticator.generateToken({
+      id,
+      email,
+      isAdmin,
+    });
+    const responseData = {
+      token,
+      id,
+      email,
+      firstName,
+      lastName,
+      address,
+      status,
+      isAdmin,
+    };
+    const data = {
+      ...responseData,
+      password: Authenticator.hashPassword(password),
+    };
+
     userModel.push(data);
     // send email to user
     // const emailData = MessageHandler.signupMessage(data);
     // EmailHandler.sendNotif(emailData);
 
-
     return res.status(201).json({
       status: 201,
-      data,
+      data: responseData,
     });
   }
 
@@ -132,7 +139,6 @@ class UserController {
       email: userData.email,
       firstName: userData.firstName,
       lastName: userData.lastName,
-      password: userData.password,
       address: userData.address,
       status: userData.status,
     };
