@@ -24,7 +24,6 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    console.log('current token', currentToken);
     it('should successfully create user loan', (done) => {
       server()
         .post(`${loanUrl}`)
