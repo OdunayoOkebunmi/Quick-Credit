@@ -25,20 +25,20 @@ class LoanController {
     const userData = userModel.find(user => user.email === email);
     if (!userData) {
       return res.status(401).json({
-        status: 401,
+
         error: 'Email do not match! Enter the email you registered with',
       });
     }
     if (userData.status !== 'verified') {
       return res.status(401).json({
-        status: 401,
+
         error: 'User not verified. You cannot apply for a loan yet',
       });
     }
 
     if (loanModel.find(loan => loan.user === email)) {
       return res.status(409).json({
-        status: 409,
+
         error: 'Already applied for a loan',
       });
     }
@@ -73,7 +73,6 @@ class LoanController {
 
     loanModel.push(updatedData);
     return res.status(201).json({
-      status: 201,
       data,
     });
   }
@@ -92,12 +91,12 @@ class LoanController {
       const currentLoan = loanModel
         .filter(loan => loan.status === status && loan.repaid === JSON.parse(repaid));
       return res.status(200).send({
-        status: 200,
+
         data: currentLoan,
       });
     }
     return res.status(200).send({
-      status: 200,
+
       data: loanModel,
     });
   }
@@ -117,12 +116,11 @@ class LoanController {
     // console.log(id);
     if (specificLoan) {
       return res.status(200).send({
-        status: 200,
+
         data: specificLoan,
       });
     }
     return res.status(404).send({
-      status: 404,
       error: 'No Loan with that id exist',
     });
   }
@@ -141,13 +139,11 @@ class LoanController {
     const userLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
     if (!userLoan) {
       return res.status(404).send({
-        status: 404,
         error: 'Loan with that id not found',
       });
     }
     if (userLoan.status === 'approved') {
       return res.status(409).send({
-        status: 409,
         error: 'Loan already approved',
       });
     }
@@ -169,7 +165,6 @@ class LoanController {
     // EmailHandler.sendNotif(emailData);
 
     return res.status(200).send({
-      status: 200,
       data: updatedData,
     });
   }

@@ -23,7 +23,7 @@ class UserController {
     const emailExist = userModel.find(user => user.email === email);
     if (emailExist) {
       return res.status(409).json({
-        status: 409,
+
         error: 'User already exist',
       });
     }
@@ -57,7 +57,7 @@ class UserController {
     // EmailHandler.sendNotif(emailData);
 
     return res.status(201).json({
-      status: 201,
+
       data: responseData,
     });
   }
@@ -76,7 +76,6 @@ class UserController {
     const userExists = userModel.find(user => user.email === email);
     if (!userExists) {
       return res.status(404).json({
-        status: 404,
         error: 'User with the email does not exist',
       });
     }
@@ -87,7 +86,6 @@ class UserController {
     // checks if password matches
     if (!Authenticator.comparePassword(userExists.password, password)) {
       return res.status(400).json({
-        status: 400,
         error: 'Invalid password/email',
       });
     }
@@ -97,7 +95,6 @@ class UserController {
       isAdmin,
     });
     return res.status(200).json({
-      status: 200,
       data: {
         token,
         id,
@@ -123,14 +120,14 @@ class UserController {
     // if user is not found
     if (!userData) {
       return res.status(404).send({
-        status: 404,
+
         error: 'User with this email not found!',
       });
     }
 
     if (userData.status === 'verified') {
       return res.status(409).json({
-        status: 409,
+
         message: 'User has already been verified',
       });
     }
@@ -143,7 +140,6 @@ class UserController {
       status: userData.status,
     };
     return res.status(200).json({
-      status: 200,
       data: updatedData,
     });
   }
