@@ -1,9 +1,7 @@
-// LOGIN REDIRECT FOR USER OR ADMIN
-
-
-const formValidation = () => {
+// validate registration form
+const formValidation = (redirectTo) => {
   if (true) {
-    location.href = 'index.html';
+    location.href = redirectTo;
     return false;
   }
 };
