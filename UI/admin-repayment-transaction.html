@@ -15,7 +15,7 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-
+    
     <link rel="shortcut icon" type="image/png" href="img/logo@0,25x.png" />
     <link rel="stylesheet" href="css/admin-repayment-transaction.css" />
     <title>Admin | Repayment Transactions</title>
@@ -23,9 +23,7 @@
   <body>
     <div class="container">
       <header class="header">
-        <a href="index.html">
-          <img src="img/logo@0,25x.png" alt="Quick Credit logo" class="logo" />
-        </a>
+        <img src="img/logo@0,25x.png" alt="Quick Credit logo" class="logo" />
         <form action="" class="search">
           <input type="text" class="search__input" placeholder="Search" />
           <button class="search__button">
@@ -129,8 +127,30 @@
                 <div class="input-group">
                   <input
                     required
-                    type="date"
+                    type="text"
                     id="date-created"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="loan-amount">Loan Amount ₦ </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="loan-amount"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="loan-installments">Monthly Installments ₦ </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="loan-installments"
                     class="form-control"
                   />
                 </div>
@@ -142,6 +162,17 @@
                     required
                     type="number"
                     id="amount-paid"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <label for="laon-balance">Balance ₦ </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    required
+                    type="number"
+                    id="laon-balance"
                     class="form-control"
                   />
                 </div>
