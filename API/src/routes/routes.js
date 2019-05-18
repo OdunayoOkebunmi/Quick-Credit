@@ -45,17 +45,11 @@ router.patch('/api/v1/users/:email/verify', verifyAdmin, validateVerification, a
 router.patch('/api/v1/loans/:id', verifyAdmin, validateLoanApproval, validateId, approveLoan);
 
 
-// router for user to get repayment hository
+// router for user to get repayment history
 router.get('/api/v1/loans/:id/repayments', verifyUser, validateId, getRepaymentHistory);
 
 // router for admin to get all loan application
 router.get('/api/v1/loans', verifyAdmin, validateLoanQuery, getAllLoans);
-
-// router for admin to get all loan application that has been approved but not repaid
-router.get('/api/v1/loans?status=approved&repaid=false', verifyAdmin, validateLoanQuery, getAllLoans);
-
-// router for admin to get all loan application that has been approved and repaid
-router.get('/api/v1/loans?status=approved&repaid=true', verifyAdmin, validateLoanQuery, getAllLoans);
 
 // router for admin to get all a specifc application
 router.get('/api/v1/loans/:id', verifyAdmin, validateId, getOneLoan);
