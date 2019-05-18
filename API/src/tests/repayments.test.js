@@ -19,7 +19,7 @@ describe('Test loan repayment', () => {
       before((done) => {
         server()
           .post(`${loginUrl}`)
-          .send(testsDB.users[9])
+          .send(testsDB.users[8])
           .end((loginErr, loginRes) => {
             currentToken = `Bearer ${loginRes.body.data.token}`;
             done();
@@ -80,7 +80,7 @@ describe('Test loan repayment', () => {
       before((done) => {
         server()
           .post(`${loginUrl}`)
-          .send(testsDB.users[9])
+          .send(testsDB.users[8])
           .end((loginErr, loginRes) => {
             currentToken = `Bearer ${loginRes.body.data.token}`;
             done();
@@ -123,6 +123,18 @@ describe('Test loan repayment', () => {
             done();
           });
       });
+      it('should throw an error if paidAmount is greater than balance', (done) => {
+        server()
+          .post(repaymentUrl)
+          .set('authorization', currentToken)
+          .send(testsDB.repaymentAmount[2])
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.be.a('object');
+            res.body.should.have.property('error');
+            done();
+          });
+      });
     });
   });
 
@@ -130,23 +142,12 @@ describe('Test loan repayment', () => {
   // TEST TO GET THE REPAYMENT RECORD FROM USERS
   describe('USER CAN VIEW LOAN REPAYMENT HISTORY', () => {
     describe(`GET ${userRepaymentUrl}`, () => {
-      before((done) => {
+      beforeEach((done) => {
         server()
           .post(`${loginUrl}`)
-          .send(testsDB.users[14])
+          .send(testsDB.users[7])
           .end((loginErr, loginRes) => {
             currentToken = `Bearer ${loginRes.body.data.token}`;
-            done();
-          });
-      });
-      it('should get loan repayment record of client', (done) => {
-        server()
-          .get(userRepaymentUrl)
-          .set('authorization', currentToken)
-          .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.be.a('object');
-            res.body.should.have.property('data');
             done();
           });
       });
@@ -192,7 +193,7 @@ describe('Test loan repayment', () => {
       before((done) => {
         server()
           .post(`${loginUrl}`)
-          .send(testsDB.users[9])
+          .send(testsDB.users[8])
           .end((loginErr, loginRes) => {
             currentToken = `Bearer ${loginRes.body.data.token}`;
             done();

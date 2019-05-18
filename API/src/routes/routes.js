@@ -31,7 +31,7 @@ router.post('/api/v1/auth/signup', validateSignUp, createUser);
 // router to sign in user
 router.post('/api/v1/auth/signin', validateLogin, loginUser);
 
-// router for user loan application
+// // router for user loan application
 router.post('/api/v1/loans', verifyUser, validateLoan, loanApply);
 
 

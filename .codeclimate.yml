@@ -15,4 +15,5 @@ exclude_patterns:
   - API/src/tests/
   - build/
   - UI
-  - API/SRC/helper/
+  - API/src/helper/
+  - API/src/middlewares/

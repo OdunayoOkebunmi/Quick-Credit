@@ -1,129 +1,102 @@
-import faker from 'faker';
-
-const email = faker.internet.email();
-const firstName = faker.name.firstName();
-const lastName = faker.name.lastName();
-const password = faker.internet.password();
-const address = faker.address.streetAddress();
 const users = [
   {
     // sign up test data
-    email,
-    firstName,
-    lastName,
-    password,
-    address,
-  },
-  {
-    // invalid email
-    email: 123,
-    firstName,
-    lastName,
-    password,
-    address,
+    email: 'patrickdoe@mail.com',
+    firstName: 'Patrick',
+    lastName: 'Doe',
+    password: 'password',
+    address: 'here',
   },
   {
     // email ommitted
-    firstName,
-    lastName,
-    password,
-    address,
+    firstName: 'Jane',
+    lastName: 'Doe',
+    password: 'password',
+    address: 'here',
   },
   {
     // firstName ommited
-    email,
-    lastName,
-    password,
-    address,
+    email: 'janedoe@mail.com',
+    lastName: 'Doe',
+    password: 'password',
+    address: 'here',
   },
   {
     // password ommtted
-    email,
-    firstName,
-    lastName,
-    address,
+    email: 'janedoe@mail.com',
+    firstName: 'Jane',
+    lastName: 'Doe',
+    address: 'here',
   },
   {
     // address ommtted
-    email,
-    firstName,
-    lastName,
-    password,
-  },
-  {
-    // firstName is not a string
-    email,
-    firstName: 122,
-    lastName,
-    password,
-    address,
-  },
-  {
-    // lastName is not a string
-    email,
-    firstName,
-    lastName: 222,
-    password,
-    address,
-  },
-
-  // sign in test data 8
-  {
-    email,
-    password,
-  },
-  // admin signin
-  {
-    email: 'hedwig@quickcredit.com', // valid login details
-    password: 'passsword',
-  },
-  {
-    email: 'aname@mail.com', // invalid login email
-    password,
-  },
-  {
-    // invalid login email
-    email: 123, // invalid login email
+    email: 'janedoe@mail.com',
+    firstName: 'Jane',
+    lastName: 'Doe',
     password: 'password',
   },
   {
-    email: 'name@mail.com', // invalid login email
+    // firstName is not a string
+    email: 'janedoe@mail.com',
+    firstName: 123,
+    lastName: 'Doe',
+    password: 'password',
+    address: 'here',
+  },
+  {
+    // lastName is not a string
+    email: 'janedoe@mail.com',
+    firstName: 'Jane',
+    lastName: 123,
+    password: 'password',
+    address: 'here',
+  },
+
+  // sign in test data 7
+  {
+    email: 'janedoe@mail.com',
+    password: 'password',
+  },
+  // admin signin
+  {
+    email: 'johndoe@quickcredit.com', // valid login details
+    password: 'password',
+  },
+  {
+    email: 'name@mail.com',
+    password: 'password',
+  },
+  {
+    email: 'janedoe@mail.com',
     password: 'passsword', // incorrect password
   },
 
   {
     // email is not entered
-    password,
-  },
-  {
-    email: 'myname@mail.com',
     password: 'password',
   },
   {
-    email, // invalid login email
-    password: 'passsword', // incorrect password
-  },
-  {
-    email, // verify user
+    email: 'odun@mail.com',
+    password: 'password',
   },
 ];
 
 const loanApplication = [
   {
-    email: 'myname@mail.com',
+    email: 'odun@mail.com',
     amount: 10000,
     tenor: 4,
   },
   {
     // invalid amount
-    email: 'myname@mail.com',
+    email: 'odun@mail.com',
     amount: 'two hundered',
     tenor: 4,
   },
   {
     // unathorized user
 
-    email,
+    email: 'patrickdoe@mail.com',
     amount: 10000,
     tenor: 4,
   },
@@ -154,6 +127,9 @@ const repaymentAmount = [
   },
   {
     paidAmount: 'two thousand', // valid amount for post repayment
+  },
+  {
+    paidAmount: 200000.00, // valid amount for post repayment
   },
 ];
 

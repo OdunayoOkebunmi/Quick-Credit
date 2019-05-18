@@ -18,7 +18,7 @@ describe('Test user loan application', () => {
     before((done) => {
       server()
         .post(`${loginUrl}`)
-        .send(testDB.users[8])
+        .send(testDB.users[12])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
@@ -72,42 +72,13 @@ describe('Test user loan application', () => {
         });
     });
   });
-  describe('POST /loans', () => {
-    before((done) => {
-      server()
-        .post(`${loginUrl}`)
-        .send(testDB.users[8])
-        .end((loginErr, loginRes) => {
-          currentToken = `Bearer ${loginRes.body.data.token}`;
-          done();
-        });
-    });
-    before((done) => {
-      server()
-        .post(`${loanUrl}`)
-        .send(testDB.loanApplication[0])
-        .set('token', currentToken)
-        .end(() => done());
-    });
-    it('should throw an error if user applies for loan more than once', (done) => {
-      server()
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(testDB.loanApplication[0])
-        .end((err, res) => {
-          res.should.have.status(409);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-  });
+
   // TEST TO GET ALL LOAN APPLICATION
   describe(`GET ${loanUrl}`, () => {
     before((done) => {
       server()
         .post(`${loginUrl}`)
-        .send(testDB.users[9])
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
@@ -130,7 +101,7 @@ describe('Test user loan application', () => {
     it('Should throw an error if user is not authorized', (done) => {
       server()
         .post(loginUrl)
-        .send(testDB.users[8])
+        .send(testDB.users[7])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           server()
@@ -149,7 +120,7 @@ describe('Test user loan application', () => {
     it('should return a single loan application', (done) => {
       server()
         .post(loginUrl)
-        .send(testDB.users[9])
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           server()
@@ -169,7 +140,7 @@ describe('Test user loan application', () => {
     it('should return an error if loan id does not exist', (done) => {
       server()
         .post(loginUrl)
-        .send(testDB.users[9])
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           server()
@@ -190,7 +161,7 @@ describe('Test user loan application', () => {
     before((done) => {
       server()
         .post(`${loginUrl}`)
-        .send(testDB.users[9])
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
@@ -251,7 +222,7 @@ describe('Test user loan application', () => {
     before((done) => {
       server()
         .post(`${loginUrl}`)
-        .send(testDB.users[9])
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
