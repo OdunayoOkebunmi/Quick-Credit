@@ -9,9 +9,8 @@
     "start": "node build/server.js",
     "dev-start": "nodemon --exec babel-node API/server.js",
     "heroku-postbuild": "npm run build",
-    "cover": "istanbul cover",
-    "coveralls": "npm test && nyc report --reporter=text-lcov | coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "nyc": "nyc --reporter=lcov npm run test && nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc npm test",
     "migrations": "babel-node API/src/migrations/dropTables && babel-node API/src/migrations/createTables  && babel-node API/src/migrations/seeds",
     "heroku-migrations": "node API/src/migrations/dropTables && node API/src/migrations/createTables  && node API/src/migrations/seeds"
   },

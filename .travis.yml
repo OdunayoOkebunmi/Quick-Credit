@@ -1,10 +1,13 @@
 language: node_js
 node_js:
-  - "node"
+  - "10"
 notifications:
   email: false
 services:
   - postgresql
+cache:
+  directories:
+    - "node_modules"
 env:
     global: CC_TEST_REPORTER_ID=0ea72ec902bfd13d332a067ffed6fea23f2e6b7a21f6a62daa7877a7ba4373a6
 before_script:
@@ -14,8 +17,6 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - npm run test && nyc --reporter=lcov
-after_success:
-  - npm run coveralls
+  - "npm run nyc"
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
