@@ -33,7 +33,7 @@ describe('Test user signup', () => {
     it('should return an error if the email is ommitted', (done) => {
       server()
         .post(`${signupUrl}`)
-        .send(testDB.users[2])
+        .send(testDB.users[1])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -44,7 +44,7 @@ describe('Test user signup', () => {
     it('should return an error if the first name is ommitted', (done) => {
       server()
         .post(`${signupUrl}`)
-        .send(testDB.users[3])
+        .send(testDB.users[2])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -55,7 +55,7 @@ describe('Test user signup', () => {
     it('should return an error if the password is ommitted', (done) => {
       server()
         .post(`${signupUrl}`)
-        .send(testDB.users[4])
+        .send(testDB.users[3])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -66,7 +66,7 @@ describe('Test user signup', () => {
     it('should return an error if the address is ommitted', (done) => {
       server()
         .post(`${signupUrl}`)
-        .send(testDB.users[5])
+        .send(testDB.users[4])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -77,7 +77,7 @@ describe('Test user signup', () => {
     it('should return an error if the firstName is not a string', (done) => {
       server()
         .post(`${signupUrl}`)
-        .send(testDB.users[6])
+        .send(testDB.users[5])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -88,7 +88,7 @@ describe('Test user signup', () => {
     it('should return an error if the lastName is not a string', (done) => {
       server()
         .post(`${signupUrl}`)
-        .send(testDB.users[7])
+        .send(testDB.users[6])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -98,7 +98,7 @@ describe('Test user signup', () => {
     });
   });
   describe('POST /api/v1/auth/signup', () => {
-    before((done) => {
+    beforeEach((done) => {
       server()
         .post(`${signupUrl}`)
         .send(testDB.users[0])
@@ -125,16 +125,10 @@ describe('Test user signup', () => {
 
 describe('Test user signin', () => {
   describe('POST /api/v1/auth/signin', () => {
-    before((done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[0])
-        .end(() => done());
-    });
     it('should sign registered user in', (done) => {
       server()
         .post(`${signinUrl}`)
-        .send(testDB.users[8])
+        .send(testDB.users[7])
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -144,7 +138,7 @@ describe('Test user signin', () => {
     it('should return an error if email does not exist', (done) => {
       server()
         .post(`${signinUrl}`)
-        .send(testDB.users[10])
+        .send(testDB.users[9])
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
@@ -156,7 +150,7 @@ describe('Test user signin', () => {
     it('should return an error if password is incorrect ', (done) => {
       server()
         .post(`${signinUrl}`)
-        .send(testDB.users[15])
+        .send(testDB.users[10])
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -183,77 +177,19 @@ describe('Test user signin', () => {
 describe('Test Admin mark user as verified', () => {
   describe('PATCH /api/v1/users/:email/verify', () => {
     it('should mark a user as verified', (done) => {
-      const { email } = testDB.users[8];
+      const email = 'janedoe@mail.com';
       server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[9])
+        .post('/api/v1/auth/signin')
+        .send(testDB.users[8])
         .end((loginErr, loginRes) => {
-          currentToken = `Bearer ${loginRes.body.data.token}`;
-          chai
-            .request.agent(app)
+          const token = `Bearer ${loginRes.body.data.token}`;
+          server()
             .patch(`/api/v1/users/${email}/verify`)
-            .set('authorization', currentToken)
+            .set('authorization', token)
             .end((err, res) => {
-              // console.log(res);
               res.should.have.status(200);
               res.body.should.be.a('object');
               res.body.should.have.property('data');
-              done();
-            });
-        });
-    });
-    it('should  throw an error if unauthorized', (done) => {
-      const email = 'name@mail.com';
-      server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[8])
-        .end((loginErr, loginRes) => {
-          currentToken = `Bearer ${loginRes.body.data.token}`;
-          chai
-            .request.agent(app)
-            .patch(`/api/v1/users/${email}/verify`)
-            .set('authorization', currentToken)
-            .end((err, res) => {
-              res.should.have.status(403);
-              res.body.should.be.a('object');
-              done();
-            });
-        });
-    });
-    it('should  throw an error if user email is not correct', (done) => {
-      const { email } = testDB.users[11];
-      server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[9])
-        .end((loginErr, loginRes) => {
-          currentToken = `Bearer ${loginRes.body.data.token}`;
-          chai
-            .request.agent(app)
-            .patch(`/api/v1/users/${email}/verify`)
-            .set('authorization', currentToken)
-            .end((err, res) => {
-              res.should.have.status(400);
-              res.body.should.be.a('object');
-              res.body.should.have.property('error');
-
-              done();
-            });
-        });
-    });
-    it('should throw an error if no token is provided', (done) => {
-      const email = 'odun@mail.com';
-      server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[9])
-        .end((loginErr, loginRes) => {
-          currentToken = `Bearer ${loginRes.body.data.token}`;
-          chai
-            .request.agent(app)
-            .patch(`/api/v1/users/${email}/verify`)
-            .end((err, res) => {
-              res.should.have.status(401);
-              res.body.should.be.a('object');
-              res.body.should.have.property('error');
               done();
             });
         });

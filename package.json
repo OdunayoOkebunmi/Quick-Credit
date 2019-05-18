@@ -11,7 +11,9 @@
     "heroku-postbuild": "npm run build",
     "cover": "istanbul cover",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "migrations": "babel-node API/src/migrations/dropTables && babel-node API/src/migrations/createTables  && babel-node API/src/migrations/seeds",
+    "heroku-migrations": "node API/src/migrations/dropTables && node API/src/migrations/createTables  && node API/src/migrations/seeds"
   },
   "repository": {
     "type": "git",
@@ -44,7 +46,8 @@
     "nodemailer": "^6.1.1",
     "pg": "^7.11.0",
     "swagger-ui-express": "^4.0.2",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "@babel/polyfill": "^7.4.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
