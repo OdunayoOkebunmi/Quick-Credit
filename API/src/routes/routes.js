@@ -51,7 +51,7 @@ router.get('/api/v1/loans/:id/repayments', verifyUser, validateId, getRepaymentH
 // router for admin to get all loan application
 router.get('/api/v1/loans', verifyAdmin, validateLoanQuery, getAllLoans);
 
-// router for admin to get all a specifc application
+// router for admin to get all a specific application
 router.get('/api/v1/loans/:id', verifyAdmin, validateId, getOneLoan);
 
 export default router;

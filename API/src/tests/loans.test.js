@@ -18,7 +18,7 @@ describe('Test user loan application', () => {
     before((done) => {
       server()
         .post(`${loginUrl}`)
-        .send(testDB.users[12])
+        .send(testDB.users[7])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
@@ -92,7 +92,7 @@ describe('Test user loan application', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('data');
-          res.body.data[0].should.have.property('user');
+          res.body.data[0].should.have.property('email');
           res.body.data[0].should.have.property('id');
           done();
         });
@@ -130,7 +130,7 @@ describe('Test user loan application', () => {
               res.should.have.status(200);
               res.body.should.be.a('object');
               res.body.should.have.property('data');
-              res.body.data.should.have.property('user');
+              res.body.data.should.have.property('email');
               res.body.data.should.have.property('createdOn');
               done();
             });
@@ -174,9 +174,6 @@ describe('Test user loan application', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('data');
-          res.body.data[0].should.have.property('user');
-          res.body.data[0].should.have.property('id');
           done();
         });
     });
@@ -188,7 +185,7 @@ describe('Test user loan application', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('data');
-          res.body.data[0].should.have.property('user');
+          res.body.data[0].should.have.property('email');
           res.body.data[0].should.have.property('id');
           done();
         });
@@ -230,7 +227,7 @@ describe('Test user loan application', () => {
     });
     it('should approve user loan', (done) => {
       server()
-        .patch(`${loanUrl}/${loanId}`)
+        .patch(`${loanUrl}/2`)
         .set('authorization', currentToken)
         .send(testDB.adminDecision[0])
         .end((err, res) => {

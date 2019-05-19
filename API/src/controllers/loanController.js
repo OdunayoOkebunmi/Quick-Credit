@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import moment from 'moment';
-import userModel from '../models/userData';
-import loanModel from '../models/loansData';
+import users from '../models/userData';
+import loans from '../models/loansData';
 
 import EmailHandler from '../helper/emailHandler';
 import MessageHandler from '../helper/emailMessageHandler';
@@ -15,65 +15,58 @@ class LoanController {
   * @returns {json} json
   * @memberof LoanController
   */
-  static loanApply(req, res) {
+  static async loanApply(req, res) {
     const {
-      email, amount, tenor,
+      email, firstName, lastName, tenor,
     } = req.body;
-    const details = req.body;
 
     // check if user is verifed
-    const userData = userModel.find(user => user.email === email);
+    const userData = await users.findByEmail(email);
+    if (userData.rows.length < 1) {
+      return res.status(404).send({
+        error: 'User does not exist!',
+      });
+    }
     if (!userData) {
       return res.status(401).json({
-
         error: 'Email do not match! Enter the email you registered with',
       });
     }
-    if (userData.status !== 'verified') {
+    if (userData.rows[0].status !== 'verified') {
       return res.status(401).json({
-
         error: 'User not verified. You cannot apply for a loan yet',
       });
     }
-
-    if (loanModel.find(loan => loan.user === email)) {
-      return res.status(409).json({
-
-        error: 'Already applied for a loan',
+    const findUserLoan = await loans.findLoansByEmail(email);
+    if (!findUserLoan.rows.length || findUserLoan.rows[findUserLoan.rows.length - 1].repaid) {
+      const status = 'pending';
+      const repaid = false;
+      const amount = parseFloat(req.body.amount).toFixed(2);
+      const interest = 0.05 * parseFloat(amount).toFixed(2);
+      const paymentInstallment = parseFloat((amount + interest) / tenor).toFixed(2);
+      const balance = parseFloat(paymentInstallment * tenor).toFixed(2);
+      const loanApplication = {
+        email,
+        firstName,
+        lastName,
+        status,
+        tenor,
+        amount,
+        balance,
+        interest: 0.05 * parseFloat(amount).toFixed(2),
+        paymentInstallment,
+        repaid,
+      };
+      const response = await loans.applyForLoans(loanApplication);
+      const newLoan = response.rows[0];
+      return res.status(201).json({
+        data: {
+          ...newLoan,
+        },
       });
     }
-    const loanId = loanModel.length + 1;
-    const status = 'pending';
-    const interest = 0.05 * parseFloat(amount).toFixed(2);
-    const paymentInstallment = parseFloat((amount + interest) / tenor).toFixed(2);
-    const balance = parseFloat(paymentInstallment * tenor).toFixed(2);
-    const createdOn = moment().format('llll');
-    const repaid = false;
-    const data = {
-      loanId,
-      ...details,
-      paymentInstallment,
-      status,
-      balance,
-      interest,
-    };
-    // updated user data
-    const updatedData = {
-      id: data.loanId,
-      user: data.email,
-      createdOn,
-      status,
-      repaid,
-      tenor,
-      amount,
-      paymentInstallment,
-      balance,
-      interest,
-    };
-
-    loanModel.push(updatedData);
-    return res.status(201).json({
-      data,
+    return res.status(409).json({
+      error: 'Already applied for a loan',
     });
   }
 
@@ -85,19 +78,29 @@ class LoanController {
      * @returns[array] array
      * @memberof LoanController
      */
-  static getAllLoans(req, res) {
-    const { status, repaid } = req.query;
+  static async getAllLoans(req, res) {
+    const { status } = req.query;
+    let { repaid } = req.query;
     if (status && repaid) {
-      const currentLoan = loanModel
-        .filter(loan => loan.status === status && loan.repaid === JSON.parse(repaid));
+      repaid = JSON.parse(repaid);
+      const queriedLoans = await loans.getQueriedLoans(status, repaid);
+      if (queriedLoans.rows.length === 0) {
+        return res.status(200).send({
+          message: 'Empty data',
+        });
+      }
       return res.status(200).send({
-
-        data: currentLoan,
+        data: queriedLoans.rows,
+      });
+    }
+    const allLoans = await loans.getAllLoans();
+    if (allLoans.rows.length === 0) {
+      return res.status(200).send({
+        message: 'Empty data',
       });
     }
     return res.status(200).send({
-
-      data: loanModel,
+      data: allLoans.rows,
     });
   }
 
@@ -110,18 +113,17 @@ class LoanController {
      * @memberof LoanController
      */
 
-  static getOneLoan(req, res) {
-    const { id } = req.params;
-    const specificLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
-    // console.log(id);
-    if (specificLoan) {
-      return res.status(200).send({
-
-        data: specificLoan,
+  static async getOneLoan(req, res) {
+    let { id } = req.params;
+    id = parseInt(id, 10);
+    const specificLoan = await loans.getOneLoan(id);
+    if (specificLoan.rows.length === 0) {
+      return res.status(404).send({
+        error: 'No Loan with that id exist',
       });
     }
-    return res.status(404).send({
-      error: 'No Loan with that id exist',
+    return res.status(200).send({
+      data: specificLoan.rows[0],
     });
   }
 
@@ -133,31 +135,33 @@ class LoanController {
       * @returns {json} json
       * @memberof LoanController
       */
-  static approveLoan(req, res) {
-    const { id } = req.params;
+  static async approveLoan(req, res) {
+    let { id } = req.params;
+    id = parseInt(id, 10);
     const { status } = req.body;
-    const userLoan = loanModel.find(loan => loan.id === parseInt(id, 10));
-    if (!userLoan) {
+    const userLoan = await loans.getOneLoan(id);
+
+    if (userLoan.rows.length === 0) {
       return res.status(404).send({
         error: 'Loan with that id not found',
       });
     }
-    if (userLoan.status === 'approved') {
+    if (userLoan.rows[0].status === 'approved') {
       return res.status(409).send({
         error: 'Loan already approved',
       });
     }
-    userLoan.status = status;
+    const updatedLoan = await loans.approveLoan(status, id);
     const {
-      tenor, monthlyInstallments, interest,
-    } = userLoan;
+      amount, tenor, paymentInstallment, interest,
+    } = updatedLoan.rows[0];
 
     const updatedData = {
-      loanId: userLoan.id,
-      loanAmount: userLoan.amount,
+      loanId: updatedLoan.rows[0].id,
+      amount,
       tenor,
-      status: userLoan.status,
-      monthlyInstallments,
+      status: updatedLoan.rows[0].status,
+      paymentInstallment,
       interest,
     };
 
