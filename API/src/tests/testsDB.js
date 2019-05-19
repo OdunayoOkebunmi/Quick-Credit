@@ -1,8 +1,8 @@
 const users = [
   {
     // sign up test data
-    email: 'patrickdoe@mail.com',
-    firstName: 'Patrick',
+    email: 'jerrydoe@mail.com',
+    firstName: 'Jerry',
     lastName: 'Doe',
     password: 'password',
     address: 'here',
@@ -79,17 +79,25 @@ const users = [
     email: 'odun@mail.com',
     password: 'password',
   },
+  {
+    email: 'patrickdoe@mail.com',
+    password: 'password',
+  },
 ];
 
 const loanApplication = [
   {
-    email: 'odun@mail.com',
+    email: 'patrickdoe@mail.com',
+    firstName: 'Patrick',
+    lastName: 'Doe',
     amount: 10000,
     tenor: 4,
   },
   {
     // invalid amount
-    email: 'odun@mail.com',
+    email: 'janedoe@mail.com',
+    firstName: 'Jane',
+    lastName: 'Doe',
     amount: 'two hundered',
     tenor: 4,
   },
@@ -97,11 +105,15 @@ const loanApplication = [
     // unathorized user
 
     email: 'patrickdoe@mail.com',
+    firstName: 'Patrick',
+    lastName: 'Doe',
     amount: 10000,
     tenor: 4,
   },
   {
     amount: 60000,
+    firstName: 'Jane',
+    lastName: 'Doe',
     tenor: 4, //  no email
   },
 ];

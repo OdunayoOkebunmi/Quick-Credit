@@ -30,11 +30,11 @@ const loginDetailsHandler = (loginReq) => {
 
 const loanDetailsHandler = (loanReq) => {
   const {
-    email, tenor, amount,
+    email, firstName, lastName, tenor, amount,
   } = loanReq.body;
 
   const userLoan = {
-    email, tenor, amount,
+    email, firstName, lastName, tenor, amount,
   };
   return userLoan;
 };
