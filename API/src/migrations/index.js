@@ -1,4 +1,4 @@
-// import debug from 'debug';
+import '@babel/polyfill';
 import pool from './db';
 
 

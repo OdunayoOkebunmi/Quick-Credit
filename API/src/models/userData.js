@@ -12,17 +12,23 @@ class User {
   * @returns { object } user object
   */
   static createUserData(data) {
-    const queryText = `INSERT INTO users(
+    try {
+      const queryText = `INSERT INTO users(
   "firstName", "lastName", email, password, address
 ) VALUES ($1, $2, $3, $4, $5) RETURNING *;
 `;
-    const {
-      firstName, lastName, email, password, address,
-    } = data;
-    const hashedPassword = Authenticator.hashPassword(password);
-    const values = [firstName, lastName, email, hashedPassword, address];
-    const response = db.query(queryText, values);
-    return response;
+      const {
+        firstName, lastName, email, password, address,
+      } = data;
+      const hashedPassword = Authenticator.hashPassword(password);
+      const values = [firstName, lastName, email, hashedPassword, address];
+      const response = db.query(queryText, values);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+
   }
 
   /**

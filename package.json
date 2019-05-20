@@ -12,7 +12,7 @@
     "nyc": "nyc --reporter=lcov npm run test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
     "migrations": "babel-node API/src/migrations/dropTables && babel-node API/src/migrations/createTables  && babel-node API/src/migrations/seeds",
-    "heroku-migrations": "node API/src/migrations/dropTables && node API/src/migrations/createTables  && node API/src/migrations/seeds"
+    "heroku-migrations": "node build/src/migrations/dropTables && node build/src/migrations/createTables  && node build/src/migrations/seeds"
   },
   "repository": {
     "type": "git",

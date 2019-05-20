@@ -23,7 +23,13 @@ class UserController {
       });
     }
     const response = await users.createUserData(req.body);
+    if (!response) {
+      return res.status(500).json({
+        error: 'OOps somthing broke',
+      });
+    }
     const user = response.rows[0];
+
     const token = Authenticator.generateToken(user);
 
     // send email to user

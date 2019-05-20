@@ -2,7 +2,7 @@ import db from '../migrations/db';
 
 /**
  * @exports Loans
- * @class User
+ * @class Loans
  */
 
 class Loans {
@@ -81,5 +81,17 @@ class Loans {
     const response = db.query(queryText, [status, id]);
     return response;
   }
+
+  /**
+* @method approveLoan
+* @description admin approves or rejects a loan
+* @returns {object} the loans details
+*/
+  static updateUserBalance(balance, id) {
+    const queryText = 'UPDATE loans SET balance=$1 WHERE id=$2 ';
+    const response = db.query(queryText, [balance, id]);
+    return response;
+  }
+
 }
 export default Loans;
