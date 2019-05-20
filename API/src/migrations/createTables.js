@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import query from './index';
 
 const createTables = `
