@@ -33,25 +33,31 @@ class RepaymentController {
       }
       if (paidAmount <= userLoan.rows[0].balance) {
         userLoan.rows[0].balance -= paidAmount;
-
+        const postPayment = await repayments.postLoans(id, paidAmount);
+        const updateLoanBalance = await loans.updateUserBalance(userLoan.rows[0].balance, id);
+        const updatedData = {
+          id: updateLoanBalance.rows[0].id,
+          loanId: postPayment.rows[0].loanId,
+          createdOn: postPayment.rows[0].createdOn,
+          amount: updateLoanBalance.rows[0].amount,
+          monthlyInstallemnt: updateLoanBalance.rows[0].paymentInstallment,
+          paidAmount,
+          balance: updateLoanBalance.rows[0].balance,
+        };
         if (userLoan.rows[0].balance === 0) {
-          const postPayment = await repayments.postLoans(id, paidAmount);
-          console.log(postPayment.rows[0]);
+          const repaid = true;
+          const setRepaid = await loans.setRepaid(repaid, userLoan.rows[0].balance);
+
           return res.status(201).send({
-            message: 'Loan has been fully repaid',
-            // data: updatedData,
+            data: {
+              ...updatedData,
+            },
           });
         }
-        // repayments.push(updatedData);
-        const postPayment = await repayments.postLoans(id, paidAmount);
-        console.log(userLoan.rows[0].balance);
-        const updateLoanBalance = await loans.updateUserBalance(userLoan.rows[0].balance, id);
-
-        console.log(postPayment.rows[0]);
-        console.log(updateLoanBalance);
         return res.status(201).send({
-          message: 'Loan has been fully repaid',
-          // data: updatedData,
+          data: {
+            ...updatedData,
+          },
         });
       }
     }
@@ -69,21 +75,19 @@ class RepaymentController {
    * @returns [array] array
    * @memberof RepaymentController
    */
-  // static getRepaymentHistory(req, res) {
-  //   const { id } = req.params;
-  //   const repaymentHistory = repayments
-  //     .filter(repayment => repayment.loanId === parseInt(id, 10));
-  //   if (repaymentHistory.length !== 0) {
-  //     return res.status(200).send({
+  static async getRepaymentHistory(req, res) {
+    const id = parseInt(req.params.id, 10);
+    const repaymentHistory = await repayments.findLoanId(id);
+    if (repaymentHistory.rows.length !== 0) {
+      return res.status(200).send({
+        data: repaymentHistory.rows,
+      });
+    }
+    return res.status(404).send({
 
-  //       data: repaymentHistory,
-  //     });
-  //   }
-  //   return res.status(404).send({
-
-  //     error: 'No repayment record found',
-  //   });
-  // }
+      error: 'No repayment record found',
+    });
+  }
 }
 
 export default RepaymentController;
