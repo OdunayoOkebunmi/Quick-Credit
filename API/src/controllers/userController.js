@@ -35,11 +35,19 @@ class UserController {
     // send email to user
     // const emailData = MessageHandler.signupMessage(data);
     // EmailHandler.sendNotif(emailData);
-
+    const {
+      id, firstName, lastName, email, status, address, isAdmin,
+    } = user;
     return res.status(201).json({
       data: {
         token,
-        ...user,
+        id,
+        firstName,
+        lastName,
+        email,
+        status,
+        address,
+        isAdmin,
       },
     });
   }
