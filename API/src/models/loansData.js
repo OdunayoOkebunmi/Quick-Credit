@@ -88,10 +88,19 @@ class Loans {
 * @returns {object} the loans details
 */
   static updateUserBalance(balance, id) {
-    const queryText = 'UPDATE loans SET balance=$1 WHERE id=$2 ';
+    const queryText = 'UPDATE loans SET balance=$1 WHERE id=$2  RETURNING *';
     const response = db.query(queryText, [balance, id]);
     return response;
   }
 
+  /**
+  * @param {*} data
+  * @returns { object } user object
+  */
+  static setRepaid(repaid, balance) {
+    const queryText = 'UPDATE loans SET repaid=$1 WHERE balance=$2 ';
+    const response = db.query(queryText, [repaid, balance]);
+    return response;
+  }
 }
 export default Loans;

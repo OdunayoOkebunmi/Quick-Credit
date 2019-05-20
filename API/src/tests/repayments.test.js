@@ -9,8 +9,8 @@ chai.use(chaiHttp);
 const server = () => chai.request(app);
 
 const loginUrl = '/api/v1/auth/signin';
-const repaymentUrl = '/api/v1/loans/2/repayment';
-const userRepaymentUrl = '/api/v1/loans/2/repayments';
+const repaymentUrl = '/api/v1/loans/1/repayment';
+const userRepaymentUrl = '/api/v1/loans/1/repayments';
 let currentToken;
 
 describe('Test loan repayment', () => {
