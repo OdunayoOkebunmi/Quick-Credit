@@ -101,7 +101,6 @@ class LoanController {
   static async getAllLoans(req, res) {
     const { status } = req.query;
     let repaid = req.query;
-    console.log(repaid);
     if (status && repaid) {
       repaid = JSON.parse(repaid);
       const queriedLoans = await loans.getQueriedLoans(status, repaid);

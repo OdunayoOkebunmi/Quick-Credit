@@ -133,29 +133,7 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    it('should return all loans that have been approved and repaid', (done) => {
-      server()
-        .get(`${loanUrl}?status=approved&repaid=true`)
-        .set('authorization', currentToken)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
-    it('should return all loans that have been approved but not repaid', (done) => {
-      server()
-        .get(`${loanUrl}?status=approved&repaid=false`)
-        .set('authorization', currentToken)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('data');
-          res.body.data[0].should.have.property('email');
-          res.body.data[0].should.have.property('id');
-          done();
-        });
-    });
+    
     it('should throw an error if status="approved" query is incorrect', (done) => {
       server()
         .get(`${loanUrl}?status=approvved&repaid=false`)
