@@ -9,17 +9,15 @@ class Authorization {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
       const adminEmail = decoded.payload.email;
-      // console.log(decoded.payload.email);
+
       if (!(adminEmail.endsWith('quickcredit.com'))) {
         return res.status(403).send({
-          status: 403,
           error: 'Only Admin can access this route',
         });
       }
       return next();
     } catch (error) {
       return res.status(401).send({
-        status: 401,
         error: 'Invalid or No token provided',
       });
     }
@@ -30,23 +28,20 @@ class Authorization {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
       const userEmail = decoded.payload.email;
-      // console.log(decoded.payload.email);
+      req.user = decoded.payload;
 
       if (userEmail.endsWith('quickcredit.com')) {
         return res.status(403).send({
-          status: 403,
           error: 'Only Authenticated User can access this route',
         });
       }
       return next();
     } catch (error) {
       return res.status(401).send({
-        status: 401,
         error: 'Invalid or No token provided',
       });
     }
   }
 }
-
 
 export default Authorization;

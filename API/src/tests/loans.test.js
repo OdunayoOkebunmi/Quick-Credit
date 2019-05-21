@@ -18,24 +18,13 @@ describe('Test user loan application', () => {
     before((done) => {
       server()
         .post(`${loginUrl}`)
-        .send(testDB.users[7])
+        .send(testDB.users[13])
         .end((loginErr, loginRes) => {
           currentToken = `Bearer ${loginRes.body.data.token}`;
           done();
         });
     });
-    it('should successfully create user loan', (done) => {
-      server()
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(testDB.loanApplication[0])
-        .end((err, res) => {
-          res.body.should.be.a('object');
-          res.should.have.status(201);
-          res.body.should.have.property('data');
-          done();
-        });
-    });
+
     it('should throw an error if user is not authenticated', (done) => {
       server()
         .post(`${loanUrl}`)
@@ -47,18 +36,7 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    it('should throw an error if email is ommitted', (done) => {
-      server()
-        .post(`${loanUrl}`)
-        .set('authorization', currentToken)
-        .send(testDB.loanApplication[3])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
+
     it('should throw an error if the amount is invalid', (done) => {
       server()
         .post(`${loanUrl}`)
@@ -84,19 +62,7 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    it('should return all loan applications', (done) => {
-      server()
-        .get(loanUrl)
-        .set('authorization', currentToken)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('data');
-          res.body.data[0].should.have.property('email');
-          res.body.data[0].should.have.property('id');
-          done();
-        });
-    });
+
 
     it('Should throw an error if user is not authorized', (done) => {
       server()

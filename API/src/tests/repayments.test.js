@@ -86,19 +86,7 @@ describe('Test loan repayment', () => {
             done();
           });
       });
-      it('should throw an error if id is not found', (done) => {
-        const wrongUrl = '/api/v1/loans/209/repayment';
-        server()
-          .post(wrongUrl)
-          .set('authorization', currentToken)
-          .send(testsDB.repaymentAmount[0])
-          .end((err, res) => {
-            res.should.have.status(404);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            done();
-          });
-      });
+
       it('should throw an error if id is not an integer', (done) => {
         const wrongUrl = '/api/v1/loans/w/repayment';
         server()
@@ -148,18 +136,6 @@ describe('Test loan repayment', () => {
           .send(testsDB.users[7])
           .end((loginErr, loginRes) => {
             currentToken = `Bearer ${loginRes.body.data.token}`;
-            done();
-          });
-      });
-      it('should throw an error if id is not found', (done) => {
-        const wrongUrl = '/api/v1/loans/209/repayments';
-        server()
-          .get(wrongUrl)
-          .set('authorization', currentToken)
-          .end((err, res) => {
-            res.should.have.status(404);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
             done();
           });
       });

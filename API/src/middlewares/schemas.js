@@ -42,9 +42,6 @@ const createLogin = (user) => {
 };
 const createLoan = (loan) => {
   const schema = Joi.object().keys({
-    email,
-    firstName: name,
-    lastName: name,
     tenor: Joi.number()
       .integer()
       .min(1)
@@ -66,10 +63,12 @@ const loanQuery = (loan) => {
   const schema = Joi.object().keys({
     status: Joi.string()
       .insensitive()
-      .valid('approved'),
+      .valid('approved')
+      .required(),
     repaid: Joi.boolean()
       .insensitive()
-      .valid([true, false]),
+      .valid([true, false])
+      .required(),
   });
   return Joi.validate(loan, schema);
 };

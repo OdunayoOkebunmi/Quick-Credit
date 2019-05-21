@@ -8,36 +8,45 @@ import MessageHandler from '../helper/emailMessageHandler';
 class UserController {
   /**
     * create new user
+    *
     * @param {object} request express request object
     * @param {object} response express response object
+    *
     * @returns {json} json
+    *
     * @memberof UserController
     */
   static async createUser(req, res) {
     const findUser = await users.findByEmail(req.body.email);
-
-    // check if user already exists
+    
     if (findUser.rowCount > 0) {
       return res.status(409).json({
         error: 'User already exist',
       });
     }
+
     const response = await users.createUserData(req.body);
+
     if (!response) {
       return res.status(500).json({
-        error: 'OOps somthing broke',
+        error: 'Ops something broke',
       });
     }
+
     const user = response.rows[0];
-
-    const token = Authenticator.generateToken(user);
-
-    // send email to user
-    // const emailData = MessageHandler.signupMessage(data);
-    // EmailHandler.sendNotif(emailData);
     const {
       id, firstName, lastName, email, status, address, isAdmin,
     } = user;
+    const token = Authenticator.generateToken({
+      id,
+      email,
+      isAdmin,
+    });
+
+    // send email to user
+    const emailData = MessageHandler.signupMessage(user);
+    EmailHandler.sendNotif(emailData);
+
     return res.status(201).json({
       data: {
         token,
@@ -54,38 +63,47 @@ class UserController {
 
   /**
   * log  user in
+  *
   * @param {object} request express request object
   * @param {object} response express response object
   *
   * @returns {json} json
+  *
   * @memberof UserController
   */
+
   static async loginUser(req, res) {
     const { email, password } = req.body;
     const response = await users.findByEmail(email);
 
-    // checks if user exists
-    if (!response.rows[0]) {
+    if (!response) {
+      return res.status(500).json({
+        error: 'Ops something broke',
+      });
+    }
+    if (response.rowCount === 0) {
       return res.status(404).json({
         error: 'User with the email does not exist',
       });
     }
 
     const verifiedPassword = Authenticator.comparePassword(response.rows[0].password, password);
+
     if (!verifiedPassword) {
       return res.status(400).json({
         error: 'Invalid password/email',
       });
     }
+
     const {
       id, firstName, lastName, isAdmin,
     } = response.rows[0];
-
     const token = Authenticator.generateToken({
       id,
       email,
       isAdmin,
     });
+
     return res.status(200).json({
       data: {
         token,
@@ -100,15 +118,24 @@ class UserController {
 
   /**
   * check if a user is verified
+  *
   * @param {object} request express request object
   * @param {object} response express response object
+  *
   * @returns {json} json
+  *
   * @memberof UserController
   */
+
   static async adminVerifyUser(req, res) {
     const { email } = req.params;
     const response = await users.findByEmail(email);
-    // checks if user exists
+
+    if (!response) {
+      return res.status(500).json({
+        error: 'Ops something broke',
+      });
+    }
     if (!response.rows[0]) {
       return res.status(404).json({
         error: 'User with the email not found',
@@ -119,7 +146,9 @@ class UserController {
         error: 'User has already been verified',
       });
     }
-    const verifiedUser = await users.verifyUser(email);
+
+    await users.verifyUser(email);
+
     const updatedData = await users.findByEmail(email);
     const {
       firstName, lastName, address, status,
@@ -131,6 +160,7 @@ class UserController {
       address,
       status,
     };
+
     return res.status(200).json({
       status: 200,
       data,

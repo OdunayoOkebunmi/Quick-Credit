@@ -1,6 +1,6 @@
 const errorMessageHandler = (errorMessage, res) => res.status(400).json({
   status: 400,
-  error: errorMessage,
+  error: errorMessage.replace(/[^a-zA-Z ]/g, ''),
 });
 
 const errorResponseHandler = res => res.status(400).json({
@@ -29,13 +29,9 @@ const loginDetailsHandler = (loginReq) => {
 };
 
 const loanDetailsHandler = (loanReq) => {
-  const {
-    email, firstName, lastName, tenor, amount,
-  } = loanReq.body;
+  const { tenor, amount } = loanReq.body;
 
-  const userLoan = {
-    email, firstName, lastName, tenor, amount,
-  };
+  const userLoan = { tenor, amount };
   return userLoan;
 };
 

@@ -1,9 +1,6 @@
 import '@babel/polyfill';
 import pool from './db';
 
-
-// const log = debug('dev');
-
 const query = async (queryString) => {
   pool.on('connect', () => {
     console.log('connected to the db');
