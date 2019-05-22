@@ -53,6 +53,20 @@ body {
 }
 
 /* ++++++STYLING FOR SECTION LOAN APPLICATION */
+.icon-previous-page {
+  margin: 2rem;
+  width: auto;
+}
+.icon-previous-page .fas {
+  color: #fff;
+  margin: 2rem;
+}
+@media only screen and (max-width: 650px) {
+  .icon-previous-page .fa-arrow-left {
+    color: var(--color-primary);
+    margin: 2rem;
+  }
+}
 .section-loan-apply {
   width: 100%;
   display: flex;
@@ -119,7 +133,7 @@ body {
   font-weight: 500;
 }
 .section-loan-apply .form-container .form-group {
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-loan-apply .form-container .form-group .input-group {

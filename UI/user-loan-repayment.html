@@ -34,17 +34,7 @@
           </button>
         </form>
         <nav class="user-nav">
-          <div class="user-nav__icon-box">
-            <i class="user-nav__icon fas fa-bell"></i>
-
-            <span class="user-nav__notification">17</span>
-          </div>
           <div class="user-nav__user">
-            <img
-              src="img/user.jpg"
-              alt="User photo"
-              class="user-nav__user-photo"
-            />
             <span class="user-nav__user-name">Jane Doe</span>
           </div>
         </nav>
@@ -63,12 +53,6 @@
                 <i class="side-nav__icon fas fa-edit"></i>
 
                 <span>Apply for Loans</span>
-              </a>
-            </li>
-            <li class="side-nav__item">
-              <a href="#" class="side-nav__link">
-                <i class="side-nav__icon fas fa-user"></i>
-                <span>Profile</span>
               </a>
             </li>
             <li class="side-nav__item">
@@ -126,81 +110,8 @@
                 </tr>
               </tbody>
             </table>
-            <span class="loan-repayment__pay">
-              <a href="#payment-popup">Pay Loan</a>
-            </span>
           </div>
         </main>
-      </div>
-    </div>
-    <div class="popup" id="payment-popup">
-      <div class="popup__content">
-        <a href="#" class="popup__close">&times;</a>
-        <br /><br />
-        <h3 class="heading-secondary">
-          <span><i class="fas fa-lock"></i></span>
-          Loan Payment
-        </h3>
-        <form action="" id="repayment-form">
-          <label for="card-name">CARD HOLDER'S NAME</label>
-          <div class="form-group">
-            <div class="input-group">
-              <input
-                required
-                type="text"
-                id="card-name"
-                class="form-control"
-                placeholder="Name on card"
-              />
-            </div>
-          </div>
-          <label for="card-name">CARD NUMBER</label>
-          <div class="form-group">
-            <div class="input-group">
-              <input
-                required
-                type="number"
-                id="card-number"
-                class="form-control"
-                placeholder="---- ---- ---- ----"
-              />
-            </div>
-          </div>
-
-          <div class="form-group-flex">
-            <div class="expiry-date">
-              <label for="card-name">EXPIRY DATE</label>
-              <div class="form-group">
-                <div class="input-group">
-                  <input
-                    required
-                    type="date"
-                    id="expiry-date"
-                    class="form-control"
-                    placeholder="MM/YYYY"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="cvv">
-              <label for="card-cvv">CVV</label>
-              <div class="form-group">
-                <div class="input-group">
-                  <input
-                    required
-                    type="number"
-                    id="card-cvv"
-                    class="form-control"
-                    placeholder="---"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <input type="submit" value="pay now" class="btn btn--block" />
-          </div>
-        </form>
       </div>
     </div>
   </body>

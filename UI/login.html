@@ -21,6 +21,9 @@
     <title>Log In</title>
   </head>
   <body>
+    <a href="index.html" class="icon-previous-page">
+      <i class="fas fa-arrow-left fa-4x" title="Go back to home page"></i>
+    </a>
     <section class="section-sign-up">
       <div class="form-container">
         <h2 class="heading-secondary">
@@ -29,7 +32,7 @@
         <form
           action=""
           id="sign-up-form"
-          onsubmit="return formValidation('user-dashboard.html')"
+          onsubmit="return formValidationSignIn()"
         >
           <label for="user-email">Email</label>
           <div class="form-group">
@@ -42,7 +45,6 @@
               />
             </div>
           </div>
-
           <label for="user-password">Password</label>
           <div class="form-group">
             <div class="input-group">

@@ -48,18 +48,35 @@ body {
   color: var(--color-grey-dark);
   width: 100%;
   height: 100%;
+}
+
+/* ++++++STYLING FOR SECTION SIGN-UP */
+.section-sign-up {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-/* ++++++STYLING FOR SECTION SIGN-UP */
+.icon-previous-page {
+  margin: 2rem;
+  width: auto;
+}
+.icon-previous-page .fas {
+  color: #fff;
+  margin: 2rem;
+}
+@media only screen and (max-width: 650px) {
+  .icon-previous-page .fa-arrow-left {
+    color: var(--color-primary);
+    margin: 2rem;
+  }
+}
 .section-sign-up .form-container {
   background-color: #fff;
   padding: 2.5rem 5rem;
   border-radius: 5px;
   box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2);
   height: auto;
+  margin-bottom: 2rem;
 }
 .section-sign-up .form-container .heading-secondary {
   font-size: 3.5rem;
@@ -78,7 +95,7 @@ body {
   font-weight: 500;
 }
 .section-sign-up .form-container .form-group {
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-sign-up .form-container .form-group .input-group {

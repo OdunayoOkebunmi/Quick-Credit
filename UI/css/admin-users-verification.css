@@ -56,12 +56,12 @@ body {
   font-size: 3.5rem;
   text-transform: uppercase;
   font-weight: 700;
-  text-align: center;
   letter-spacing: 2px;
   transition: all 0.2s;
   letter-spacing: 2px;
   transition: all 0.2s;
   margin-bottom: 2rem;
+  margin-left: 1rem;
 }
 @media only screen and (max-width: 900px) {
   .heading-secondary {
@@ -88,7 +88,6 @@ body {
     width: 100%;
   }
 }
-
 
 /* ++++++++STYLING FOR HEADER SECTION */
 .container .header {
@@ -181,26 +180,6 @@ body {
   color: var(--color-grey-dark-2);
 }
 
-.header .user-nav .user-nav__notification {
-  font-size: 1rem;
-  height: 1.75rem;
-  width: 1.75rem;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-  color: #fff;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.header .user-nav .user-nav__user-photo {
-  height: 3.75rem;
-  border-radius: 50%;
-  margin-right: 1rem;
-}
-
 /* ++++++++STYLING FOR CONTENT SECTION +++++++ */
 .container .content {
   display: flex;
@@ -231,6 +210,7 @@ body {
     display: flex;
     margin-top: 0;
     flex-wrap: wrap;
+    height: auto;
   }
 }
 .content .sidebar .side-nav__item {
@@ -331,6 +311,7 @@ body {
 .admin-users-verify--view .admin-users-verify__details--table {
   border-collapse: collapse;
   width: 100%;
+  margin-left: 1rem;
 }
 
 .admin-users-verify__details--table td,
