@@ -2,19 +2,32 @@
 import Joi from 'joi';
 
 const name = Joi.string()
-  .regex(/^[A-Z]|[a-z]+$/)
-  .min(3)
-  .max(30)
-  .required();
+  .regex(/^[a-zA-Z]+$/)
+  .lowercase()
+  .trim()
+  .required()
+  .error((errors) => {
+    errors.forEach((err) => {
+      switch (err.type) {
+        case 'string.regex.base':
+          err.message = 'Name can only contain letters';
+          break;
+        default:
+          break;
+      }
+    });
+    return errors;
+  });
 
 const email = Joi.string()
+  .trim()
+  .strict()
+  .lowercase()
   .email()
   .required();
 
 const password = Joi.string()
-  .regex(/^[a-zA-Z0-9]{3,30}$/)
-  .min(7)
-  .alphanum()
+  .min(8)
   .required();
 
 const createUser = (user) => {
@@ -23,7 +36,7 @@ const createUser = (user) => {
     firstName: name,
     lastName: name,
     password,
-    address: Joi.string().required(),
+    address: Joi.string().trim().required(),
     status: Joi.string()
       .insensitive()
       .default('unverified'),
@@ -44,17 +57,18 @@ const createLoan = (loan) => {
   const schema = Joi.object().keys({
     tenor: Joi.number()
       .integer()
+      .strict()
       .min(1)
       .max(12)
       .required(),
-    amount: Joi.number().min(5000).required(),
+    amount: Joi.number().positive().min(5000).required(),
   });
   return Joi.validate(loan, schema);
 };
 
 const createRepayment = (repayment) => {
   const schema = Joi.object().keys({
-    paidAmount: Joi.number().required(),
+    paidAmount: Joi.number().positive().required(),
   });
   return Joi.validate(repayment, schema);
 };
@@ -63,12 +77,10 @@ const loanQuery = (loan) => {
   const schema = Joi.object().keys({
     status: Joi.string()
       .insensitive()
-      .valid('approved')
-      .required(),
+      .valid('approved'),
     repaid: Joi.boolean()
       .insensitive()
-      .valid([true, false])
-      .required(),
+      .valid([true, false]),
   });
   return Joi.validate(loan, schema);
 };
@@ -86,9 +98,21 @@ const approveLoan = (loan) => {
 
 const getUserId = (id) => {
   const schema = {
-    id: Joi
-      .number()
-      .required(),
+    id: Joi.string()
+      .regex(/^\d+$/)
+      .required()
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case 'string.regex.base':
+              err.message = 'ID must be a positive integer';
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
   };
 
   return Joi.validate(id, schema);

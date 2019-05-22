@@ -22,7 +22,7 @@ app.get('/', (req, res) => res.status(200).json({
   message: 'Welcome to Quick Credit',
 }));
 
-app.use(router);
+app.use('/api/v1/', router);
 // Handle non existing routes
 app.all('*', (req, res) => res.status(404).json({
   status: 404,
