@@ -33,17 +33,7 @@
           </button>
         </form>
         <nav class="user-nav">
-          <div class="user-nav__icon-box">
-            <i class="user-nav__icon fas fa-bell"></i>
-
-            <span class="user-nav__notification">7</span>
-          </div>
           <div class="user-nav__user">
-            <img
-              src="img/user.jpg"
-              alt="User photo"
-              class="user-nav__user-photo"
-            />
             <span class="user-nav__user-name">Odunayo(Admin)</span>
           </div>
         </nav>
@@ -64,7 +54,7 @@
                 <span>Verify Users</span>
               </a>
             </li>
-            <li class="side-nav__item  side-nav__item--active">
+            <li class="side-nav__item  side-nav__item--active ">
               <a href="admin-loan-applications.html" class="side-nav__link">
                 <i class="side-nav__icon fas fa-edit"></i>
                 <span>Loan Applications</span>
@@ -72,7 +62,7 @@
             </li>
             <li class="side-nav__item">
               <a href="admin-current-loans.html" class="side-nav__link">
-                <i class="side-nav__icon fas fa-user"></i>
+                <i class="side-nav__icon fas fa-user-clock"></i>
                 <span>Current Loans</span>
               </a>
             </li>
@@ -84,7 +74,7 @@
             </li>
             <li class="side-nav__item">
               <a href="admin-repayment-transaction.html" class="side-nav__link">
-                <i class="side-nav__icon fas fa-user"></i>
+                <i class="side-nav__icon fas fa-user-edit"></i>
                 <span>Post Repayment Transactions</span>
               </a>
             </li>
@@ -109,11 +99,21 @@
                   <th>Date Created</th>
                   <th>Loan Status</th>
                   <th>Repaid</th>
-                  <th>Tenor <br />(in months)</th>
+                  <th>Tenor</th>
                   <th>Amount ₦</th>
-                  <th>Monthly Installments ₦</th>
-                  <th>Balance ₦</th>
-                  <th>Interest ₦</th>
+                  <th>
+                    Monthly <br />
+                    Installments <br />
+                    ₦
+                  </th>
+                  <th>
+                    Balance <br />
+                    ₦
+                  </th>
+                  <th>
+                    Interest <br />
+                    ₦
+                  </th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -130,9 +130,15 @@
                   <td>2,000,000</td>
                   <td>100,000</td>
                   <td>
-                    <a href="#user-loan-popup"><i class="fa fa-eye"></i></a>
-                    <a href="#"><i class="fa fa-check"></i></a>
-                    <a href="#"><i class="fa fa-times"></i></a>
+                    <a href="#user-loan-popup" title="View Single Loan"
+                      ><i class="fa fa-eye"></i
+                    ></a>
+                    <a href="#"
+                      ><i class="fa fa-check" title="Approve Loan"></i
+                    ></a>
+                    <a href="#"
+                      ><i class="fa fa-times" title="Reject Loan"></i
+                    ></a>
                   </td>
                 </tr>
 
@@ -148,9 +154,15 @@
                   <td>0</td>
                   <td>7,500</td>
                   <td>
-                    <a href="#user-loan-popup"><i class="fa fa-eye"></i></a>
-                    <a href="#"><i class="fa fa-check"></i></a>
-                    <a href="#"><i class="fa fa-times"></i></a>
+                    <a href="#user-loan-popup" title="View Single Loan"
+                      ><i class="fa fa-eye"></i
+                    ></a>
+                    <a href="#"
+                      ><i class="fa fa-check" title="Approve Loan"></i
+                    ></a>
+                    <a href="#"
+                      ><i class="fa fa-times" title="Reject Loan"></i
+                    ></a>
                   </td>
                 </tr>
                 <tr>
@@ -165,9 +177,15 @@
                   <td>100,000</td>
                   <td>5000</td>
                   <td>
-                    <a href="#user-loan-popup"><i class="fa fa-eye"></i></a>
-                    <a href="#"><i class="fa fa-check"></i></a>
-                    <a href="#"><i class="fa fa-times"></i></a>
+                    <a href="#user-loan-popup" title="View Single Loan"
+                      ><i class="fa fa-eye"></i
+                    ></a>
+                    <a href="#"
+                      ><i class="fa fa-check" title="Approve Loan"></i
+                    ></a>
+                    <a href="#"
+                      ><i class="fa fa-times" title="Reject Loan"></i
+                    ></a>
                   </td>
                 </tr>
               </tbody>

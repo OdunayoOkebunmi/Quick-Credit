@@ -22,6 +22,9 @@
     <title>User | Loan Application</title>
   </head>
   <body>
+    <a href="user-dashboard.html" class="icon-previous-page">
+      <i class="fas fa-arrow-left fa-4x" title="Go back to previous page"></i>
+    </a>
     <section class="section-loan-apply">
       <div class="loan-calculator-container">
         <div class="card">
@@ -145,46 +148,6 @@
           </div>
           <div class="flex-group">
             <div>
-              <label for="user-pnumber">Phone Number</label>
-              <div class="form-group">
-                <div class="input-group">
-                  <input
-                    required
-                    type="text"
-                    id="user-pnumber"
-                    class="form-control"
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
-              <label for="user-acc-num">Account Number</label>
-              <div class="form-group">
-                <div class="input-group">
-                  <input
-                    required
-                    type="number"
-                    id="user-acc-num"
-                    class="form-control"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <label for="user-bank-name">Bank Name</label>
-          <div class="form-group">
-            <div class="input-group">
-              <input
-                required
-                type="text"
-                id="user-bank-name"
-                class="form-control"
-              />
-            </div>
-          </div>
-          <div class="flex-group">
-            <div>
               <label for="user-loan-amount">Loan Amount ₦</label>
               <div class="form-group">
                 <div class="input-group">
@@ -214,7 +177,13 @@
               <label for="user-repayment-time">Tenor</label>
               <div class="form-group">
                 <div class="input-group">
-                  <input id="user-repayment-time" class="form-control" />
+                  <input
+                    id="user-repayment-time"
+                    type="number"
+                    min="1"
+                    max="12"
+                    class="form-control"
+                  />
                 </div>
               </div>
             </div>
