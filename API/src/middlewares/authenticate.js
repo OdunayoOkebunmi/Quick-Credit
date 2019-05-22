@@ -43,7 +43,6 @@ class Authenticator {
      * compare Password
      *
      * @param {string} hashPassword
-     *
      * @param {string} password
      *
      * @returns {Boolean} return True or False

@@ -101,6 +101,7 @@ class LoanController {
   static async getAllLoans(req, res) {
     const { status } = req.query;
     let repaid = req.query;
+
     if (status && repaid) {
       repaid = JSON.parse(repaid);
       const queriedLoans = await loans.getQueriedLoans(status, repaid);
@@ -120,7 +121,7 @@ class LoanController {
         data: queriedLoans.rows,
       });
     }
-   
+
     const allLoans = await loans.getAllLoans();
 
     if (!allLoans) {
