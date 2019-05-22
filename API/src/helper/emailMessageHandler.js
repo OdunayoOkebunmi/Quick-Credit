@@ -1,16 +1,22 @@
 /**
- * @class MessageController
+ * @class MessageHandler
+ *
  * @description Handles all the messages sent to client
- * @exports MessageController
+ *
+ * @exports MessageHandler
  */
 
 class MessageHandler {
   /**
   * @method signupMessage
+  *
   * @description sends an email notification to user on signup
+  *
   * @param {object} data - The email address, subject & body
+  *
   * @returns {object} - The email address, subject & body
   */
+
   static signupMessage(data) {
     const { email } = data;
     const subject = 'Welcome to Quick Credit';
@@ -34,15 +40,20 @@ class MessageHandler {
         <span> Click <a href="#" style="background-color:#b23242; width: 50px; height: 30px;text-decoration: none;padding: 10px 15px;color: #fff">Here!</a> to go straight to your dashboard</span>
         </p>
   </div>`;
+
     return { subject, email, body };
   }
 
   /**
   * @method loanApprovalMessage
+  *
   * @description sends an email notification to the specified email upon loan approval or rejection
+  *
   * @param {object} data - The email address, subject & body
+  *
   * @returns {object} - The email address, subject & body
   */
+
   static loanApprovalMessage(data, email) {
     const subject = 'Quick Credit: Loan Status';
     const body = `<style>

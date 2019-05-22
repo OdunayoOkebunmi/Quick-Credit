@@ -3,18 +3,27 @@ import repayments from '../models/repaymentsData';
 
 class RepaymentController {
   /**
-    * create new user
+    * post loan repayments for user
+    *
     * @param {object} request express request object
     * @param {object} response express response object
     *
     * @returns {json} json
+    *
     * @memberof RepaymentController
     */
+
   static async postRepayment(req, res) {
     const id = parseInt(req.params.id, 10);
     const paidAmount = parseFloat(req.body.paidAmount);
     const userLoan = await loans.getOneLoan(id);
-    // console.log(userLoan.rows[0]);
+
+    if (!userLoan) {
+      return res.status(500).json({
+        error: 'Ops something broke',
+      });
+    }
+
     if (userLoan.rows.length > 0) {
       if (userLoan.rows[0].status !== 'approved') {
         return res.status(401).send({
@@ -33,8 +42,23 @@ class RepaymentController {
       }
       if (paidAmount <= userLoan.rows[0].balance) {
         userLoan.rows[0].balance -= paidAmount;
+
         const postPayment = await repayments.postLoans(id, paidAmount);
+
+        if (!postPayment) {
+          return res.status(500).json({
+            error: 'Ops something broke',
+          });
+        }
+
         const updateLoanBalance = await loans.updateUserBalance(userLoan.rows[0].balance, id);
+
+        if (!updateLoanBalance) {
+          return res.status(500).json({
+            error: 'Ops something broke',
+          });
+        }
+        
         const updatedData = {
           id: updateLoanBalance.rows[0].id,
           loanId: postPayment.rows[0].loanId,
@@ -44,9 +68,11 @@ class RepaymentController {
           paidAmount,
           balance: updateLoanBalance.rows[0].balance,
         };
+
         if (userLoan.rows[0].balance === 0) {
           const repaid = true;
-          const setRepaid = await loans.setRepaid(repaid, userLoan.rows[0].balance);
+
+          await loans.setRepaid(repaid, userLoan.rows[0].balance);
 
           return res.status(201).send({
             data: {
@@ -62,29 +88,38 @@ class RepaymentController {
       }
     }
     return res.status(404).send({
-
       error: 'No Loan with that id found!',
     });
   }
 
   /**
-   * create new user
+   * user can view repayment history
+   *
    * @param {object} request express request object
    * @param {object} response express response object
    *
    * @returns [array] array
+   *
    * @memberof RepaymentController
    */
+
   static async getRepaymentHistory(req, res) {
     const id = parseInt(req.params.id, 10);
     const repaymentHistory = await repayments.findLoanId(id);
+    const userEmail = await loans.findEmailByLoanId(id);
+
+    if (req.user.email !== userEmail.rows[0].email) {
+      return res.status(401).json({
+        error: 'Email do not match! Enter the email you registered with',
+      });
+    }
+
     if (repaymentHistory.rows.length !== 0) {
       return res.status(200).send({
         data: repaymentHistory.rows,
       });
     }
     return res.status(404).send({
-
       error: 'No repayment record found',
     });
   }

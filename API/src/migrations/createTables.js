@@ -3,15 +3,15 @@ import query from './index';
 
 const createTables = `
   CREATE TABLE IF NOT EXISTS users(
-    id SERIAL NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     "firstName" VARCHAR(50) NOT NULL,
     "lastName" VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(128) NOT NULL,
     address TEXT NOT NULL,
     status VARCHAR(15) NOT NULL CHECK(status IN ('verified', 'unverified')) DEFAULT 'unverified',
-    "isAdmin" BOOLEAN NOT NULL DEFAULT false,
-    PRIMARY KEY (id, email)
+    "isAdmin" BOOLEAN NOT NULL DEFAULT false
+    
   );
 
   CREATE TABLE IF NOT EXISTS loans(
