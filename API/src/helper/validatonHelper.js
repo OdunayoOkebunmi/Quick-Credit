@@ -43,7 +43,7 @@ const repaymentDetailsHandler = (repaymentReq) => {
 };
 
 const idHandler = (idReq) => {
-  const id = parseInt(idReq.params.id, 10);
+  const { id } = idReq.params;
   const userID = { id };
   // console.log(id);
   return userID;
