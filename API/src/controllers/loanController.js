@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 import users from '../models/userData';
 import loans from '../models/loansData';
 
@@ -149,6 +149,7 @@ class LoanController {
       const id = parseInt(req.params.id, 10);
       const specificLoan = await loans.getOneLoan(id);
 
+
       if (specificLoan.rows.length === 0) {
         return res.status(404).send({
           error: 'No Loan with that id exist',
@@ -192,7 +193,6 @@ class LoanController {
           error: 'Loan already approved',
         });
       }
-
       if (userLoan.rows[0].status === 'rejected') {
         return res.status(409).send({
           error: 'Loan already rejected',
@@ -200,13 +200,6 @@ class LoanController {
       }
 
       const updatedLoan = await loans.approveLoan(status, id);
-
-      if (!updatedLoan) {
-        return res.status(500).json({
-          error: 'Ops something broke',
-        });
-      }
-
       const {
         amount, tenor, paymentInstallment, interest,
       } = updatedLoan.rows[0];
@@ -218,8 +211,8 @@ class LoanController {
         paymentInstallment,
         interest,
       };
+      const emailData = MessageHandler.loanApprovalMessage(updatedLoan.rows[0], userLoan.rows[0].email);
 
-      const emailData = MessageHandler.loanApprovalMessage(userLoan, userLoan.user);
       EmailHandler.sendNotif(emailData);
 
       return res.status(200).send({
