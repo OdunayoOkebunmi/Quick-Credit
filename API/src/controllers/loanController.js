@@ -21,7 +21,6 @@ class LoanController {
     try {
       const { tenor } = req.body;
       const amount = Number(req.body.amount.toFixed(3));
-
       const userData = await users.findByEmail(req.user.email);
 
       if (userData.rows.length < 1) {
@@ -29,13 +28,11 @@ class LoanController {
           error: 'User does not exist!',
         });
       }
-
       if (req.user.email !== userData.rows[0].email) {
         return res.status(401).json({
           error: 'Email do not match! Enter the email you registered with',
         });
       }
-
       if (userData.rows[0].status !== 'verified') {
         return res.status(401).json({
           error: 'User not verified. You cannot apply for a loan yet',
@@ -43,6 +40,7 @@ class LoanController {
       }
 
       const findUserLoan = await loans.findLoansByEmail(req.user.email);
+
       if (findUserLoan.rows.length === 0
         || findUserLoan.rows[findUserLoan.rows.length - 1].repaid === true) {
         const status = 'pending';
@@ -51,7 +49,6 @@ class LoanController {
         const paymentInstallment = ((amount + interest) / tenor);
         const balance = paymentInstallment * tenor;
         const { email, firstName, lastName } = userData.rows[0];
-
         const loanApplication = {
           email,
           firstName,
@@ -65,8 +62,6 @@ class LoanController {
           repaid,
         };
         const response = await loans.applyForLoans(loanApplication);
-
-
         const newLoan = response.rows[0];
         return res.status(201).json({
           data: {
@@ -115,7 +110,6 @@ class LoanController {
       }
 
       const allLoans = await loans.getAllLoans();
-
 
       if (allLoans.rows.length === 0) {
         return res.status(200).send({
