@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/OdunayoOkebunmi/Quick-Credit.svg?branch=develop)](https://travis-ci.com/OdunayoOkebunmi/Quick-Credit)
-[![Coverage Status](https://coveralls.io/repos/github/OdunayoOkebunmi/Quick-Credit/badge.svg?branch=develop)](https://coveralls.io/github/OdunayoOkebunmi/Quick-Credit?branch=develop&service=github)
+[![Coverage Status](https://coveralls.io/repos/github/OdunayoOkebunmi/Quick-Credit/badge.svg?branch=develop&service=github)](https://coveralls.io/github/OdunayoOkebunmi/Quick-Credit?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bda4c876e9f0454cd65/maintainability)](https://codeclimate.com/github/OdunayoOkebunmi/Quick-Credit/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
