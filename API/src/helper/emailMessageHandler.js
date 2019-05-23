@@ -77,7 +77,7 @@ class MessageHandler {
   <div
     style="line-height:1.6; font-family: 'Courier New', Courier, monospace; "
   >
-    Hello ${data.user}
+    Hello
     <br />
     Your loan application has been ${data.status} by Admin.
     <br />
@@ -91,20 +91,12 @@ class MessageHandler {
         <td>${data.amount}</td>
       </tr>
       <tr>
-        <td>Transaction Time</td>
-        <td>${data.createdOn}</td>
-      </tr>
-      <tr>
         <td>Tenor</td>
         <td>${data.tenor}</td>
       </tr>
       <tr>
         <td>Payment Installment</td>
         <td>${data.paymentInstallment}</td>
-      </tr>
-      <tr>
-        <td>Balance</td>
-        <td>${data.balance}</td>
       </tr>
     </table>
 
