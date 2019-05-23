@@ -95,24 +95,18 @@ class RepaymentController {
       const id = parseInt(req.params.id, 10);
       const repaymentHistory = await repayments.findLoanId(id);
       const userEmail = await loans.findEmailByLoanId(id);
-
+      
       if (req.user.email !== userEmail.rows[0].email) {
         return res.status(401).json({
           error: 'Email do not match! Enter the email you registered with',
         });
       }
-
-      if (repaymentHistory.rows.length !== 0) {
-        return res.status(200).send({
-          data: repaymentHistory.rows,
-        });
-      }
-      return res.status(404).send({
-        error: 'No repayment record found',
+      return res.status(200).send({
+        data: repaymentHistory.rows,
       });
     } catch (error) {
-      return res.status(500).json({
-        error: 'Ops something broke',
+      return res.status(404).send({
+        error: 'No repayment record found',
       });
     }
   }
