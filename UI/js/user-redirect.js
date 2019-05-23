@@ -11,7 +11,7 @@ const formValidationSignIn = () => {
     const email = document.getElementById('user-email').value;
 
     if (email.endsWith('quickcredit.com')) {
-      location.href = 'admin-dashboard.html';
+      location.href = 'admin-loan-applications.html';
     }
     else {
       location.href = 'user-dashboard.html'
