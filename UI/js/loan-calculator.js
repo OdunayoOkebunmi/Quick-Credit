@@ -1,4 +1,4 @@
-// LOAN CALCULATOR
+-+// LOAN CALCULATOR
 //listen for submit
 
 document.getElementById('loan-form').addEventListener('submit', function (e) {
