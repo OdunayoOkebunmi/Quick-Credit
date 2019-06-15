@@ -4,21 +4,21 @@ const users = [
     email: 'jerrydoe@mail.com',
     firstName: 'Jerry',
     lastName: 'Doe',
-    password: 'password',
+    password: 'pasSword2',
     address: 'here',
   },
   {
     // email ommitted
     firstName: 'Jane',
     lastName: 'Doe',
-    password: 'password',
+    password: 'pasSword2',
     address: 'here',
   },
   {
     // firstName ommited
     email: 'janedoe@mail.com',
     lastName: 'Doe',
-    password: 'password',
+    password: 'pasSword2',
     address: 'here',
   },
   {
@@ -33,14 +33,14 @@ const users = [
     email: 'janedoe@mail.com',
     firstName: 'Jane',
     lastName: 'Doe',
-    password: 'password',
+    password: 'pasSword2',
   },
   {
     // firstName is not a string
     email: 'janedoe@mail.com',
     firstName: 123,
     lastName: 'Doe',
-    password: 'password',
+    password: 'pasSword2',
     address: 'here',
   },
   {
@@ -48,23 +48,23 @@ const users = [
     email: 'janedoe@mail.com',
     firstName: 'Jane',
     lastName: 123,
-    password: 'password',
+    password: 'pasSword2',
     address: 'here',
   },
 
   // sign in test data 7
   {
     email: 'janedoe@mail.com',
-    password: 'password',
+    password: 'pasSword2',
   },
   // admin signin
   {
     email: 'johndoe@quickcredit.com', // valid login details
-    password: 'password',
+    password: 'pasSword2',
   },
   {
     email: 'name@mail.com',
-    password: 'password',
+    password: 'pasSword2',
   },
   {
     email: 'janedoe@mail.com',
@@ -73,15 +73,15 @@ const users = [
 
   {
     // email is not entered
-    password: 'password',
+    password: 'pasSword2',
   },
   {
     email: 'odun@mail.com',
-    password: 'password',
+    password: 'pasSword2',
   },
   {
     email: 'patrickdoe@mail.com',
-    password: 'password',
+    password: 'pasSword2',
   },
 ];
 

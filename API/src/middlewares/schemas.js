@@ -34,7 +34,7 @@ const password = Joi.string()
     errors.forEach((err) => {
       switch (err.type) {
         case 'string.regex.base':
-          err.message = 'Password should follow specified format';
+          err.message = 'Invalid password/email';
           break;
         default:
           break;
