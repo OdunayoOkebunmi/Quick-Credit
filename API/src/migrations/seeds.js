@@ -3,10 +3,10 @@ import query from './index';
 
 const insertIntoTables = `
   INSERT INTO users ("firstName", "lastName", email, password, address, status, "isAdmin")
-  VALUES ('Odun', 'Ayo', 'odun@mail.com', '${Authenticator.hashPassword('password')}', 'hogwarts','verified' ,false),
-         ('Jane', 'Doe', 'janedoe@mail.com', '${Authenticator.hashPassword('password')}', 'hogwarts','unverified', false),
-         ('Patrick', 'Doe', 'patrickdoe@mail.com', '${Authenticator.hashPassword('password')}', 'hogwarts','verified', false),
-         ('John', 'Doe', 'johndoe@quickcredit.com', '${Authenticator.hashPassword('password')}', 'hogwarts','verified', true);
+  VALUES ('Odun', 'Ayo', 'odun@mail.com', '${Authenticator.hashPassword('pasSword2')}', 'hogwarts','verified' ,false),
+         ('Jane', 'Doe', 'janedoe@mail.com', '${Authenticator.hashPassword('pasSword2')}', 'hogwarts','unverified', false),
+         ('Patrick', 'Doe', 'patrickdoe@mail.com', '${Authenticator.hashPassword('pasSword2')}', 'hogwarts','verified', false),
+         ('John', 'Doe', 'johndoe@quickcredit.com', '${Authenticator.hashPassword('pasSword2')}', 'hogwarts','verified', true);
 
  
   INSERT INTO loans (email,"firstName","lastName", amount, tenor,"paymentInstallment", status, repaid, balance, interest)
