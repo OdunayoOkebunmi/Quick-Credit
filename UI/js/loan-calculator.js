@@ -1,16 +1,16 @@
--+// LOAN CALCULATOR
-//listen for submit
+// LOAN CALCULATOR
+  //listen for submit
 
-document.getElementById('loan-form').addEventListener('submit', function (e) {
-  //hide results
-  document.getElementById('results').style.display = 'none';
-  //show loader
-  document.getElementById('loading').style.display = 'block';
-  setTimeout(calaculateResults, 2000);
+  document.getElementById('loan-form').addEventListener('submit', function (e) {
+    //hide results
+    document.getElementById('results').style.display = 'none';
+    //show loader
+    document.getElementById('loading').style.display = 'block';
+    setTimeout(calaculateResults, 2000);
 
-  e.preventDefault();
+    e.preventDefault();
 
-});
+  });
 
 
 //calculate results
@@ -32,7 +32,6 @@ function calaculateResults(e) {
 
   //compute monthly payment
   const monthly = (principal + calculatedInterest) / calculatedPayments;
-
   if (isFinite(monthly)) {
 
     monthlyPayment.value = monthly.toFixed(2);

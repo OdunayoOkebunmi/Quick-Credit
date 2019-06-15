@@ -78,7 +78,9 @@
                     type="number"
                     class="form-control"
                     id="amount"
-                    placeholder="Loan Amount in Naira"
+                    placeholder="Loan Amount in Naira(₦)"
+                    min="5000"
+                    max="100000"
                   />
                 </div>
               </div>
@@ -99,6 +101,8 @@
                   class="form-control"
                   id="tenor"
                   placeholder="Tenor (maximum of 12 months)"
+                  min="1"
+                  max="12"
                 />
               </div>
               <div class="form-group">
@@ -112,7 +116,7 @@
               <h5 class="heading-tertiary">Results</h5>
               <div class="form-group">
                 <div class="input-group">
-                  <label for="monthly-payment">Monthly Payment</label>
+                  <label for="monthly-payment">Monthly Payment ₦</label>
                   <input
                     type="number"
                     class="form-control"
@@ -124,7 +128,7 @@
 
               <div class="form-group">
                 <div class="input-group">
-                  <label for="total-interest">Total Interest</label>
+                  <label for="total-interest">Total Interest ₦</label>
                   <input
                     type="number"
                     class="form-control"
@@ -136,7 +140,7 @@
 
               <div class="form-group">
                 <div class="input-group">
-                  <label for="total-payment">Total Payment</label>
+                  <label for="total-payment">Total Payment ₦</label>
                   <input
                     type="number"
                     class="form-control"
