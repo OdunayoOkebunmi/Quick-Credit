@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-vars */
 import Joi from 'joi';
 
@@ -27,9 +28,20 @@ const email = Joi.string()
   .required();
 
 const password = Joi.string()
-  .min(8)
-  .required();
-
+  .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/)
+  .required()
+  .error((errors) => {
+    errors.forEach((err) => {
+      switch (err.type) {
+        case 'string.regex.base':
+          err.message = 'Password should follow specified format';
+          break;
+        default:
+          break;
+      }
+    });
+    return errors;
+  });
 const createUser = (user) => {
   const schema = Joi.object().keys({
     email,
