@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-vars */
 import Joi from 'joi';
@@ -34,7 +35,7 @@ const password = Joi.string()
     errors.forEach((err) => {
       switch (err.type) {
         case 'string.regex.base':
-          err.message = 'Invalid password/email';
+          err.message = 'Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and must be 8 characters long';
           break;
         default:
           break;
@@ -48,12 +49,13 @@ const createUser = (user) => {
     firstName: name,
     lastName: name,
     password,
-    address: Joi.string().trim().required(),
+    address: Joi.string()
+      .trim()
+      .required(),
     status: Joi.string()
       .insensitive()
       .default('unverified'),
     isAdmin: Joi.boolean().default(false),
-
   });
   return Joi.validate(user, schema);
 };
@@ -61,7 +63,6 @@ const createLogin = (user) => {
   const schema = Joi.object().keys({
     email,
     password,
-
   });
   return Joi.validate(user, schema);
 };
@@ -73,14 +74,19 @@ const createLoan = (loan) => {
       .min(1)
       .max(12)
       .required(),
-    amount: Joi.number().positive().min(5000).required(),
+    amount: Joi.number()
+      .positive()
+      .min(5000)
+      .required(),
   });
   return Joi.validate(loan, schema);
 };
 
 const createRepayment = (repayment) => {
   const schema = Joi.object().keys({
-    paidAmount: Joi.number().positive().required(),
+    paidAmount: Joi.number()
+      .positive()
+      .required(),
   });
   return Joi.validate(repayment, schema);
 };
@@ -103,7 +109,6 @@ const approveLoan = (loan) => {
       .insensitive()
       .valid(['approved', 'rejected'])
       .required(),
-
   });
   return Joi.validate(loan, schema);
 };

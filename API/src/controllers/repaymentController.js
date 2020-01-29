@@ -3,15 +3,15 @@ import repayments from '../models/repaymentsData';
 
 class RepaymentController {
   /**
-    * post loan repayments for user
-    *
-    * @param {object} request express request object
-    * @param {object} response express response object
-    *
-    * @returns {json} json
-    *
-    * @memberof RepaymentController
-    */
+   * post loan repayments for user
+   *
+   * @param {object} request express request object
+   * @param {object} response express response object
+   *
+   * @returns {json} json
+   *
+   * @memberof RepaymentController
+   */
 
   static async postRepayment(req, res) {
     try {
@@ -39,7 +39,10 @@ class RepaymentController {
           userLoan.rows[0].balance -= paidAmount;
 
           const postPayment = await repayments.postLoans(id, paidAmount);
-          const updateLoanBalance = await loans.updateUserBalance(userLoan.rows[0].balance, id);
+          const updateLoanBalance = await loans.updateUserBalance(
+            userLoan.rows[0].balance,
+            id,
+          );
           const updatedData = {
             id: updateLoanBalance.rows[0].id,
             loanId: postPayment.rows[0].loanId,
@@ -95,8 +98,7 @@ class RepaymentController {
       const id = parseInt(req.params.id, 10);
       const repaymentHistory = await repayments.findLoanId(id);
       const userEmail = await loans.findEmailByLoanId(id);
-      
-      if (req.user.email !== userEmail.rows[0].email) {
+      if (req.user.email !== userEmail.rows[0].email && !req.user.isAdmin) {
         return res.status(401).json({
           error: 'Email do not match! Enter the email you registered with',
         });

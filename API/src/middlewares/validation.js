@@ -16,7 +16,6 @@ const validateSignUp = (req, res, next) => {
   }
 };
 
-
 const validateLogin = (req, res, next) => {
   try {
     const userLoginDetails = Helper.loginDetailsHandler(req);
@@ -76,7 +75,6 @@ const validateLoanQuery = (req, res, next) => {
   }
 };
 
-
 const validateLoanApproval = (req, res, next) => {
   try {
     const approvalDetails = Helper.loanApprovalHandler(req);
@@ -119,7 +117,6 @@ const validateVerification = (req, res, next) => {
     return Helper.errorResponseHandler(res);
   }
 };
-
 
 module.exports = {
   validateSignUp,

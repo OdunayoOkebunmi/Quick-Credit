@@ -8,9 +8,9 @@ class Authorization {
     try {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
-      const adminEmail = decoded.payload.email;
+      req.user = decoded.payload;
 
-      if (!(adminEmail.endsWith('quickcredit.com'))) {
+      if (!req.user.isAdmin) {
         return res.status(403).send({
           error: 'Only Admin can access this route',
         });
@@ -27,10 +27,8 @@ class Authorization {
     try {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
-      const userEmail = decoded.payload.email;
       req.user = decoded.payload;
-
-      if (userEmail.endsWith('quickcredit.com')) {
+      if (req.user.isAdmin) {
         return res.status(403).send({
           error: 'Only Authenticated User can access this route',
         });

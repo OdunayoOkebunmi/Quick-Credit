@@ -28,7 +28,6 @@ class Loans {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -46,7 +45,6 @@ class Loans {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -64,7 +62,6 @@ class Loans {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -83,7 +80,6 @@ class Loans {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -102,7 +98,6 @@ class Loans {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -121,7 +116,6 @@ class Loans {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -141,7 +135,6 @@ class Loans {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }

@@ -29,7 +29,7 @@ class UserController {
       const response = await users.createUserData(req.body);
       const user = response.rows[0];
       const {
-        id, firstName, lastName, email, status, address, isAdmin,
+        id, email, isAdmin,
       } = user;
       const token = Authenticator.generateToken({
         id,
@@ -45,12 +45,6 @@ class UserController {
         data: {
           token,
           id,
-          firstName,
-          lastName,
-          email,
-          status,
-          address,
-          isAdmin,
         },
       });
     } catch (error) {
@@ -91,7 +85,7 @@ class UserController {
       }
 
       const {
-        id, firstName, lastName, isAdmin,
+        id, isAdmin,
       } = response.rows[0];
       const token = Authenticator.generateToken({
         id,
@@ -103,10 +97,6 @@ class UserController {
         data: {
           token,
           id,
-          email,
-          firstName,
-          lastName,
-          isAdmin,
         },
       });
     } catch (error) {
