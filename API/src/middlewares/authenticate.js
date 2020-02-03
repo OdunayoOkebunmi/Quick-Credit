@@ -12,7 +12,7 @@ class Authenticator {
   */
 
   static generateToken(payload) {
-    return jwt.sign({ payload }, process.env.SECRET, { expiresIn: '2d' });
+    return jwt.sign({ payload }, process.env.SECRET, { expiresIn: '10h' });
   }
 
   /**

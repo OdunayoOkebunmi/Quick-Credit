@@ -15,7 +15,7 @@ https://www.pivotaltracker.com/n/projects/2327029
 https://odunayookebunmi.github.io/Quick-Credit/UI/index.html
 
 ## Server side hosted on Heroku
-https://quick-credit-odunayo.herokuapp.com/
+https://quick-credit-backend.herokuapp.com/
 
 ## API Documentation
 https://quick-credit-odunayo.herokuapp.com/api-docs
