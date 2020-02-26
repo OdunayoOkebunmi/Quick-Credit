@@ -45,7 +45,6 @@ const repaymentDetailsHandler = (repaymentReq) => {
 const idHandler = (idReq) => {
   const { id } = idReq.params;
   const userID = { id };
-  // console.log(id);
   return userID;
 };
 

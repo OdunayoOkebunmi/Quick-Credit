@@ -24,7 +24,6 @@ class User {
 
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -40,7 +39,6 @@ class User {
       const response = db.query(queryText, [email]);
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
@@ -55,7 +53,6 @@ class User {
       const response = db.query(queryText, [email]);
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
