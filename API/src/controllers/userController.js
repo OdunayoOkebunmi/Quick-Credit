@@ -1,162 +1,92 @@
-/* eslint-disable no-unused-vars */
-import Authenticator from '../middlewares/authenticate';
-import users from '../models/userData';
+import { generateToken, comparePassword } from '../middlewares/authenticate';
+import models from '../database/models';
 import EmailHandler from '../helper/emailHandler';
 import MessageHandler from '../helper/emailMessageHandler';
+import { errorResponse, successResponse } from '../helper/responseHandler';
 
+const { User } = models;
 
-class UserController {
-  /**
-    * create new user
-    *
-    * @param {object} request express request object
-    * @param {object} response express response object
-    *
-    * @returns {json} json
-    *
-    * @memberof UserController
-    */
-  static async createUser(req, res) {
-    try {
-      const findUser = await users.findByEmail(req.body.email);
-
-      if (findUser.rowCount > 0) {
-        return res.status(409).json({
-          error: 'User already exist',
-        });
-      }
-
-      const response = await users.createUserData(req.body);
-      const user = response.rows[0];
-      const {
-        id, email, isAdmin,
-      } = user;
-      const token = Authenticator.generateToken({
-        id,
-        email,
-        isAdmin,
-      });
-
-      // send email to user
-      const emailData = MessageHandler.signupMessage(user);
-      EmailHandler.sendNotif(emailData);
-
-      return res.status(201).json({
-        data: {
-          token,
-          id,
-        },
-      });
-    } catch (error) {
-      return res.status(500).json({
-        error: 'Ops something broke',
-      });
+export const createUser = async (req, res, next) => {
+  try {
+    const {
+      body: {
+        email, password, firstName, lastName, address,
+      },
+    } = req;
+    const findUser = await User.findOne({ where: { email } });
+    if (findUser) {
+      return errorResponse(res, 409, { message: 'User already exist' });
     }
+    const registeredUser = await User.create({
+      email, password, firstName, lastName, address,
+    });
+    const {
+      id,
+      email: newUserEmail,
+      isAdmin,
+    } = registeredUser;
+    const token = generateToken(id, newUserEmail, isAdmin);
+    const emailData = MessageHandler.signupMessage(registeredUser);
+    EmailHandler.sendNotif(emailData);
+
+    return successResponse(res, 201, 'user', { message: 'You have successfully created an account', token });
+  } catch (error) {
+    return next(error);
   }
+};
 
-  /**
-  * log  user in
-  *
-  * @param {object} request express request object
-  * @param {object} response express response object
-  *
-  * @returns {json} json
-  *
-  * @memberof UserController
-  */
-
-  static async loginUser(req, res) {
-    try {
-      const { email, password } = req.body;
-      const response = await users.findByEmail(email);
-
-      if (response.rowCount === 0) {
-        return res.status(404).json({
-          error: 'User with the email does not exist',
-        });
-      }
-
-      const verifiedPassword = Authenticator.comparePassword(response.rows[0].password, password);
-
-      if (!verifiedPassword) {
-        return res.status(400).json({
-          error: 'Invalid password/email',
-        });
-      }
-
-      const {
-        id, isAdmin,
-      } = response.rows[0];
-      const token = Authenticator.generateToken({
-        id,
-        email,
-        isAdmin,
-      });
-
-      return res.status(200).json({
-        data: {
-          token,
-          id,
-        },
-      });
-    } catch (error) {
-      return res.status(500).json({
-        error: 'Ops something broke',
-      });
+export const loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const findUser = await User.findOne({ where: { email } });
+    if (!findUser) {
+      return errorResponse(res, 404, { message: 'User with the email does not exist' });
     }
-  }
+    const verifiedPassword = comparePassword(findUser.password, password);
 
-  /**
-  * check if a user is verified
-  *
-  * @param {object} request express request object
-  * @param {object} response express response object
-  *
-  * @returns {json} json
-  *
-  * @memberof UserController
-  */
-
-  static async adminVerifyUser(req, res) {
-    try {
-      const { email } = req.params;
-      const response = await users.findByEmail(email);
-
-      if (!response.rows[0]) {
-        return res.status(404).json({
-          error: 'User with the email not found',
-        });
-      }
-      if (response.rows[0].status === 'verified') {
-        return res.status(409).json({
-          error: 'User has already been verified',
-        });
-      }
-
-      await users.verifyUser(email);
-
-      const updatedData = await users.findByEmail(email);
-      const {
-        firstName, lastName, address, status,
-      } = updatedData.rows[0];
-      const data = {
-        email: updatedData.rows[0].email,
-        firstName,
-        lastName,
-        address,
-        status,
-      };
-
-      return res.status(200).json({
-        status: 200,
-        data,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        error: 'Ops something broke',
-      });
+    if (!verifiedPassword) {
+      return errorResponse(res, 400, { message: 'Invalid password/email' });
     }
-  }
-}
+    const {
+      id, isAdmin,
+    } = findUser;
+    const token = generateToken({
+      id,
+      email,
+      isAdmin,
+    });
 
-export default UserController;
+    return successResponse(res, 200, 'user', { message: 'You have successfully logged in', token });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const adminVerifyUser = async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const findUser = await User.findOne({ where: { email } });
+
+    if (!findUser) {
+      return errorResponse(res, 404, { message: 'User with the email does not exist' });
+    }
+    if (findUser.isVerified) {
+      return errorResponse(res, 409, { message: 'User already verified' });
+    }
+
+    await User.update({
+      isVerified: true,
+    }, { where: { email } });
+
+    const updatedData = await User.findOne({ where: { email } });
+    const { isVerified } = updatedData;
+    const data = {
+      email,
+      isVerified,
+    };
+
+    return successResponse(res, 200, 'user', { message: 'User already verified', data });
+  } catch (error) {
+    return next(error);
+  }
+};

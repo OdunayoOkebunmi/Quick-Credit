@@ -1,6 +1,6 @@
-import loans from '../models/loansData';
-import repayments from '../models/repaymentsData';
+import models from '../database/models';
 
+const { repayments, loans } = models;
 class RepaymentController {
   /**
    * post loan repayments for user

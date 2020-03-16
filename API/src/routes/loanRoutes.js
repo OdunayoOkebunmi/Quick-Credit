@@ -1,11 +1,10 @@
 import { Router } from 'express';
-import Authorization from '../middlewares/authorize';
+import { verifyUser, verifyAdmin } from '../middlewares/authorize';
 import LoanController from '../controllers/loanController';
 import RepaymentController from '../controllers/repaymentController';
 import Validation from '../middlewares/validation';
 
 const loanRouter = Router();
-const { verifyUser, verifyAdmin } = Authorization;
 const {
   loanApply, getAllLoans, getOneLoan, approveLoan,
 } = LoanController;

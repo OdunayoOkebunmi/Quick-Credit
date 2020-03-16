@@ -1,10 +1,9 @@
 /* eslint-disable max-len */
-import users from '../models/userData';
-import loans from '../models/loansData';
-
+import models from '../database/models';
 import EmailHandler from '../helper/emailHandler';
 import MessageHandler from '../helper/emailMessageHandler';
 
+const { users, loans } = models;
 class LoanController {
   /**
   * creates a loan application

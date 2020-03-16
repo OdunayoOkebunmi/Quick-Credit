@@ -1,55 +1,14 @@
+/* eslint-disable max-len */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 
 dotenv.config();
 
-class Authenticator {
-  /**
-  * Generate Token
-  * @param {number} id
-  * @param {string} token
-  */
+export const generateToken = payload => jwt.sign({ payload }, process.env.SECRET, { expiresIn: '10h' });
 
-  static generateToken(payload) {
-    return jwt.sign({ payload }, process.env.SECRET, { expiresIn: '10h' });
-  }
+export const verifyToken = token => jwt.verify(token, process.env.SECRET);
 
-  /**
-   * @description Decodes the access token
-   *
-   * @param {string} token - The access token
-   *
-   * @returns {object} payload - the decoded access token
-   */
+export const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-  static verifyToken(token) {
-    return jwt.verify(token, process.env.SECRET);
-  }
-
-  /**
-    * Hash Password Method
-    *
-    * @param {string} Password
-    *
-    * @returns {string} returns hashed password
-    */
-
-  static hashPassword(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  }
-
-  /**
-     * compare Password
-     *
-     * @param {string} hashPassword
-     * @param {string} password
-     *
-     * @returns {Boolean} return True or False
-     */
-
-  static comparePassword(hashPassword, password) {
-    return bcrypt.compareSync(password, hashPassword);
-  }
-}
-export default Authenticator;
+export const comparePassword = (hashedPassword, password) => bcrypt.compareSync(password, hashedPassword);

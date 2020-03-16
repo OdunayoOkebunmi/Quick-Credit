@@ -1,15 +1,14 @@
 import { Router } from 'express';
-import UserController from '../controllers/userController';
-import Validation from '../middlewares/validation';
+import AuthValidation from '../middlewares/authValidation';
+import { createUser, loginUser } from '../controllers/userControllers';
 
 const authRouter = Router();
-const { createUser, loginUser } = UserController;
-const { validateSignUp, validateLogin } = Validation;
+const { validateSignin, validateSignup } = AuthValidation;
 
 // router to create user accont
-authRouter.post('/signup', validateSignUp, createUser);
+authRouter.post('/signup', validateSignup, createUser);
 
 // router to sign in user
-authRouter.post('/signin', validateLogin, loginUser);
+authRouter.post('/signin', validateSignin, loginUser);
 
 export default authRouter;
