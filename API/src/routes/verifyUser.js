@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { verifyUser, verifyAdmin } from '../middlewares/authorize';
-import { adminVerifyUser } from '../controllers/userControllers';
+import { adminVerifyUser } from '../controllers/userController';
 import Validation from '../middlewares/validation';
 
 const { validateVerification } = Validation;
