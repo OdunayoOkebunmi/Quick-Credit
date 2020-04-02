@@ -37,8 +37,8 @@ const loanDetailsHandler = (loanReq) => {
 
 
 const repaymentDetailsHandler = (repaymentReq) => {
-  const { paidAmount } = repaymentReq.body;
-  const userAmount = { paidAmount };
+  const { amount } = repaymentReq.body;
+  const userAmount = { amount };
   return userAmount;
 };
 

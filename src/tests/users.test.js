@@ -12,8 +12,6 @@ const signupUrl = '/api/v1/auth/signup';
 
 const signinUrl = '/api/v1/auth/signin';
 
-let currentToken;
-
 // TESTS FOR SIGNUP
 describe('Test user signup', () => {
   describe('POST /api/v1/auth/signup', () => {

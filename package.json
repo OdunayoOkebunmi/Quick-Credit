@@ -5,24 +5,24 @@
   "main": "server.js",
   "nyc": {
     "exclude": [
-      "API/src/migrations",
-      "API/src/tests",
-      "API/src/helpers",
-      "API/src/models",
-      "API/src/routes",
-      "API/src/middlewares",
-      "API/server.js"
+      "src/migrations",
+      "src/tests",
+      "src/helpers",
+      "src/models",
+      "src/routes",
+      "src/middlewares",
+      "server.js"
     ]
   },
   "scripts": {
-    "server": "nodemon --exec babel-node API/server.js",
+    "server": "nodemon --exec babel-node server.js",
     "nyc": "nyc --reporter=lcov npm run test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
     "build-server": "babel -d ./build ./src -s",
     "build": "npm run clean && npm run build-server",
     "clean": "rm -rf dist && mkdir dist",
     "pretest": "NODE_ENV=test npm run reset:db",
-    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --exit --timeout 10000  --require @babel/register API/src/tests/index.test.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --exit --timeout 10000  --require @babel/register  src/tests/index.test.js",
     "start": "node ./dist/server.js",
     "reset:db": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "migration": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",

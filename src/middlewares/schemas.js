@@ -84,7 +84,7 @@ const createLoan = (loan) => {
 
 const createRepayment = (repayment) => {
   const schema = Joi.object().keys({
-    paidAmount: Joi.number()
+    amount: Joi.number()
       .positive()
       .required(),
   });

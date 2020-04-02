@@ -34,7 +34,7 @@ describe('Test loan repayment', () => {
             res.should.have.status(201);
             res.body.should.be.a('object');
             res.body.should.have.property('data');
-            res.body.data.should.have.property('paidAmount');
+            res.body.data.should.have.property('amount');
             res.body.data.should.have.property('createdOn');
             done();
           });
@@ -100,7 +100,7 @@ describe('Test loan repayment', () => {
             done();
           });
       });
-      it('should throw an error if paidAmount is not entered', (done) => {
+      it('should throw an error if amount is not entered', (done) => {
         server()
           .post(repaymentUrl)
           .set('authorization', currentToken)
@@ -111,7 +111,7 @@ describe('Test loan repayment', () => {
             done();
           });
       });
-      it('should throw an error if paidAmount is greater than balance', (done) => {
+      it('should throw an error if amount is greater than balance', (done) => {
         server()
           .post(repaymentUrl)
           .set('authorization', currentToken)

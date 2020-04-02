@@ -1,13 +1,12 @@
 import { Router } from 'express';
 import { verifyUser, verifyAdmin } from '../middlewares/authorize';
 import { adminVerifyUser } from '../controllers/userController';
-import Validation from '../middlewares/validation';
+import AuthValidation from '../middlewares/authValidation';
 
-const { validateVerification } = Validation;
+const { validateUserVerification } = AuthValidation;
 
 const verifyUserRouter = Router();
 
-// router for admin to verify user
-verifyUserRouter.patch('/:email/verify', verifyUser, verifyAdmin, validateVerification, adminVerifyUser);
+verifyUserRouter.patch('/:email/verify', verifyUser, verifyAdmin, validateUserVerification, adminVerifyUser);
 
 export default verifyUserRouter;

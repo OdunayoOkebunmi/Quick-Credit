@@ -4,7 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import swaggerUI from 'swagger-ui-express';
-import swaggerDocument from '../swagger.json';
+import Debug from 'debug';
+import swaggerDocument from './swagger.json';
 import router from './src/routes/routes';
 import models from './src/database/models';
 import { serverErrorResponse, developmentServerErrorResponse } from './src/helper/responseHandler';
@@ -14,6 +15,7 @@ dotenv.config();
 const app = express();
 const { sequelize } = models;
 const isProduction = process.env.NODE_ENV === 'production';
+const debug = Debug(process.env.DEBUG);
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -35,22 +37,22 @@ app.all('*', (req, res) => res.status(404).json({
   error: 'Page not found',
 }));
 
-// handles 500 error
-app.use((err, req, res, next) => {
-  if (!err) return next();
-  return res.status(500).json({
-    status: 500,
-    error: 'OOps! Looks like something broke',
-  });
-});
+// // handles 500 error
+// app.use((err, req, res, next) => {
+//   if (!err) return next();
+//   return res.status(500).json({
+//     status: 500,
+//     error: 'OOps! Looks like something broke',
+//   });
+// });
 
 (async () => {
   await sequelize.sync();
 })();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5500;
 app.listen(port, () => {
-  console.log(`App is running on port ${port}`);
+  debug(`App is running on port ${port}`);
 });
 
 

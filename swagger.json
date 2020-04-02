@@ -379,14 +379,14 @@
             "format": "int64"
           },
           {
-            "name": "paidAmount",
+            "name": "amount",
             "in": "body",
             "description": "Amount Paid",
             "schema": {
               "type": "object",
-              "required": ["paidAmount"],
+              "required": ["amount"],
               "properties": {
-                "paidAmount": {
+                "amount": {
                   "type": "number"
                 }
               }

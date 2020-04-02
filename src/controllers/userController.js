@@ -85,7 +85,7 @@ export const adminVerifyUser = async (req, res, next) => {
       isVerified,
     };
 
-    return successResponse(res, 200, 'user', { message: 'User already verified', data });
+    return successResponse(res, 200, 'user', { message: 'User verified', data });
   } catch (error) {
     return next(error);
   }

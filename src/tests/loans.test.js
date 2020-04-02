@@ -133,7 +133,7 @@ describe('Test user loan application', () => {
           done();
         });
     });
-    
+
     it('should throw an error if status="approved" query is incorrect', (done) => {
       server()
         .get(`${loanUrl}?status=approvved&repaid=false`)

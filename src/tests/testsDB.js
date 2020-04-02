@@ -135,13 +135,13 @@ const adminDecision = [
 
 const repaymentAmount = [
   {
-    paidAmount: 3000.00, // valid amount for post repayment
+    amount: 3000.00, // valid amount for post repayment
   },
   {
-    paidAmount: 'two thousand', // valid amount for post repayment
+    amount: 'two thousand', // valid amount for post repayment
   },
   {
-    paidAmount: 200000.00, // valid amount for post repayment
+    amount: 200000.00, // valid amount for post repayment
   },
 ];
 

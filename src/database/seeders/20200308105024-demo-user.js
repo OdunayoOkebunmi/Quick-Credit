@@ -21,6 +21,16 @@ module.exports = {
       },
       {
         id: uuidv4(),
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'janedoe@gmail.com',
+        isVerified: true,
+        isAdmin: false,
+        password: `${password}`,
+        address: 'Hogwarts School of Wizardy',
+      },
+      {
+        id: uuidv4(),
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: faker.internet.email(),

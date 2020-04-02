@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 module.exports = (sequelize, DataTypes) => {
   const Loan = sequelize.define(
     'Loan',
@@ -15,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       paymentInstallment: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.FLOAT,
       },
       status: {
@@ -27,18 +28,28 @@ module.exports = (sequelize, DataTypes) => {
       repaid: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       balance: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.FLOAT,
       },
       interest: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.FLOAT,
       },
     },
     {},
   );
+
+  Loan.beforeCreate((newLoan) => {
+    newLoan.interest = newLoan.amount * 0.05;
+    newLoan.paymentInstallment = ((newLoan.amount + newLoan.interest) / newLoan.tenor);
+    newLoan.balance = newLoan.paymentInstallment * newLoan.tenor;
+
+    console.log(newLoan);
+    return newLoan;
+  });
   Loan.associate = (models) => {
     Loan.belongsTo(models.User, {
       foreignKey: 'userId',
