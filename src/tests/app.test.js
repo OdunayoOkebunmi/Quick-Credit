@@ -31,7 +31,7 @@ describe('Tests for When Endpoint does not exist', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('message');
-        res.body.message.should.be.eql('Welcome to Quick Credit');
+        res.body.message.should.be.eql('Welcome to QUICK CREDIT');
         done();
       });
   });

@@ -5,8 +5,7 @@ const { User, Loan } = models;
 
 export const loanApply = async (req, res, next) => {
   try {
-    const { body: { tenor }, user: { email, id } } = req;
-    const amount = Number(req.body.amount.toFixed(3));
+    const { body: { tenor, amount }, user: { email, id } } = req;
     const findUser = await User.findOne({ where: { email } });
     if (!findUser) {
       return errorResponse(res, 404, { message: 'User with the email does not exist' });
