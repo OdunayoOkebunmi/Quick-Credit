@@ -7,9 +7,9 @@ import swaggerUI from 'swagger-ui-express';
 import Debug from 'debug';
 import logger from 'morgan';
 import swaggerDocument from './swagger.json';
-import router from './src/routes';
-import models from './src/database/models';
-import { serverErrorResponse, developmentServerErrorResponse } from './src/helper/responseHandler';
+import router from './routes';
+import models from './database/models';
+import { serverErrorResponse, developmentServerErrorResponse } from './helper/responseHandler';
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 

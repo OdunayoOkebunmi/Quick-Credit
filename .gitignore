@@ -10,3 +10,4 @@ build/
 #coveralls
 .coveralls.yml
 coverage
+dist/
