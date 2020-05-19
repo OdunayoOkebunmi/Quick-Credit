@@ -46,8 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     newLoan.interest = newLoan.amount * 0.05;
     newLoan.paymentInstallment = ((newLoan.amount + newLoan.interest) / newLoan.tenor);
     newLoan.balance = newLoan.paymentInstallment * newLoan.tenor;
-
-    console.log(newLoan);
     return newLoan;
   });
   Loan.associate = (models) => {

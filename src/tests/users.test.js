@@ -1,195 +1,95 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../server';
-import testDB from './testsDB';
+import { userData } from './mockData';
 
-chai.should();
+const {
+  expect,
+} = chai;
 chai.use(chaiHttp);
 
 const server = () => chai.request(app);
 
-const signupUrl = '/api/v1/auth/signup';
+const API_PREFIX = '/api/v1';
+let adminToken;
 
-const signinUrl = '/api/v1/auth/signin';
-
-// TESTS FOR SIGNUP
 describe('Test user signup', () => {
-  describe('POST /api/v1/auth/signup', () => {
-    it('should create a new user', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[0])
-        .end((err, res) => {
-          res.should.have.status(201);
-          res.body.should.be.a('object');
-          res.body.should.have.property('data');
-          res.body.data.should.have.property('token');
-          res.body.data.should.have.property('id');
-          done();
-        });
-    });
-    it('should return an error if the email is ommitted', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[1])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should return an error if the first name is ommitted', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[2])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should return an error if the password is ommitted', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[3])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should return an error if the address is ommitted', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[4])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should return an error if the firstName is not a string', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[5])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should return an error if the lastName is not a string', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[6])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
+  it('should create a new user', (done) => {
+    server()
+      .post(`${API_PREFIX}/auth/signup`)
+      .send(userData[2])
+      .end((err, res) => {
+        expect(res.status).to.be.eql(201);
+        expect(res.body).to.be.a('object');
+        expect(res.body.user).to.have.property('token');
+        expect(res.body.user).to.have.property('message');
+        done();
+      });
   });
-  describe('POST /api/v1/auth/signup', () => {
-    beforeEach((done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[0])
-        .end(() => done());
-    });
-    it('should return an error if the email already exists', (done) => {
-      server()
-        .post(`${signupUrl}`)
-        .send(testDB.users[0])
-        .end((err, res) => {
-          res.should.have.status(409);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          res.body.error.should.be.eql(
-            'User already exist',
-          );
-          done();
-        });
-    });
+  it('should validate user data', (done) => {
+    server()
+      .post(`${API_PREFIX}/auth/signup`)
+      .send(userData[1])
+      .end((err, res) => {
+        expect(res.status).to.be.eql(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.errors).to.be.a('object');
+        expect(res.body.errors).to.have.property('firstName');
+        done();
+      });
   });
 });
 
-// TESTS FOR SIGNIN
 
 describe('Test user signin', () => {
-  describe('POST /api/v1/auth/signin', () => {
-    it('should sign registered user in', (done) => {
-      server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[7])
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
-    it('should return an error if email does not exist', (done) => {
-      server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[9])
-        .end((err, res) => {
-          res.should.have.status(404);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          res.body.error.should.be.eql('User with the email does not exist');
-          done();
-        });
-    });
-    it('should return an error if password is incorrect ', (done) => {
-      server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[10])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
-    it('should return an error if email is not entered ', (done) => {
-      server()
-        .post(`${signinUrl}`)
-        .send(testDB.users[11])
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          done();
-        });
-    });
+  it('should signin an existing user', (done) => {
+    server()
+      .post(`${API_PREFIX}/auth/signin`)
+      .send(userData[1])
+      .end((err, res) => {
+        expect(res.status).to.be.eql(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.user).to.have.property('token');
+        expect(res.body.user).to.have.property('message');
+        done();
+      });
+  });
+  it('should validate user data', (done) => {
+    server()
+      .post(`${API_PREFIX}/auth/signin`)
+      .send(userData[3])
+      .end((err, res) => {
+        expect(res.status).to.be.eql(404);
+        expect(res.body).to.be.a('object');
+        expect(res.body.errors).to.be.a('object');
+        expect(res.body.errors).to.have.property('message').eql('User with the email does not exist');
+        done();
+      });
   });
 });
 
-// TESTS FOR ADMIN TO MARK USER AS VERIFIED
 describe('Test Admin mark user as verified', () => {
-  describe('PATCH /api/v1/users/:email/verify', () => {
-    it('should mark a user as verified', (done) => {
-      const email = 'janedoe@mail.com';
-      server()
-        .post('/api/v1/auth/signin')
-        .send(testDB.users[8])
-        .end((loginErr, loginRes) => {
-          const token = `Bearer ${loginRes.body.data.token}`;
-          server()
-            .patch(`/api/v1/users/${email}/verify`)
-            .set('authorization', token)
-            .end((err, res) => {
-              res.should.have.status(200);
-              res.body.should.be.a('object');
-              res.body.should.have.property('data');
-              done();
-            });
-        });
-    });
+  before((done) => {
+    chai
+      .request(app)
+      .post(`${API_PREFIX}/auth/signin`)
+      .send(userData[0])
+      .end((err, res) => {
+        const { token } = res.body.user;
+        adminToken = token;
+        done();
+      });
+  });
+  it('should mark a user as verified', (done) => {
+    server()
+      .patch(`${API_PREFIX}/users/${userData[2].email}/verify`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .end((err, res) => {
+        expect(res.status).to.be.eql(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.user).to.have.property('message').eql('User verified');
+        expect(res.body.user.data).to.have.property('isVerified').eql(true);
+        done();
+      });
   });
 });

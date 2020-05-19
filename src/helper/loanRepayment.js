@@ -24,7 +24,7 @@ export const repayLoanHelper = async (res, id, amount, status, balance, loan) =>
       repaid: true,
       balance,
     }, { where: { id } });
-    return successResponse(res, 200, 'loan', loan);
+    return successResponse(res, 201, 'loan', loan);
   }
-  return successResponse(res, 200, 'loan', loan);
+  return successResponse(res, 201, 'loan', loan);
 };

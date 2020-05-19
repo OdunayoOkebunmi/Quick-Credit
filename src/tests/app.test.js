@@ -35,15 +35,4 @@ describe('Tests for When Endpoint does not exist', () => {
         done();
       });
   });
-  it('should a 500 error status code', (done) => {
-    server()
-      .get('/api/v1/auth/signup%')
-      .end((err, res) => {
-        res.should.have.status(500);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error');
-        res.body.error.should.be.eql('OOps! Looks like something broke');
-        done();
-      });
-  });
 });

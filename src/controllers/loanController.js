@@ -22,7 +22,7 @@ export const loanApply = async (req, res, next) => {
     const data = await Loan.create({
       tenor, amount, userId: id,
     });
-    return successResponse(res, 200, 'loan', { message: 'Successfully applied for a loan', data });
+    return successResponse(res, 201, 'loan', { message: 'Successfully applied for a loan', data });
   } catch (error) {
     return next(error);
   }

@@ -1,192 +1,62 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../server';
-import testsDB from './testsDB';
+import { userData } from './mockData';
 
-chai.should();
+const {
+  expect,
+} = chai;
 chai.use(chaiHttp);
 
 const server = () => chai.request(app);
+const API_PREFIX = '/api/v1';
+let adminToken;
+let approvedLoanId;
 
-const loginUrl = '/api/v1/auth/signin';
-const repaymentUrl = '/api/v1/loans/1/repayment';
-const userRepaymentUrl = '/api/v1/loans/1/repayments';
-let currentToken;
-
-describe('Test loan repayment', () => {
-  describe('ADMIN CAN POST LOAN REPAYMENT RECORD IN FAVOUR OF A CLIENT', () => {
-    describe(`POST ${repaymentUrl}`, () => {
-      before((done) => {
-        server()
-          .post(`${loginUrl}`)
-          .send(testsDB.users[8])
-          .end((loginErr, loginRes) => {
-            currentToken = `Bearer ${loginRes.body.data.token}`;
-            done();
-          });
+describe('Repayment Loans', () => {
+  before((done) => {
+    chai
+      .request(app)
+      .post(`${API_PREFIX}/auth/signin`)
+      .send(userData[0])
+      .end((err, res) => {
+        const { token } = res.body.user;
+        adminToken = token;
+        done();
       });
-      it('should post loan repayment record for a client', (done) => {
-        server()
-          .post(repaymentUrl)
-          .set('authorization', currentToken)
-          .send(testsDB.repaymentAmount[0])
-          .end((err, res) => {
-            res.should.have.status(201);
-            res.body.should.be.a('object');
-            res.body.should.have.property('data');
-            res.body.data.should.have.property('amount');
-            res.body.data.should.have.property('createdOn');
-            done();
-          });
-      });
-      it('should return an error if token was not provided', (done) => {
-        server()
-          .post(repaymentUrl)
-          .send(testsDB.repaymentAmount[0])
-          .end((err, res) => {
-            res.should.have.status(401);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            res.body.error.should.be.eql('Invalid or No token provided');
-            done();
-          });
-      });
-      it('should return an error if amount was not provided', (done) => {
-        server()
-          .post(repaymentUrl)
-          .set('authorization', currentToken)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            done();
-          });
-      });
-      it('should throw an error if amount is not a number', (done) => {
-        server()
-          .post(repaymentUrl)
-          .set('authorization', currentToken)
-          .send(testsDB.repaymentAmount[1])
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            done();
-          });
-      });
-    });
-    // check if id exists
-    describe(`POST ${repaymentUrl}`, () => {
-      before((done) => {
-        server()
-          .post(`${loginUrl}`)
-          .send(testsDB.users[8])
-          .end((loginErr, loginRes) => {
-            currentToken = `Bearer ${loginRes.body.data.token}`;
-            done();
-          });
-      });
-
-      it('should throw an error if id is not an integer', (done) => {
-        const wrongUrl = '/api/v1/loans/w/repayment';
-        server()
-          .post(wrongUrl)
-          .set('authorization', currentToken)
-          .send(testsDB.repaymentAmount[0])
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            done();
-          });
-      });
-      it('should throw an error if amount is not entered', (done) => {
-        server()
-          .post(repaymentUrl)
-          .set('authorization', currentToken)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            done();
-          });
-      });
-      it('should throw an error if amount is greater than balance', (done) => {
-        server()
-          .post(repaymentUrl)
-          .set('authorization', currentToken)
-          .send(testsDB.repaymentAmount[2])
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            done();
-          });
-      });
-    });
   });
-
-
-  // TEST TO GET THE REPAYMENT RECORD FROM USERS
-  describe('USER CAN VIEW LOAN REPAYMENT HISTORY', () => {
-    describe(`GET ${userRepaymentUrl}`, () => {
-      beforeEach((done) => {
-        server()
-          .post(`${loginUrl}`)
-          .send(testsDB.users[7])
-          .end((loginErr, loginRes) => {
-            currentToken = `Bearer ${loginRes.body.data.token}`;
-            done();
-          });
+  before((done) => {
+    chai
+      .request(app)
+      .get(`${API_PREFIX}/loans`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .end((err, res) => {
+        const { loans } = res.body;
+        approvedLoanId = loans.rows[0].id;
+        done();
       });
-      it('should throw an error if id is not an integer', (done) => {
-        const wrongUrl = '/api/v1/loans/w/repayments';
-        server()
-          .get(wrongUrl)
-          .set('authorization', currentToken)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            done();
-          });
+  });
+  it('should post loan repayment for client successfully', (done) => {
+    server()
+      .post(`${API_PREFIX}/loans/repayments/${approvedLoanId}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({ amount: 500 })
+      .end((err, res) => {
+        expect(res.status).to.be.eql(201);
+        expect(res.body).to.be.a('object');
+        expect(res.body.loan).to.have.property('id');
+        done();
       });
-      it('should throw an error if token is not found', (done) => {
-        server()
-          .get(userRepaymentUrl)
-          .end((err, res) => {
-            res.should.have.status(401);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            res.body.error.should.be.eql('Invalid or No token provided');
-            done();
-          });
+  });
+  it('should get all loan repayments successfully', (done) => {
+    server()
+      .get(`${API_PREFIX}/loans/repayments/${approvedLoanId}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .end((err, res) => {
+        expect(res.status).to.be.eql(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.repayment).to.be.to.a('object');
+        done();
       });
-    });
-
-    // check if admin is accessing the route
-    describe(`GET ${userRepaymentUrl}`, () => {
-      before((done) => {
-        server()
-          .post(`${loginUrl}`)
-          .send(testsDB.users[8])
-          .end((loginErr, loginRes) => {
-            currentToken = `Bearer ${loginRes.body.data.token}`;
-            done();
-          });
-      });
-      it('should return if user is not authenticated', (done) => {
-        server()
-          .get(userRepaymentUrl)
-          .set('authorization', currentToken)
-          .end((err, res) => {
-            res.should.have.status(403);
-            res.body.should.be.a('object');
-            res.body.should.have.property('error');
-            res.body.error.should.be.eql('Only Authenticated User can access this route');
-            done();
-          });
-      });
-    });
   });
 });
