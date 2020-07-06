@@ -12,7 +12,6 @@ export const Postals = async (recipient, sender, emailSubject, content) => {
     subject: emailSubject,
     html: content,
   };
-  // return sendgridMail.send(message);
   return sendgridMail.send(message).then(() => {
     console.log('Message sent');
   }).catch((error) => {
