@@ -1,5 +1,6 @@
 import models from '../database/models';
 import { errorResponse, successResponse } from '../helper/responseHandler';
+import { loanApprovalMessage } from '../helper/emailMessageHandler';
 
 const { User, Loan } = models;
 
@@ -64,7 +65,7 @@ export const getSingleLoan = async (req, res, next) => {
 
 export const approveLoan = async (req, res, next) => {
   try {
-    const { params: { id }, body: { status } } = req;
+    const { params: { id }, body: { status }, user: { email } } = req;
     const loan = await Loan.findOne({
       where: { id },
     });
@@ -74,6 +75,7 @@ export const approveLoan = async (req, res, next) => {
     await loan.update({
       status,
     }, { where: { id } });
+    loanApprovalMessage(loan, email);
     return successResponse(res, 200, 'loan', {
       message: `Loan already ${loan.status}`, loan,
     });

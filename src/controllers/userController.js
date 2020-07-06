@@ -1,7 +1,7 @@
 import { generateToken, comparePassword } from '../middlewares/authenticate';
 import models from '../database/models';
-import EmailHandler from '../helper/emailHandler';
-import MessageHandler from '../helper/emailMessageHandler';
+import { welcomeMessage } from '../helper/emailMessageHandler';
+
 import { errorResponse, successResponse } from '../helper/responseHandler';
 
 const { User } = models;
@@ -26,8 +26,7 @@ export const createUser = async (req, res, next) => {
       isAdmin,
     } = registeredUser;
     const token = generateToken(id, newUserEmail, isAdmin);
-    const emailData = MessageHandler.signupMessage(registeredUser);
-    EmailHandler.sendNotif(emailData);
+    welcomeMessage(registeredUser);
 
     return successResponse(res, 201, 'user', { message: 'You have successfully created an account', token });
   } catch (error) {
