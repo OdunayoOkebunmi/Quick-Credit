@@ -110,12 +110,12 @@ run test using ```npm test```.
  * Admin can view current loans (not fully repaid). 
  * Admin can view all repaid loans. 
  * Admin can approve or reject a client’s loan application. 
- * Admin can post loan repayment transaction in favour of a client. 
+ * Admin can post loan repayment transactions in favour of a client. 
 
  ### Users
  * A user can signup
- * A user can signin to his/her account
- * A user can apply for loan
+ * A user can sign in to his/her account
+ * A user can apply for a loan
  * A user can view all loan repayment history
  
 
@@ -128,9 +128,6 @@ run test using ```npm test```.
 
 * Vannila Javascript: It is used for scripting the client side.
 
-
-## Author
-*  [Odunayo Olajumoke Okebunmi](https://twitter.com/OdunayoO_)
 
 ## License
 This project is licensed under the MIT license - see the LICENSE.md file for details.
